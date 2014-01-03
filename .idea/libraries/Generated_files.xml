@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/CanvasWrapper.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/HumanView.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/CanvasWrapper.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/HumanView.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
