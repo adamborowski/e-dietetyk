@@ -3,14 +3,18 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/CanvasWrapper.js" />
-        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/ShapeWrapper.js" />
         <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/HumanView.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/AppView.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/StageWrapper.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/CanvasWrapper.js" />
-      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/ShapeWrapper.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/HumanView.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/StageWrapper.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/AppView.js" />
     </CLASSES>
     <SOURCES />
   </library>

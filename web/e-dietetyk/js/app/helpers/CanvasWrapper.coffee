@@ -5,7 +5,8 @@ Ext.define 'app.helpers.CanvasWrapper',
         @on
             scope: @
             resize: (self, width, height)->
-                Ext.fly(@canvas).setSize width, height
+                @canvas.width = width
+                @canvas.height = height
                 @render(width, height)
             render: ->
                 @getEl().appendChild @canvas
