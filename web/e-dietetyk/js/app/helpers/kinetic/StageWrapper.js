@@ -39,12 +39,10 @@
       stage.__valid$ = true;
       stage.drawImpl = stage.draw;
       validate = function() {
-        console.log("validation");
         stage.__valid$ = true;
         return stage.drawImpl();
       };
       return stage.draw = function() {
-        console.log("draw request", "stage.__valid$", stage.__valid$);
         if (stage.__valid$) {
           stage.__valid$ = false;
           return window.requestAnimationFrame(validate, null);

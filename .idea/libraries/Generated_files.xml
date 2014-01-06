@@ -3,18 +3,30 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/CanvasWrapper.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Head.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Corps.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Legs.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Hand.js" />
         <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/ShapeWrapper.js" />
         <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/HumanView.js" />
-        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/AppView.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/RightArm.js" />
         <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/StageWrapper.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/AppView.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Arm.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/CanvasWrapper.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Head.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Corps.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Hand.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Legs.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/ShapeWrapper.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/HumanView.js" />
-      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/StageWrapper.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/RightArm.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/AppView.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/StageWrapper.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Arm.js" />
     </CLASSES>
     <SOURCES />
   </library>

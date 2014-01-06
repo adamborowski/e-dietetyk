@@ -40,11 +40,11 @@ Ext.define 'app.helpers.kinetic.StageWrapper',
         stage.__valid$ = true
         stage.drawImpl = stage.draw
         validate = ->
-            console.log "validation"
+#            console.log "validation"
             stage.__valid$ = true
             stage.drawImpl()
         stage.draw = ->
-            console.log "draw request", "stage.__valid$", stage.__valid$
+#            console.log "draw request", "stage.__valid$", stage.__valid$
             if stage.__valid$
                 stage.__valid$ = false
                 window.requestAnimationFrame validate, null
