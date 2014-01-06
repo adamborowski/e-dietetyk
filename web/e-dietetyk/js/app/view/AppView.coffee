@@ -142,6 +142,7 @@ Ext.define 'app.view.AppView',
         window.requestAnimationFrame ->
             me.updateHander()
         return
+        #
 
     updateHander: ->
         @body.setBodyDensity (@down('#weightInput').getValue() - 70) / -400
