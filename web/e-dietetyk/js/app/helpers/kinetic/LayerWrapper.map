@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "LayerWrapper.js",
+  "sourceRoot": "",
+  "sources": [
+    "LayerWrapper.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,EAAA,GAAG,CAAC,MAAJ,CAAW,kCAAX,EACI;AAAA,IAAA,MAAA,EAAO,0CAAP;GADJ,CAAA,CAAA;AAAA"
+}

@@ -17,8 +17,7 @@
             width: this.getWidth(),
             height: this.getHeight()
           });
-          this.mainLayer = new Kinetic.Layer();
-          this.stage.add(this.mainLayer);
+          this.mainLayer = this.addLayer(new Kinetic.Layer());
           this.fireEvent('stageready');
           this.stage.draw();
           return this.initValidation();
@@ -31,13 +30,15 @@
       }
       this.callParent(arguments);
       this._applyListeners();
+      this.layers = [];
       window.requestAnimFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame;
     },
     addLayer: function() {
-      var layerWrapper;
-      return layerWrapper = Ext.create('app.helpers.kinetic.LayoutWrapper', {
-        kineticLayer: new Kinetic.Layer()
-      });
+      var layer, layerWrapper;
+      layer = new Kinetic.Layer();
+      layerWrapper = Ext.create('app.helpers.kinetic.LayoutWrapper', {}, layer);
+      this.layers.push(layerWrapper);
+      return this.stage.add(layer);
     },
     initValidation: function() {
       var stage, validate;
@@ -47,7 +48,7 @@
       validate = function() {
         var layer, _i, _len, _ref;
         stage.__valid$ = true;
-        _ref = this.layerWrappers;
+        _ref = this.layers;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           layer = _ref[_i];
           layer.doLayout(stage.getWidth(), stage.getHeight());

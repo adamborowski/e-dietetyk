@@ -31,7 +31,7 @@
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/CanvasWrapper.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/LayoutHelper.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Head.js" />
-      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/RawShapeWrapper.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/ComponentWrapper.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Hand.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/HumanView.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/RightArm.js" />

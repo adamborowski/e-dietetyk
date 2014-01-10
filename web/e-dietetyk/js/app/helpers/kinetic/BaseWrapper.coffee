@@ -14,7 +14,14 @@ Ext.define 'app.helpers.kinetic.BaseWrapper',
             right: 0
             bottom: 0
             left: 0
-        initialAttrs: {} # initial kinetic shape attributes
+        initialAttrs:  # initial kinetic shape attributes
+            fill: "#00D2FF"
+            stroke: "black"
+            strokeWidth: 4
+            width: 100
+            height: 100
+            strokeScaleEnabled: no
+            strokeEnabled: yes
     doLayout: (parentWidth, parentHeight)->
         # !!! final !!!
         layoutX = @getLayoutX()
@@ -72,6 +79,8 @@ Ext.define 'app.helpers.kinetic.BaseWrapper',
         margin.bottom = 0 unless margin.bottom?
         margin.right = 0 unless margin.right?
         return margin
+    invalidate: ->
+        @kineticObject.getStage().draw() if @kineticObject?
     constructor: (config, kineticObject = null)->
         @kineticObject = kineticObject
         @initConfig config

@@ -14,8 +14,7 @@ Ext.define 'app.helpers.kinetic.StageWrapper',
                     container: @getEl()
                     width: @getWidth()
                     height: @getHeight()
-                @mainLayer = new Kinetic.Layer()
-                @stage.add @mainLayer
+                @mainLayer = @addLayer new Kinetic.Layer()
                 @fireEvent 'stageready'
                 @stage.draw()
                 @initValidation()
@@ -26,7 +25,7 @@ Ext.define 'app.helpers.kinetic.StageWrapper',
     constructor: (config = {})->
         @callParent arguments
         @_applyListeners()
-
+        @layers = []
         window.requestAnimFrame =
             window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -36,7 +35,10 @@ Ext.define 'app.helpers.kinetic.StageWrapper',
         return
 
     addLayer: ->
-        layerWrapper = Ext.create 'app.helpers.kinetic.LayoutWrapper', {kineticLayer: new Kinetic.Layer()}
+        layer = new Kinetic.Layer()
+        layerWrapper = Ext.create 'app.helpers.kinetic.LayoutWrapper', {}, layer
+        @layers.push layerWrapper
+        @stage.add layer
 
     initValidation: ->
         stage = @stage
@@ -45,9 +47,8 @@ Ext.define 'app.helpers.kinetic.StageWrapper',
         validate = ->
 #            console.log "validation"
             stage.__valid$ = true
-            for layer in @layerWrappers
+            for layer in @layers
                 layer.doLayout(stage.getWidth(), stage.getHeight())
-
             stage.drawImpl()
         stage.draw = ->
 #            console.log "draw request", "stage.__valid$", stage.__valid$
