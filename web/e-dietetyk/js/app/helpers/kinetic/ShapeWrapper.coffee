@@ -31,7 +31,12 @@ Ext.define 'app.helpers.kinetic.ShapeWrapper',
             # KineticJS specific context method
             context.fillStrokeShape @
 
-        this.kineticShape = new Kinetic.Shape shapeConfig
+        if config.kineticShape?
+            @kineticShape = config.kineticShape
+            delete config.kineticShape
+            @kineticShape.setAttrs shapeConfig
+        else
+            this.kineticShape = new Kinetic.Shape shapeConfig
         return
     calculateBounds: (width, height)->
         return
@@ -146,3 +151,4 @@ Ext.define 'app.helpers.kinetic.ShapeWrapper',
         return margin
     invalidate: ->
         @kineticShape.getStage().draw() if @kineticShape?
+    

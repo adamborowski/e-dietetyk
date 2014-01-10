@@ -33,13 +33,25 @@
       this._applyListeners();
       window.requestAnimFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame;
     },
+    addLayer: function() {
+      var layerWrapper;
+      return layerWrapper = Ext.create('app.helpers.kinetic.LayoutWrapper', {
+        kineticLayer: new Kinetic.Layer()
+      });
+    },
     initValidation: function() {
       var stage, validate;
       stage = this.stage;
       stage.__valid$ = true;
       stage.drawImpl = stage.draw;
       validate = function() {
+        var layer, _i, _len, _ref;
         stage.__valid$ = true;
+        _ref = this.layerWrappers;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          layer = _ref[_i];
+          layer.doLayout(stage.getWidth(), stage.getHeight());
+        }
         return stage.drawImpl();
       };
       return stage.draw = function() {

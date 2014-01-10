@@ -36,7 +36,13 @@
         context.closePath();
         return context.fillStrokeShape(this);
       };
-      this.kineticShape = new Kinetic.Shape(shapeConfig);
+      if (config.kineticShape != null) {
+        this.kineticShape = config.kineticShape;
+        delete config.kineticShape;
+        this.kineticShape.setAttrs(shapeConfig);
+      } else {
+        this.kineticShape = new Kinetic.Shape(shapeConfig);
+      }
     },
     calculateBounds: function(width, height) {},
     normalize: function(point) {},

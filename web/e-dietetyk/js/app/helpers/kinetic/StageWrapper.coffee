@@ -35,6 +35,9 @@ Ext.define 'app.helpers.kinetic.StageWrapper',
             window.msRequestAnimationFrame
         return
 
+    addLayer: ->
+        layerWrapper = Ext.create 'app.helpers.kinetic.LayoutWrapper', {kineticLayer: new Kinetic.Layer()}
+
     initValidation: ->
         stage = @stage
         stage.__valid$ = true
@@ -42,6 +45,9 @@ Ext.define 'app.helpers.kinetic.StageWrapper',
         validate = ->
 #            console.log "validation"
             stage.__valid$ = true
+            for layer in @layerWrappers
+                layer.doLayout(stage.getWidth(), stage.getHeight())
+
             stage.drawImpl()
         stage.draw = ->
 #            console.log "draw request", "stage.__valid$", stage.__valid$
