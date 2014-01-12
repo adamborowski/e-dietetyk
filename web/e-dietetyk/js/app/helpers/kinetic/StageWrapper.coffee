@@ -36,18 +36,20 @@ Ext.define 'app.helpers.kinetic.StageWrapper',
 
     addLayer: ->
         layer = new Kinetic.Layer()
-        layerWrapper = Ext.create 'app.helpers.kinetic.LayoutWrapper', {}, layer
+        layerWrapper = Ext.create 'app.helpers.kinetic.LayerWrapper', {}, layer
         @layers.push layerWrapper
         @stage.add layer
+        layerWrapper.invalidate()
+        return layerWrapper
 
     initValidation: ->
         stage = @stage
         stage.__valid$ = true
         stage.drawImpl = stage.draw
+        me=@
         validate = ->
-#            console.log "validation"
             stage.__valid$ = true
-            for layer in @layers
+            for layer in me.layers
                 layer.doLayout(stage.getWidth(), stage.getHeight())
             stage.drawImpl()
         stage.draw = ->

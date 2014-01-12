@@ -36,7 +36,7 @@
         if (child.wtype != null) {
           wtype = child.wtype;
           delete child.wtype;
-          return Ext.createByAlias("kinetic.wrapper." + wtype);
+          return Ext.createByAlias("kinetic.wrapper." + wtype, child);
         } else {
           throw new Error('You must provide wtype property for child config');
         }
@@ -44,7 +44,7 @@
       throw new Error('Conversion not supported for this child specification');
     },
     add: function(children) {
-      var child, configChildren, convertedChild, convertedChildren, _i, _j, _len, _len1;
+      var chid, child, configChildren, convertedChild, convertedChildren, _i, _j, _k, _len, _len1, _len2;
       configChildren = this.getChildren();
       if (Ext.isArray(children)) {
         for (_i = 0, _len = children.length; _i < _len; _i++) {
@@ -55,11 +55,16 @@
           child = convertedChildren[_j];
           configChildren.push(child);
         }
+        for (_k = 0, _len2 = convertedChildren.length; _k < _len2; _k++) {
+          chid = convertedChildren[_k];
+          this.kineticObject.add(child.get());
+        }
         return convertedChildren;
       } else {
         child = children;
         convertedChild = this.convertChild(child);
         configChildren.push(convertedChild);
+        this.kineticObject.add(convertedChild.get());
         return convertedChild;
       }
     }

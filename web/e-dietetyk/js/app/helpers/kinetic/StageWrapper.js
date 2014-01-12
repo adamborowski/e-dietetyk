@@ -36,19 +36,22 @@
     addLayer: function() {
       var layer, layerWrapper;
       layer = new Kinetic.Layer();
-      layerWrapper = Ext.create('app.helpers.kinetic.LayoutWrapper', {}, layer);
+      layerWrapper = Ext.create('app.helpers.kinetic.LayerWrapper', {}, layer);
       this.layers.push(layerWrapper);
-      return this.stage.add(layer);
+      this.stage.add(layer);
+      layerWrapper.invalidate();
+      return layerWrapper;
     },
     initValidation: function() {
-      var stage, validate;
+      var me, stage, validate;
       stage = this.stage;
       stage.__valid$ = true;
       stage.drawImpl = stage.draw;
+      me = this;
       validate = function() {
         var layer, _i, _len, _ref;
         stage.__valid$ = true;
-        _ref = this.layers;
+        _ref = me.layers;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           layer = _ref[_i];
           layer.doLayout(stage.getWidth(), stage.getHeight());

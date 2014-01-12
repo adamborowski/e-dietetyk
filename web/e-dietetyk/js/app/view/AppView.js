@@ -2,7 +2,7 @@
 (function() {
   Ext.define('app.view.AppView', {
     extend: 'Ext.container.Viewport',
-    requires: ['app.view.HumanView', 'app.helpers.kinetic.StageWrapper', 'app.helpers.kinetic.ShapeWrapper', 'app.view.human.Corps', 'app.view.human.Legs', 'app.view.human.Arm', 'app.view.human.Hand', 'app.view.human.Head'],
+    requires: ['app.view.HumanView', 'app.helpers.kinetic.StageWrapper', 'app.helpers.kinetic.ShapeWrapper', 'app.helpers.kinetic.GroupWrapper', 'app.view.human.Corps', 'app.view.human.Legs', 'app.view.human.Arm', 'app.view.human.Hand', 'app.view.human.Head'],
     constructor: function(config) {
       var body, mainLayer, me;
       Ext.applyIf(config, {
@@ -65,23 +65,23 @@
       this.callParent(arguments);
       mainLayer = this.down('#stage').mainLayer;
       this.body = body = Ext.create('app.view.human.Corps', {
+        layoutX: 0,
+        layoutY: 0,
+        layoutWidth: 1,
+        layoutHeight: 0.5,
         initialAttrs: {
           fill: 'green',
-          x: 0,
-          y: 0,
-          width: 305,
-          height: 210,
           strokeEnabled: false
         }
       });
       this.legs = Ext.create('app.view.human.Legs', {
+        layoutX: 0,
+        layoutY: 0.5,
+        layoutWidth: 1,
+        layoutHeight: 0.5,
         initialAttrs: {
           fill: 'orange',
           stroke: 'grey',
-          x: 0,
-          y: 85,
-          width: 250,
-          height: 300,
           strokeEnabled: false
         }
       });
@@ -136,20 +136,19 @@
           strokeEnabled: false
         }
       });
-      this.group = new Kinetic.Group({
-        x: 500,
-        y: 300,
-        width: 200,
-        height: 500
+      this.group = mainLayer.add({
+        wtype: 'group',
+        layoutX: 500,
+        layoutY: 300,
+        layoutWidth: 200,
+        layoutHeight: 500,
+        relativeX: false,
+        relativeY: false,
+        relativeWidth: false,
+        relativeHeight: false
       });
-      mainLayer.add(this.group);
-      this.group.add(this.head.get());
-      this.group.add(this.legs.get());
-      this.group.add(this.leftHand.get());
-      this.group.add(this.rightHand.get());
-      this.group.add(this.leftArm.get());
-      this.group.add(this.rightArm.get());
-      this.group.add(this.body.get());
+      this.group.add(this.legs);
+      this.group.add(this.body);
       me = this;
       window.requestAnimationFrame(function() {
         return me.updateHander();
@@ -158,15 +157,9 @@
     updateHander: function() {
       this.body.setBodyDensity((this.down('#weightInput').getValue() - 70) / -400);
       this.legs.setBodyDensity((this.down('#weightInput').getValue() - 70) / -400);
-      this.leftArm.setBodyDensity((this.down('#weightInput').getValue() - 70) / -400);
-      this.leftHand.get().setX(this.leftArm.handPlaceholder.x + this.leftArm.get().getX());
-      this.leftHand.get().setY(this.leftArm.handPlaceholder.y + this.leftArm.get().getY());
-      this.rightHand.get().setX(-this.rightArm.handPlaceholder.x + this.rightArm.get().getX());
-      this.rightHand.get().setY(this.rightArm.handPlaceholder.y + this.rightArm.get().getY());
-      return this.group.setAttrs({
-        scaleX: Math.sqrt(this.down('#weightInput').getValue() / 200),
-        scaleY: this.down('#heightInput').getValue() / 200
-      });
+      this.group.setLayoutWidth(Math.sqrt(this.down('#weightInput').getValue()) * 10);
+      this.group.setLayoutHeight(Math.sqrt(this.down('#heightInput').getValue()) * 10);
+      return this.group.invalidate();
     }
   });
 

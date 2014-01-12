@@ -4,6 +4,7 @@ Ext.define 'app.view.AppView',
         'app.view.HumanView'
         'app.helpers.kinetic.StageWrapper'
         'app.helpers.kinetic.ShapeWrapper'
+        'app.helpers.kinetic.GroupWrapper'
         'app.view.human.Corps'
         'app.view.human.Legs'
         'app.view.human.Arm'
@@ -65,22 +66,22 @@ Ext.define 'app.view.AppView',
         @callParent arguments
         mainLayer = @down('#stage').mainLayer
         @body = body = Ext.create 'app.view.human.Corps',
+            layoutX: 0
+            layoutY: 0
+            layoutWidth: 1
+            layoutHeight: 0.5
             initialAttrs:
                 fill: 'green'
 #                opacity: 0.8
-                x: 0
-                y: 0
-                width: 305
-                height: 210
                 strokeEnabled: no
         @legs = Ext.create 'app.view.human.Legs',
+            layoutX: 0
+            layoutY: 0.5
+            layoutWidth: 1
+            layoutHeight: 0.5
             initialAttrs:
                 fill: 'orange'
                 stroke: 'grey'
-                x: 0
-                y: 85
-                width: 250
-                height: 300
                 strokeEnabled: no
         @leftArm = Ext.create 'app.view.human.Arm',
             initialAttrs:
@@ -124,34 +125,38 @@ Ext.define 'app.view.AppView',
                 height: 90
                 strokeEnabled: no
 
-        @group = new Kinetic.Group
-            x: 500
-            y: 300
-            width: 200
-            height: 500
 
-        mainLayer.add @group
-        @group.add @head.get()
-        @group.add @legs.get()
-        @group.add @leftHand.get()
-        @group.add @rightHand.get()
-        @group.add @leftArm.get()
-        @group.add @rightArm.get()
-        @group.add @body.get()
-        me=@
+        @group = mainLayer.add
+            wtype: 'group'
+            layoutX: 500
+            layoutY: 300
+            layoutWidth: 200
+            layoutHeight: 500
+            relativeX: no
+            relativeY: no
+            relativeWidth: no
+            relativeHeight: no
+        #        @group.add @head
+        @group.add @legs
+        #        @group.add @leftHand
+        #        @group.add @rightHand
+        #        @group.add @leftArm
+        #        @group.add @rightArm
+        @group.add @body
+        me = @
         window.requestAnimationFrame ->
             me.updateHander()
         return
-        #
+#
 
     updateHander: ->
         @body.setBodyDensity (@down('#weightInput').getValue() - 70) / -400
         @legs.setBodyDensity (@down('#weightInput').getValue() - 70) / -400
-        @leftArm.setBodyDensity (@down('#weightInput').getValue() - 70) / -400
-        @leftHand.get().setX @leftArm.handPlaceholder.x + @leftArm.get().getX()
-        @leftHand.get().setY @leftArm.handPlaceholder.y + @leftArm.get().getY()
-        @rightHand.get().setX -@rightArm.handPlaceholder.x + @rightArm.get().getX()
-        @rightHand.get().setY @rightArm.handPlaceholder.y + @rightArm.get().getY()
-        @group.setAttrs
-            scaleX: Math.sqrt(@down('#weightInput').getValue() / 200)
-            scaleY: @down('#heightInput').getValue() / 200
+        #        @leftArm.setBodyDensity (@down('#weightInput').getValue() - 70) / -400
+        #        @leftHand.get().setX @leftArm.handPlaceholder.x + @leftArm.get().getX()
+        #        @leftHand.get().setY @leftArm.handPlaceholder.y + @leftArm.get().getY()
+        #        @rightHand.get().setX -@rightArm.handPlaceholder.x + @rightArm.get().getX()
+        #        @rightHand.get().setY @rightArm.handPlaceholder.y + @rightArm.get().getY()
+        @group.setLayoutWidth Math.sqrt(@down('#weightInput').getValue()) * 10
+        @group.setLayoutHeight Math.sqrt(@down('#heightInput').getValue()) * 10
+        @group.invalidate()

@@ -1,5 +1,5 @@
 Ext.define 'app.view.human.Hand',
-    extend: 'app.helpers.kinetic.ShapeWrapper'
+    extend: 'app.helpers.kinetic.ComponentWrapper'
     config:
         points:
             a: [0, 0]

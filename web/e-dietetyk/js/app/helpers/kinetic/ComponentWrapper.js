@@ -2,38 +2,49 @@
 (function() {
   Ext.define('app.helpers.kinetic.ComponentWrapper', {
     extend: 'app.helpers.kinetic.BaseWrapper',
+    alias: 'kinetic.wrapper.component',
+    config: {
+      centerX: 0,
+      centerY: 0,
+      centerXRelative: true,
+      centerYRelative: true
+    },
     updateLayout: function(x, y, w, h) {
       this.currentX = x;
       this.currentY = y;
       this.currentWidth = w;
-      return this.currentHeight = h;
+      this.currentHeight = h;
+      this.currentCenterX = this.getCenterX();
+      if (this.getCenterXRelative()) {
+        this.currentCenterX *= w;
+      }
+      this.currentCenterY = this.getCenterY();
+      if (this.getCenterYRelative()) {
+        this.currentCenterY *= h;
+      }
+      return this.callParent(arguments);
     },
     constructor: function(config, kineticObject) {
       var me, shapeConfig;
       if (kineticObject == null) {
-        kineticObject = null;
+        kineticObject = new Kinetic.Shape();
       }
-      Ext.apply(this.getInitialAttrs(), config.initialAttrs);
-      this.initConfig(config);
-      this.callParent(arguments);
       me = this;
-      shapeConfig = this.getInitialAttrs();
-      shapeConfig.drawFunc = function(context) {
-        var height, width;
-        width = me.currentWidth = this.getWidth();
-        height = me.currentHeight = this.getHeight();
-        me.currentContext = context;
-        context.beginPath();
-        me.drawFunction(context, width, height);
-        context.closePath();
-        return context.fillStrokeShape(this);
+      shapeConfig = {
+        drawFunc: function(context) {
+          var height, width;
+          width = me.currentWidth;
+          height = me.currentHeight;
+          me.currentContext = context;
+          context.beginPath();
+          me.drawFunction(context, width, height);
+          context.closePath();
+          context.fillStrokeShape(this);
+          return context._context.strokeRect(me.currentX, me.currentY, width, height);
+        }
       };
-      if (kineticObject != null) {
-        kineticObject.setAttrs(shapeConfig);
-      } else {
-        kineticObject = new Kinetic.Shape(shapeConfig);
-      }
       this.callParent([config, kineticObject]);
+      kineticObject.setAttrs(shapeConfig);
     },
     drawFunction: function(ctx, width, height) {
       var p;
@@ -46,19 +57,16 @@
     setAttrs: function(attrs) {
       return this.kineticObject.setAttrs(attrs);
     },
-    get: function() {
-      return this.kineticObject;
-    },
     applyPoints: function(points) {
       var key, me, point;
       me = this;
       for (key in points) {
         point = points[key];
         point.x = function() {
-          return this[0] * me.currentWidth;
+          return this[0] * me.currentWidth + me.currentCenterX;
         };
         point.y = function() {
-          return this[1] * me.currentHeight;
+          return this[1] * me.currentHeight + me.currentCenterY;
         };
       }
       return points;

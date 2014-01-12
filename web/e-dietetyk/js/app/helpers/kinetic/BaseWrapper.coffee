@@ -1,4 +1,5 @@
 Ext.define 'app.helpers.kinetic.BaseWrapper',
+    alias: 'kinetic.wrapper.base'
     config:
     # layoutConfig is used to compute layout parameters dependents from parent layout
         layoutX: 0 #0...1 or absolute
@@ -9,12 +10,12 @@ Ext.define 'app.helpers.kinetic.BaseWrapper',
         relativeY: yes #whether or not track layoutY as absolute or positive
         relativeWidth: yes #whether or not track layoutWidth as absolute or positive
         relativeHeight: yes #whether or not track layoutHeight as absolute or positive
-        layoutMargin: # extra margin when doLayout()
+        margin: # extra margin when doLayout()
             top: 0
             right: 0
             bottom: 0
             left: 0
-        initialAttrs:  # initial kinetic shape attributes
+        initialAttrs: # initial kinetic shape attributes
             fill: "#00D2FF"
             stroke: "black"
             strokeWidth: 4
@@ -37,6 +38,8 @@ Ext.define 'app.helpers.kinetic.BaseWrapper',
         layoutY += margin.top
         layoutWidth -= (margin.left + margin.right)
         layoutHeight -= (margin.top + margin.bottom)
+        #        console.log "doLayout #{@$className}", parentWidth, parentHeight, layoutWidth, layoutHeight
+        #        console.log "@getLayoutWidth()", @getLayoutWidth()
         @updateLayout layoutX, layoutY, layoutWidth, layoutHeight
         return
     updateLayout: (x, y, width, height)->
@@ -48,7 +51,7 @@ Ext.define 'app.helpers.kinetic.BaseWrapper',
         # - group wrapper calls doLayut of its children
         # every object uses translate to map x and y
         @kineticObject.setX x
-        @kineticObject.setY y
+        @kineticObject.setX y
         return
     applyMargin: (margin)->
         if Ext.isString margin
@@ -80,7 +83,11 @@ Ext.define 'app.helpers.kinetic.BaseWrapper',
         margin.right = 0 unless margin.right?
         return margin
     invalidate: ->
-        @kineticObject.getStage().draw() if @kineticObject?
+        @kineticObject.getStage().draw() if @kineticObject? and @kineticObject.getStage()?
     constructor: (config, kineticObject = null)->
         @kineticObject = kineticObject
         @initConfig config
+        @kineticObject.setAttrs @getInitialAttrs()
+        return
+    get: ->
+        @kineticObject

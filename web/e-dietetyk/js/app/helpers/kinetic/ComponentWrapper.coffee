@@ -1,33 +1,38 @@
 Ext.define 'app.helpers.kinetic.ComponentWrapper',
     extend: 'app.helpers.kinetic.BaseWrapper'
+    alias: 'kinetic.wrapper.component'
+    config:
+        centerX: 0
+        centerY: 0
+        centerXRelative: yes # center offset of drawing points (may be relative to parent)
+        centerYRelative: yes
     updateLayout: (x, y, w, h)->
         #only remember those parameters for further drawing
         @currentX = x
         @currentY = y
         @currentWidth = w
         @currentHeight = h
-    constructor: (config, kineticObject = null)->
-        Ext.apply @getInitialAttrs(), config.initialAttrs
-        @initConfig config
+        @currentCenterX = @getCenterX()
+        @currentCenterX *= w  if @getCenterXRelative()
+        @currentCenterY = @getCenterY()
+        @currentCenterY *= h if @getCenterYRelative()
         @callParent arguments
+    constructor: (config, kineticObject = new Kinetic.Shape())->
         me = @
-        shapeConfig = @getInitialAttrs()
-        shapeConfig.drawFunc = (context) ->
-            width = me.currentWidth = @getWidth()
-            height = me.currentHeight = @getHeight()
-            me.currentContext = context
-            #implementation of shape
-            context.beginPath()
-            me.drawFunction context, width, height
-            context.closePath()
-            # KineticJS specific context method
-            context.fillStrokeShape @
-
-        if kineticObject?
-            kineticObject.setAttrs shapeConfig
-        else
-            kineticObject = new Kinetic.Shape shapeConfig
+        shapeConfig =
+            drawFunc: (context) ->
+                width = me.currentWidth
+                height = me.currentHeight
+                me.currentContext = context
+                #implementation of shape
+                context.beginPath()
+                me.drawFunction context, width, height
+                context.closePath()
+                # KineticJS specific context method
+                context.fillStrokeShape @
+                context._context.strokeRect me.currentX, me.currentY, width, height
         @callParent [config, kineticObject]
+        kineticObject.setAttrs shapeConfig
         return
 
     drawFunction: (ctx, width, height)->
@@ -39,17 +44,14 @@ Ext.define 'app.helpers.kinetic.ComponentWrapper',
         return
     setAttrs: (attrs)->
         @kineticObject.setAttrs attrs
-    get: ->
-        @kineticObject
-
     applyPoints: (points)->
         #calculate bounds of points
         me = @
         for key, point of points
             point.x = ->
-                this[0] * me.currentWidth
+                this[0] * me.currentWidth + me.currentCenterX
             point.y = ->
-                this[1] * me.currentHeight
+                this[1] * me.currentHeight + me.currentCenterY
         return points
     getPoint: (point)->
         x: point[0] * @currentWidth

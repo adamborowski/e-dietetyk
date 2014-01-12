@@ -2,10 +2,17 @@
 (function() {
   Ext.define('app.helpers.kinetic.ShapeWrapper', {
     extend: 'app.helpers.kinetic.BaseWrapper',
+    alias: 'kinetic.wrapper.shape',
     updateLayout: function(x, y, w, h) {
       this.callParent(arguments);
       this.kineticObject.setWidth(w);
       return this.kineticObject.setHeight(h);
+    },
+    constructor: function(config, kineticShape) {
+      if (kineticShape == null) {
+        kineticShape = new Kinetic.Shape();
+      }
+      return this.callParent([config, kineticShape]);
     }
   });
 
