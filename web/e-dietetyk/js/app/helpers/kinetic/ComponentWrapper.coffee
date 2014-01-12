@@ -6,6 +6,8 @@ Ext.define 'app.helpers.kinetic.ComponentWrapper',
         centerY: 0
         centerXRelative: yes # center offset of drawing points (may be relative to parent)
         centerYRelative: yes
+        points:[]
+        autoClose:yes
     updateLayout: (x, y, w, h)->
         #only remember those parameters for further drawing
         @currentX = x
@@ -27,10 +29,11 @@ Ext.define 'app.helpers.kinetic.ComponentWrapper',
                 #implementation of shape
                 context.beginPath()
                 me.drawFunction context, width, height
-                context.closePath()
+                if me.getAutoClose()
+                    context.closePath()
                 # KineticJS specific context method
                 context.fillStrokeShape @
-                context._context.strokeRect me.currentX, me.currentY, width, height
+        #                context._context.strokeRect 0, 0, width, height
         @callParent [config, kineticObject]
         kineticObject.setAttrs shapeConfig
         return
@@ -54,8 +57,12 @@ Ext.define 'app.helpers.kinetic.ComponentWrapper',
                 this[1] * me.currentHeight + me.currentCenterY
         return points
     getPoint: (point)->
-        x: point[0] * @currentWidth
-        y: point[1] * @currentHeight
+        x: point[0] * @currentWidth + @currentCenterX
+        y: point[1] * @currentHeight + @currentCenterY
+    normalizeX: (x)->
+        x * @currentWidth + @currentCenterX
+    normalizeY: (y)->
+        y * @currentHeight + @currentCenterY
     bezier2: (a, b)->
         @currentContext.quadraticCurveTo a.x(), a.y(), b.x(), b.y()
     bezier3: (a, b, c)->
@@ -63,7 +70,8 @@ Ext.define 'app.helpers.kinetic.ComponentWrapper',
         b = @getPoint b
         c = @getPoint c
         @currentContext.bezierCurveTo a.x, a.y, b.x, b.y, c.x, c.y
-
+    bezier3Relative: (xa, ya, xb, yb, xc, yc)->
+        @currentContext.bezierCurveTo(@normalizeX(xa), @normalizeY(ya), @normalizeX(xb), @normalizeY(yb), @normalizeX(xc), @normalizeY(yc))
     deflection: (aX, aY, bX, bY, balance)->
         middleX = (aX + bX) / 2
         middleY = (aY + bY) / 2

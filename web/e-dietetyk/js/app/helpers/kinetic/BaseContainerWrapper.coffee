@@ -7,7 +7,9 @@ Ext.define 'app.helpers.kinetic.BaseContainerWrapper',
     config:
         children: []
     applyChildren: (children)->
-        return (@convertChild child for child in children)
+        children = (@convertChild child for child in children)
+        @kineticObject.add child.get() for child in children
+        return children
     convertChild: (child)->
         if child instanceof app.helpers.kinetic.BaseWrapper
             return child
@@ -15,7 +17,10 @@ Ext.define 'app.helpers.kinetic.BaseContainerWrapper',
             if child.wtype?
                 wtype = child.wtype
                 delete child.wtype
-                return Ext.createByAlias "kinetic.wrapper.#{wtype}", child
+                if not child.kineticObject?
+                    kineticObjet = child.kineticObject
+                    delete child.kineticObject
+                return Ext.createByAlias "kinetic.wrapper.#{wtype}", child, kineticObjet
             else
                 throw new Error 'You must provide wtype property for child config'
         throw new Error 'Conversion not supported for this child specification'

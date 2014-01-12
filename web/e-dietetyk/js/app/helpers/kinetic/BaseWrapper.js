@@ -54,7 +54,7 @@
     },
     updateLayout: function(x, y, width, height) {
       this.kineticObject.setX(x);
-      this.kineticObject.setX(y);
+      this.kineticObject.setY(y);
     },
     applyMargin: function(margin) {
       if (Ext.isString(margin)) {

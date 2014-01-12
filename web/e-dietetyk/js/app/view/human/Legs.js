@@ -4,28 +4,29 @@
     extend: 'app.helpers.kinetic.ComponentWrapper',
     config: {
       points: {
-        a: [-3 / 6, 0 / 12],
-        b: [3 / 6, 0 / 12],
+        a: [-2.9 / 6, 0 / 12],
+        b: [2.9 / 6, 0 / 12],
         c: [2 / 6, 12 / 12],
         d: [0.5 / 6, 12 / 12],
         e: [0 / 6, 3 / 12],
         f: [-.5 / 6, 12 / 12],
         g: [-2 / 6, 12 / 12]
       },
-      bodyDensity: 0.5
+      bodyDensity: 0.5,
+      centerX: 0.5
     },
     drawFunction: function(ctx, width, height) {
       var bd, p;
       p = this.getPoints();
       this.currentContext.moveTo(p.b.x(), p.b.y());
-      bd = this.getBodyDensity() + 0.1;
+      bd = this.getBodyDensity() + 0.0;
       this.deflectionPoint(p.b, p.c, bd);
       this.deflectionPoint(p.c, p.d, -0.1);
       this.deflectionPoint(p.d, p.e, bd);
       this.deflectionPoint(p.e, p.f, bd);
       this.deflectionPoint(p.f, p.g, -0.1);
       this.deflectionPoint(p.g, p.a, bd);
-      this.deflectionPoint(p.a, p.b, 0.1);
+      this.deflectionPoint(p.a, p.b, -0.4);
     },
     applyBodyDensity: function(val) {
       this.invalidate();

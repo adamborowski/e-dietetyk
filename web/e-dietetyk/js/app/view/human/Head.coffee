@@ -1,16 +1,16 @@
 Ext.define 'app.view.human.Head',
-    extend: 'app.helpers.kinetic.ComponentWrapper'
+    extend: 'app.helpers.kinetic.ShapeWrapper'
     config:
-        points:
-            a: [0, 0]
-            b: [0.5, 0.5]
-            c: [-1.5, 4.8]
-            d: [-2.4, 5]
-        bodyDensity: 0.05
-    drawFunction: (ctx, width, height)->
-        p = @getPoints()
-        ctx._context.arc(0, 0, width, 0, 2 * Math.PI, false)
+        image: null
+    constructor: (config)->
+        @callParent [config, new Kinetic.Image()]
         return
-    applyBodyDensity: (val)->
-        @invalidate()
-        return val
+    updateLayout: (x, y, w, h)->
+        @kineticObject.setAttrs
+            x: x
+            y: y
+            width: w
+            height: Math.sqrt(h * 32)+Math.sqrt(w * 15)
+    applyImage: (image, oldImage)->
+        @kineticObject.setImage image if image isnt oldImage
+        return image

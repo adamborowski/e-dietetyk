@@ -2,9 +2,8 @@
 (function() {
   Ext.define('app.view.AppView', {
     extend: 'Ext.container.Viewport',
-    requires: ['app.view.HumanView', 'app.helpers.kinetic.StageWrapper', 'app.helpers.kinetic.ShapeWrapper', 'app.helpers.kinetic.GroupWrapper', 'app.view.human.Corps', 'app.view.human.Legs', 'app.view.human.Arm', 'app.view.human.Hand', 'app.view.human.Head'],
+    requires: ['app.view.HumanView', 'app.helpers.kinetic.StageWrapper', 'app.helpers.kinetic.ShapeWrapper', 'app.helpers.kinetic.GroupWrapper', 'app.view.human.Corps', 'app.view.human.Legs', 'app.view.human.Neck', 'app.view.human.Arm', 'app.view.human.Hand', 'app.view.human.Head', 'app.view.human.Breast'],
     constructor: function(config) {
-      var body, mainLayer, me;
       Ext.applyIf(config, {
         layout: 'fit',
         items: [
@@ -30,10 +29,44 @@
                 },
                 items: [
                   {
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'Płeć',
+                    defaultType: 'radiofield',
+                    layout: 'hbox',
+                    defaults: {
+                      margin: '0 20px'
+                    },
+                    items: [
+                      {
+                        boxLabel: 'mężczyzna',
+                        name: 'size',
+                        inputValue: 'male',
+                        itemId: 'maleRadio',
+                        checked: true,
+                        listeners: {
+                          change: {
+                            fn: this.updateHander,
+                            scope: this
+                          }
+                        }
+                      }, {
+                        boxLabel: 'kobieta',
+                        name: 'size',
+                        inputValue: 'female',
+                        itemId: 'femaleRadio',
+                        listeners: {
+                          change: {
+                            fn: this.updateHander,
+                            scope: this
+                          }
+                        }
+                      }
+                    ]
+                  }, {
                     xtype: 'slider',
                     itemId: 'weightInput',
                     fieldLabel: 'waga [kg]',
-                    minValue: 30,
+                    minValue: 40,
                     maxValue: 200,
                     width: 400,
                     listeners: {
@@ -63,102 +96,139 @@
         ]
       });
       this.callParent(arguments);
+      this.loadAssets();
+    },
+    loadAssets: function() {
+      var me, numToLoad;
+      numToLoad = 2;
+      me = this;
+      this.images = {
+        man: new Image(),
+        woman: new Image()
+      };
+      this.images.man.onload = function() {
+        numToLoad--;
+        if (numToLoad === 0) {
+          return me.startApp();
+        }
+      };
+      this.images.woman.onload = this.images.man.onload;
+      this.images.man.src = 'e-dietetyk/images/man.png';
+      return this.images.woman.src = 'e-dietetyk/images/woman.png';
+    },
+    startApp: function() {
+      var body, mainLayer, me;
       mainLayer = this.down('#stage').mainLayer;
       this.body = body = Ext.create('app.view.human.Corps', {
-        layoutX: 0,
-        layoutY: 0,
-        layoutWidth: 1,
-        layoutHeight: 0.5,
         initialAttrs: {
           fill: 'green',
           strokeEnabled: false
         }
       });
       this.legs = Ext.create('app.view.human.Legs', {
-        layoutX: 0,
-        layoutY: 0.5,
-        layoutWidth: 1,
-        layoutHeight: 0.5,
+        layoutX: 0.1,
+        layoutY: 0.45,
+        layoutWidth: 0.8,
+        layoutHeight: 0.55,
         initialAttrs: {
           fill: 'orange',
           stroke: 'grey',
           strokeEnabled: false
         }
       });
-      this.leftArm = Ext.create('app.view.human.Arm', {
+      this.neck = Ext.create('app.view.human.Neck', {
+        layoutX: 0.3,
+        layoutWidth: 0.4,
+        layoutY: -0.2,
+        layoutHeight: 0.3,
         initialAttrs: {
-          fill: 'gray',
-          x: -105,
-          y: -50,
-          width: 90,
-          height: 240,
-          strokeEnabled: false
+          fill: '#FFC276'
+        }
+      });
+      this.leftArm = Ext.create('app.view.human.Arm', {
+        layoutX: -0.4,
+        layoutWidth: 0.6,
+        layoutY: 0.05,
+        layoutHeight: 1.1,
+        initialAttrs: {
+          fill: '#0CA100'
+        }
+      });
+      this.breast = Ext.create('app.view.human.Breast', {
+        layoutX: 0.15,
+        layoutY: 0.25,
+        layoutWidth: 0.3,
+        layoutHeight: 0.6
+      });
+      this.breast2 = Ext.create('app.view.human.Breast', {
+        layoutX: 1 - 0.15,
+        layoutY: 0.25,
+        layoutWidth: 0.3,
+        layoutHeight: 0.6,
+        initialAttrs: {
+          scaleX: -1
         }
       });
       this.rightArm = Ext.create('app.view.human.Arm', {
+        layoutX: 1.4,
+        layoutWidth: 0.6,
+        layoutY: 0.05,
+        layoutHeight: 1.1,
         initialAttrs: {
-          fill: 'gray',
-          x: 105,
-          y: -50,
-          scaleX: -1,
-          width: 90,
-          height: 240,
-          strokeEnabled: false
-        }
-      });
-      this.leftHand = Ext.create('app.view.human.Hand', {
-        initialAttrs: {
-          fill: 'yellow',
-          x: 105,
-          y: -50,
-          width: 13,
-          height: 13,
-          strokeEnabled: false
-        }
-      });
-      this.rightHand = Ext.create('app.view.human.Hand', {
-        initialAttrs: {
-          fill: 'yellow',
-          x: 105,
-          y: -50,
-          width: 13,
-          height: 13,
-          strokeEnabled: false
+          fill: '#0CA100',
+          scaleX: -1
         }
       });
       this.head = Ext.create('app.view.human.Head', {
         initialAttrs: {
-          fill: '#ECCAB9',
-          x: 0,
-          y: -140,
-          width: 90,
-          height: 90,
+          fill: 'transparent',
           strokeEnabled: false
-        }
+        },
+        image: this.images.woman,
+        layoutX: 0.15,
+        layoutWidth: 0.7,
+        layoutHeight: 0.3,
+        layoutY: -0.3
       });
       this.group = mainLayer.add({
         wtype: 'group',
-        layoutX: 500,
-        layoutY: 300,
-        layoutWidth: 200,
-        layoutHeight: 500,
-        relativeX: false,
-        relativeY: false,
-        relativeWidth: false,
-        relativeHeight: false
+        layoutX: 0.5,
+        layoutY: 0.5,
+        layoutWidth: 0.2,
+        layoutHeight: 0.5
       });
+      this.group.add(this.neck);
       this.group.add(this.legs);
-      this.group.add(this.body);
+      this.group.add({
+        wtype: 'group',
+        children: [this.leftArm, this.rightArm, this.body, this.breast, this.breast2],
+        layoutX: 0,
+        layoutY: 0,
+        layoutWidth: 1,
+        layoutHeight: 0.45
+      });
+      this.group.add(this.head);
       me = this;
-      window.requestAnimationFrame(function() {
+      return window.requestAnimationFrame(function() {
         return me.updateHander();
       });
     },
     updateHander: function() {
-      this.body.setBodyDensity((this.down('#weightInput').getValue() - 70) / -400);
-      this.legs.setBodyDensity((this.down('#weightInput').getValue() - 70) / -400);
-      this.group.setLayoutWidth(Math.sqrt(this.down('#weightInput').getValue()) * 10);
-      this.group.setLayoutHeight(Math.sqrt(this.down('#heightInput').getValue()) * 10);
+      var bd, isFemale;
+      bd = (this.down('#weightInput').getValue() - 70) / -400;
+      isFemale = this.down('#femaleRadio').getValue();
+      this.head.setImage(isFemale ? this.images.woman : this.images.man);
+      this.body.setBodyDensity(bd);
+      this.breast.setFemale(isFemale);
+      this.breast.setBodyDensity(bd);
+      this.breast2.setFemale(isFemale);
+      this.breast2.setBodyDensity(bd);
+      this.legs.setBodyDensity(bd);
+      this.neck.setBodyDensity(bd);
+      this.leftArm.setBodyDensity(bd);
+      this.rightArm.setBodyDensity(bd);
+      this.group.setLayoutWidth(Math.sqrt(this.down('#weightInput').getValue()) / 80);
+      this.group.setLayoutHeight(Math.sqrt(this.down('#heightInput').getValue()) / 40);
       return this.group.invalidate();
     }
   });

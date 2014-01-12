@@ -51,7 +51,7 @@ Ext.define 'app.helpers.kinetic.BaseWrapper',
         # - group wrapper calls doLayut of its children
         # every object uses translate to map x and y
         @kineticObject.setX x
-        @kineticObject.setX y
+        @kineticObject.setY y
         return
     applyMargin: (margin)->
         if Ext.isString margin

@@ -7,7 +7,9 @@
       centerX: 0,
       centerY: 0,
       centerXRelative: true,
-      centerYRelative: true
+      centerYRelative: true,
+      points: [],
+      autoClose: true
     },
     updateLayout: function(x, y, w, h) {
       this.currentX = x;
@@ -38,9 +40,10 @@
           me.currentContext = context;
           context.beginPath();
           me.drawFunction(context, width, height);
-          context.closePath();
-          context.fillStrokeShape(this);
-          return context._context.strokeRect(me.currentX, me.currentY, width, height);
+          if (me.getAutoClose()) {
+            context.closePath();
+          }
+          return context.fillStrokeShape(this);
         }
       };
       this.callParent([config, kineticObject]);
@@ -73,9 +76,15 @@
     },
     getPoint: function(point) {
       return {
-        x: point[0] * this.currentWidth,
-        y: point[1] * this.currentHeight
+        x: point[0] * this.currentWidth + this.currentCenterX,
+        y: point[1] * this.currentHeight + this.currentCenterY
       };
+    },
+    normalizeX: function(x) {
+      return x * this.currentWidth + this.currentCenterX;
+    },
+    normalizeY: function(y) {
+      return y * this.currentHeight + this.currentCenterY;
     },
     bezier2: function(a, b) {
       return this.currentContext.quadraticCurveTo(a.x(), a.y(), b.x(), b.y());
@@ -85,6 +94,9 @@
       b = this.getPoint(b);
       c = this.getPoint(c);
       return this.currentContext.bezierCurveTo(a.x, a.y, b.x, b.y, c.x, c.y);
+    },
+    bezier3Relative: function(xa, ya, xb, yb, xc, yc) {
+      return this.currentContext.bezierCurveTo(this.normalizeX(xa), this.normalizeY(ya), this.normalizeX(xb), this.normalizeY(yb), this.normalizeX(xc), this.normalizeY(yc));
     },
     deflection: function(aX, aY, bX, bY, balance) {
       var controlX, controlY, middleX, middleY, px, py, vecX, vecY;

@@ -1,0 +1,47 @@
+Ext.define 'app.view.human.Breast',
+    extend: 'app.helpers.kinetic.ComponentWrapper'
+    config:
+        bodyDensity: 0.5
+        female: no
+        autoClose: no
+        initialAttrs:
+            strokeWidth: 1.54
+            fill: 'transparent'
+            stroke: '#066A00'
+            strokeEnabled: yes
+            strokeScaleEnabled: yes
+    drawFunction: (ctx, width, height)->
+        female = @getFemale()
+        bd = @getBodyDensity() - 0.3
+        if female
+            bd *= -1.3
+        else
+            bd *= -0.5
+
+
+        if female
+            xa = 0
+            xb = 0.25 - bd
+            xc = 0.75 + bd * 0.5
+            xd = 1
+            ya = 1 / 3
+            yb = 1 / 3 + bd
+            yc = 1 / 3 + bd
+            yd = 1 / 3 + bd*0.3
+        else
+            xa = 0
+            xb = 0.25
+            xc = 0.75
+            xd = 1
+            ya = 1 / 3
+            yb = 1 / 3 + bd
+            yc = 1 / 3 + bd
+            yd = 1 / 3
+
+        @currentContext.moveTo @normalizeX(xa), @normalizeY(ya)
+        @bezier3Relative xb, yb, xc, yc, xd, yd
+
+        return
+    applyBodyDensity: (val)->
+        @invalidate()
+        return val

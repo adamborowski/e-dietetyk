@@ -16,8 +16,8 @@
       children: []
     },
     applyChildren: function(children) {
-      var child;
-      return (function() {
+      var child, _i, _len;
+      children = (function() {
         var _i, _len, _results;
         _results = [];
         for (_i = 0, _len = children.length; _i < _len; _i++) {
@@ -26,9 +26,14 @@
         }
         return _results;
       }).call(this);
+      for (_i = 0, _len = children.length; _i < _len; _i++) {
+        child = children[_i];
+        this.kineticObject.add(child.get());
+      }
+      return children;
     },
     convertChild: function(child) {
-      var wtype;
+      var kineticObjet, wtype;
       if (child instanceof app.helpers.kinetic.BaseWrapper) {
         return child;
       }
@@ -36,7 +41,11 @@
         if (child.wtype != null) {
           wtype = child.wtype;
           delete child.wtype;
-          return Ext.createByAlias("kinetic.wrapper." + wtype, child);
+          if (child.kineticObject == null) {
+            kineticObjet = child.kineticObject;
+            delete child.kineticObject;
+          }
+          return Ext.createByAlias("kinetic.wrapper." + wtype, child, kineticObjet);
         } else {
           throw new Error('You must provide wtype property for child config');
         }
