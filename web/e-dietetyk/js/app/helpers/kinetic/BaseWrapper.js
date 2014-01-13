@@ -24,7 +24,7 @@
         width: 100,
         height: 100,
         strokeScaleEnabled: false,
-        strokeEnabled: true
+        strokeEnabled: false
       }
     },
     doLayout: function(parentWidth, parentHeight) {

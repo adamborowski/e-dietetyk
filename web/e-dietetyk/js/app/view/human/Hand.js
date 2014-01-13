@@ -12,9 +12,11 @@
       bodyDensity: 0.05
     },
     drawFunction: function(ctx, width, height) {
-      var p;
+      var bd, p;
       p = this.getPoints();
-      ctx._context.arc(0, 0, width, 0, 2 * Math.PI, false);
+      bd = this.getBodyDensity();
+      bd *= 3;
+      ctx._context.arc(0, 0, width * bd, 0, 2 * Math.PI, false);
     },
     applyBodyDensity: function(val) {
       this.invalidate();

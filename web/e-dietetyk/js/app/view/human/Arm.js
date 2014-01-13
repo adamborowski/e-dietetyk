@@ -4,7 +4,7 @@
     extend: 'app.helpers.kinetic.ComponentWrapper',
     config: {
       points: {
-        a: [1, 0],
+        a: [1.1, 0],
         b: [1.15, 1 / 4],
         c: [0.3, 1],
         d: [0, 1]
@@ -16,10 +16,10 @@
       p = this.getPoints();
       bd = this.getBodyDensity() * 2;
       ctx.moveTo(p.a.x(), p.a.y());
-      this.deflectionPoint(p.a, p.b, 0.5);
-      this.deflectionPoint(p.b, p.c, -bd * 0.7);
+      this.deflectionPoint(p.a, p.b, -1);
+      this.deflectionPoint(p.b, p.c, bd * 0.7);
       this.deflectionPoint(p.c, p.d, 0.1);
-      this.deflectionPoint(p.d, p.a, bd * 1.0);
+      this.deflectionPoint(p.d, p.a, -bd * 0.5);
       this.handPlaceholder = {
         x: (p.c.x() + p.d.x()) / 2,
         y: (p.c.y() + p.d.y()) / 2

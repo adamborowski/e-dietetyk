@@ -17,11 +17,13 @@
     drawFunction: function(ctx, width, height) {
       var bd, female, xa, xb, xc, xd, ya, yb, yc, yd;
       female = this.getFemale();
-      bd = this.getBodyDensity() - 0.3;
+      bd = this.getBodyDensity();
       if (female) {
-        bd *= -1.3;
+        bd *= 0.7;
+        bd += 0.2;
       } else {
-        bd *= -0.5;
+        bd *= 0.3;
+        bd += 0.05;
       }
       if (female) {
         xa = 0;

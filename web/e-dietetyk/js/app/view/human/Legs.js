@@ -19,14 +19,14 @@
       var bd, p;
       p = this.getPoints();
       this.currentContext.moveTo(p.b.x(), p.b.y());
-      bd = this.getBodyDensity() + 0.0;
-      this.deflectionPoint(p.b, p.c, bd);
+      bd = Math.pow(this.getBodyDensity(), 2) - 0.1;
+      this.deflectionPoint(p.b, p.c, -bd);
       this.deflectionPoint(p.c, p.d, -0.1);
-      this.deflectionPoint(p.d, p.e, bd);
-      this.deflectionPoint(p.e, p.f, bd);
+      this.deflectionPoint(p.d, p.e, -bd);
+      this.deflectionPoint(p.e, p.f, -bd);
       this.deflectionPoint(p.f, p.g, -0.1);
-      this.deflectionPoint(p.g, p.a, bd);
-      this.deflectionPoint(p.a, p.b, -0.4);
+      this.deflectionPoint(p.g, p.a, -bd);
+      this.deflectionPoint(p.a, p.b, -0.9);
     },
     applyBodyDensity: function(val) {
       this.invalidate();

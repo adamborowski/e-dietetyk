@@ -14,14 +14,14 @@ Ext.define 'app.view.human.Legs',
     drawFunction: (ctx, width, height)->
         p = @getPoints()
         @currentContext.moveTo p.b.x(), p.b.y()
-        bd = @getBodyDensity() + 0.0
-        @deflectionPoint p.b, p.c, bd
+        bd = Math.pow(@getBodyDensity(), 2) - 0.1
+        @deflectionPoint p.b, p.c, -bd
         @deflectionPoint p.c, p.d, -0.1
-        @deflectionPoint p.d, p.e, bd
-        @deflectionPoint p.e, p.f, bd
+        @deflectionPoint p.d, p.e, -bd
+        @deflectionPoint p.e, p.f, -bd
         @deflectionPoint p.f, p.g, -0.1
-        @deflectionPoint p.g, p.a, bd
-        @deflectionPoint p.a, p.b, -0.4
+        @deflectionPoint p.g, p.a, -bd
+        @deflectionPoint p.a, p.b, -0.9
 
 
         return

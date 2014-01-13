@@ -22,7 +22,7 @@ Ext.define 'app.helpers.kinetic.BaseWrapper',
             width: 100
             height: 100
             strokeScaleEnabled: no
-            strokeEnabled: yes
+            strokeEnabled: no
     doLayout: (parentWidth, parentHeight)->
         # !!! final !!!
         layoutX = @getLayoutX()

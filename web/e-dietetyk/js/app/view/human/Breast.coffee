@@ -12,11 +12,15 @@ Ext.define 'app.view.human.Breast',
             strokeScaleEnabled: yes
     drawFunction: (ctx, width, height)->
         female = @getFemale()
-        bd = @getBodyDensity() - 0.3
+        bd = @getBodyDensity()
         if female
-            bd *= -1.3
+            bd *= 0.7
+            bd += 0.2
         else
-            bd *= -0.5
+            bd *= 0.3
+            bd += 0.05
+
+
 
 
         if female
@@ -27,7 +31,7 @@ Ext.define 'app.view.human.Breast',
             ya = 1 / 3
             yb = 1 / 3 + bd
             yc = 1 / 3 + bd
-            yd = 1 / 3 + bd*0.3
+            yd = 1 / 3 + bd * 0.3
         else
             xa = 0
             xb = 0.25

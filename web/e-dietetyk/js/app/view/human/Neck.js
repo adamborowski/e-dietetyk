@@ -14,12 +14,12 @@
     drawFunction: function(ctx, width, height) {
       var bd, p;
       p = this.getPoints();
-      bd = this.getBodyDensity() * 1.5 + 0.2;
+      bd = this.getBodyDensity() - 0.3;
       ctx.moveTo(p.a.x(), p.a.y());
       this.deflectionPoint(p.a, p.b, -0.2);
-      this.deflectionPoint(p.b, p.c, bd);
+      this.deflectionPoint(p.b, p.c, -bd);
       this.deflectionPoint(p.c, p.d, -0.2);
-      this.deflectionPoint(p.d, p.a, bd);
+      this.deflectionPoint(p.d, p.a, -bd);
     },
     applyBodyDensity: function(val) {
       this.invalidate();

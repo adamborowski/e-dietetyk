@@ -13,13 +13,14 @@
       centerX: 0.5
     },
     drawFunction: function(ctx, width, height) {
-      var p;
+      var bd, p;
       p = this.getPoints();
       ctx.moveTo(p.a.x(), p.a.y());
-      this.deflection(p.a.x(), p.a.y(), p.b.x(), p.b.y(), -this.getBodyDensity() + 0.2);
-      this.deflection(p.b.x(), p.b.y(), p.c.x(), p.c.y(), this.getBodyDensity());
-      this.deflection(p.c.x(), p.c.y(), p.d.x(), p.d.y(), this.getBodyDensity());
-      this.deflection(p.d.x(), p.d.y(), p.a.x(), p.a.y(), this.getBodyDensity());
+      bd = this.getBodyDensity() - 0.3;
+      this.deflection(p.a.x(), p.a.y(), p.b.x(), p.b.y(), bd * 2);
+      this.deflection(p.b.x(), p.b.y(), p.c.x(), p.c.y(), -bd);
+      this.deflection(p.c.x(), p.c.y(), p.d.x(), p.d.y(), -bd);
+      this.deflection(p.d.x(), p.d.y(), p.a.x(), p.a.y(), -bd);
     },
     applyBodyDensity: function(val) {
       this.invalidate();

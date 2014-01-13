@@ -9,12 +9,12 @@ Ext.define 'app.view.human.Neck',
         bodyDensity: 0.05
     drawFunction: (ctx, width, height)->
         p = @getPoints()
-        bd = @getBodyDensity()*1.5 + 0.2
+        bd = @getBodyDensity() - 0.3
         ctx.moveTo p.a.x(), p.a.y()
         @deflectionPoint p.a, p.b, -0.2
-        @deflectionPoint p.b, p.c, bd
+        @deflectionPoint p.b, p.c, -bd
         @deflectionPoint p.c, p.d, -0.2
-        @deflectionPoint p.d, p.a, bd
+        @deflectionPoint p.d, p.a, -bd
 
         return
     applyBodyDensity: (val)->

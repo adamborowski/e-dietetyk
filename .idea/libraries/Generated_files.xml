@@ -15,7 +15,7 @@
         <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Hand.js" />
         <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/HumanView.js" />
         <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/GroupWrapper.js" />
-        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/RightArm.js" />
+        <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/BodyCalculator.js" />
         <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/StageWrapper.js" />
         <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/AppView.js" />
         <item url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Arm.js" />
@@ -28,6 +28,7 @@
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/LayoutHelper.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/RightArm.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/LayoutContainer.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/RightArm.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Corps.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/BaseContainerWrapper.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Neck.js" />
@@ -40,7 +41,7 @@
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/ComponentWrapper.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/Hand.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/HumanView.js" />
-      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/human/RightArm.js" />
+      <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/BodyCalculator.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/GroupWrapper.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/view/AppView.js" />
       <root url="file://$PROJECT_DIR$/web/e-dietetyk/js/app/helpers/kinetic/StageWrapper.js" />

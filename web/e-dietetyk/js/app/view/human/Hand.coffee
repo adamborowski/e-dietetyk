@@ -9,7 +9,9 @@ Ext.define 'app.view.human.Hand',
         bodyDensity: 0.05
     drawFunction: (ctx, width, height)->
         p = @getPoints()
-        ctx._context.arc(0, 0, width, 0, 2 * Math.PI, false)
+        bd = @getBodyDensity()
+        bd*= 3
+        ctx._context.arc(0, 0, width*bd, 0, 2 * Math.PI, false)
         return
     applyBodyDensity: (val)->
         @invalidate()
