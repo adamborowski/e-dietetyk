@@ -1,0 +1,42 @@
+<?php
+
+namespace Rzymek\DietBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * OpisyProduktow
+ *
+ * @ORM\Table(name="opisy_produktow", indexes={@ORM\Index(name="posrednik_id", columns={"posrednik_id"})})
+ * @ORM\Entity
+ */
+class OpisyProduktow
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="opis_prod_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $opisProdId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="data", type="string", length=20000, nullable=false)
+     */
+    private $data;
+
+    /**
+     * @var \Posrednicy
+     *
+     * @ORM\ManyToOne(targetEntity="Posrednicy")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="posrednik_id", referencedColumnName="posrednik_id")
+     * })
+     */
+    private $posrednik;
+
+
+}

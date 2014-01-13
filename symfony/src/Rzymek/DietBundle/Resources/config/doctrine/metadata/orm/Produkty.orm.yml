@@ -1,0 +1,59 @@
+Produkty:
+    type: entity
+    table: produkty
+    indexes:
+        opis_prod_id:
+            columns:
+                - opis_prod_id
+        zamowienie_id:
+            columns:
+                - zamowienie_id
+        dieta_id:
+            columns:
+                - dieta_id
+    id:
+        produktId:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            column: produkt_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        data:
+            type: string
+            nullable: false
+            length: 20000
+            fixed: false
+            comment: ''
+    manyToOne:
+        opisProd:
+            targetEntity: OpisyProduktow
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                opis_prod_id:
+                    referencedColumnName: opis_prod_id
+            orphanRemoval: false
+        zamowienie:
+            targetEntity: Zamowienia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                zamowienie_id:
+                    referencedColumnName: zamowienie_id
+            orphanRemoval: false
+        dieta:
+            targetEntity: Diety
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                dieta_id:
+                    referencedColumnName: dieta_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,98 @@
+<?php
+
+namespace Rzymek\DietBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * PolecaneProd
+ *
+ * @ORM\Table(name="polecane_prod", indexes={@ORM\Index(name="dieta_id", columns={"dieta_id"})})
+ * @ORM\Entity
+ */
+class PolecaneProd
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="polecane_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $polecaneId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="data", type="string", length=20000, nullable=false)
+     */
+    private $data;
+
+    /**
+     * @var \Diety
+     *
+     * @ORM\ManyToOne(targetEntity="Diety")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="dieta_id", referencedColumnName="dieta_id")
+     * })
+     */
+    private $dieta;
+
+
+
+    /**
+     * Get polecaneId
+     *
+     * @return integer 
+     */
+    public function getPolecaneId()
+    {
+        return $this->polecaneId;
+    }
+
+    /**
+     * Set data
+     *
+     * @param string $data
+     * @return PolecaneProd
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return string 
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Set dieta
+     *
+     * @param \Rzymek\DietBundle\Entity\Diety $dieta
+     * @return PolecaneProd
+     */
+    public function setDieta(\Rzymek\DietBundle\Entity\Diety $dieta = null)
+    {
+        $this->dieta = $dieta;
+
+        return $this;
+    }
+
+    /**
+     * Get dieta
+     *
+     * @return \Rzymek\DietBundle\Entity\Diety 
+     */
+    public function getDieta()
+    {
+        return $this->dieta;
+    }
+}

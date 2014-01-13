@@ -1,0 +1,14 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: '3306'
+    database_name: dieta
+    database_user: dieta
+    database_password: $dieta$
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: en
+    secret: 4d5966ffd24659381329fe43e4e24c728b23051a
+    database_path: 127.0.0.1

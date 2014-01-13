@@ -1,0 +1,8 @@
+cd ./www/dieta
+# czytanie z bazy danych struktury i kluczy - jako metadata
+php app/console doctrine:mapping:convert yaml ./src/Rzymek/DietBundle/Resources/config/doctrine/metadata/orm --from-database --force
+# generowanie Entities z metadata w trybie annotation
+php app/console doctrine:mapping:import DietBundle annotation
+# generowanie getters i setters dla Entities
+php app/console doctrine:generate:entities DietBundle
+

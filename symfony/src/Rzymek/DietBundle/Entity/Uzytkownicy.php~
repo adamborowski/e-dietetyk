@@ -1,0 +1,39 @@
+<?php
+
+namespace Rzymek\DietBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Uzytkownicy
+ *
+ * @ORM\Table(name="uzytkownicy")
+ * @ORM\Entity
+ */
+class Uzytkownicy
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="login", type="string", length=31, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $login;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=200, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="data", type="string", length=20000, nullable=false)
+     */
+    private $data;
+
+
+}

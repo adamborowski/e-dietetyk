@@ -1,0 +1,21 @@
+diet_homepage:
+  pattern:  /
+  defaults: { _controller: DietBundle:Default:index }
+diet_profile:
+  pattern: /twoj_profil
+  defaults: { _controller: DietBundle:Default:profile }
+diet_diet:
+  pattern:  /twoja_dieta
+  defaults: { _controller: DietBundle:Default:diet }
+diet_customers:
+  pattern:  /nasi_klienci
+  defaults: { _controller: DietBundle:Default:customers }
+diet_about:
+  pattern:  /o_nas
+  defaults: { _controller: DietBundle:Default:about }
+diet_orders:
+  pattern:  /twoje_zamowienia
+  defaults: { _controller: DietBundle:Default:orders }
+diet_contact:
+  pattern:  /kontakt
+  defaults: { _controller: DietBundle:Default:contact }

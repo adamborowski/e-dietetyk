@@ -1,0 +1,11 @@
+/**
+ */
+a.logo_link, a.logo_link:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+.customer_list {
+    text-align: center;
+    margin: 18px 0;
+}

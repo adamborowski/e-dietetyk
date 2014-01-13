@@ -1,0 +1,35 @@
+Zamowienia:
+    type: entity
+    table: zamowienia
+    indexes:
+        login:
+            columns:
+                - login
+    id:
+        zamowienieId:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            column: zamowienie_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        data:
+            type: string
+            nullable: false
+            length: 20000
+            fixed: false
+            comment: ''
+    manyToOne:
+        login:
+            targetEntity: Uzytkownicy
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                login:
+                    referencedColumnName: login
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

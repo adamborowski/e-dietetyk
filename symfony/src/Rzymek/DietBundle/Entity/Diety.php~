@@ -1,0 +1,42 @@
+<?php
+
+namespace Rzymek\DietBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Diety
+ *
+ * @ORM\Table(name="diety", indexes={@ORM\Index(name="login", columns={"login"})})
+ * @ORM\Entity
+ */
+class Diety
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="dieta_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $dietaId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="data", type="string", length=20000, nullable=false)
+     */
+    private $data;
+
+    /**
+     * @var \Uzytkownicy
+     *
+     * @ORM\ManyToOne(targetEntity="Uzytkownicy")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="login", referencedColumnName="login")
+     * })
+     */
+    private $login;
+
+
+}

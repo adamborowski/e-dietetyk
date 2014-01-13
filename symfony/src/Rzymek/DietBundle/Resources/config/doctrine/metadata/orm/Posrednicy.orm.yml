@@ -1,0 +1,21 @@
+Posrednicy:
+    type: entity
+    table: posrednicy
+    id:
+        posrednikId:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            column: posrednik_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        data:
+            type: string
+            nullable: false
+            length: 20000
+            fixed: false
+            comment: ''
+    lifecycleCallbacks: {  }

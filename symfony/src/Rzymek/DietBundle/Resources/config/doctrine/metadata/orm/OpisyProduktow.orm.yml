@@ -1,0 +1,35 @@
+OpisyProduktow:
+    type: entity
+    table: opisy_produktow
+    indexes:
+        posrednik_id:
+            columns:
+                - posrednik_id
+    id:
+        opisProdId:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            column: opis_prod_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        data:
+            type: string
+            nullable: false
+            length: 20000
+            fixed: false
+            comment: ''
+    manyToOne:
+        posrednik:
+            targetEntity: Posrednicy
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                posrednik_id:
+                    referencedColumnName: posrednik_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

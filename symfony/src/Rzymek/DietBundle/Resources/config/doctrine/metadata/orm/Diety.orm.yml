@@ -1,0 +1,35 @@
+Diety:
+    type: entity
+    table: diety
+    indexes:
+        login:
+            columns:
+                - login
+    id:
+        dietaId:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            column: dieta_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        data:
+            type: string
+            nullable: false
+            length: 20000
+            fixed: false
+            comment: ''
+    manyToOne:
+        login:
+            targetEntity: Uzytkownicy
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                login:
+                    referencedColumnName: login
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

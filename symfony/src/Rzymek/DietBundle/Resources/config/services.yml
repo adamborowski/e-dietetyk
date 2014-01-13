@@ -1,0 +1,7 @@
+parameters:
+#    diet.example.class: Rzymek\DietBundle\Example
+
+services:
+#    diet.example:
+#        class: %diet.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

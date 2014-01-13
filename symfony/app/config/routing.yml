@@ -1,0 +1,4 @@
+diet:
+    resource: "@DietBundle/Resources/config/routing.yml"
+    prefix:   /
+
