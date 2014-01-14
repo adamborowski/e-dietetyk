@@ -2,75 +2,82 @@
 namespace Rzymek\DietBundle\Entity;
 
 class Dieta {
-    protected $typ;
-    protected $rodzaj;
-    protected $czasAktywnosci;
-    protected $preferencje;
-    //@todo: ......
+    protected $id;
+    protected $userLogin;
+    protected $cel;
+    protected $liczbaPosilkow;
+    protected $aktywnosci;
 
     /**
-     * @param mixed $czasAktywnosci
+     * @param mixed $id
      */
-    public function setCzasAktywnosci($czasAktywnosci)
-    {
-        $this->czasAktywnosci = $czasAktywnosci;
+    public function setId($id) {
+        $this->id = $id;
     }
 
     /**
      * @return mixed
      */
-    public function getCzasAktywnosci()
-    {
-        return $this->czasAktywnosci;
+    public function getId() {
+        return $this->id;
     }
 
     /**
-     * @param mixed $preferencje
+     * @param mixed $cel
      */
-    public function setPreferencje($preferencje)
-    {
-        $this->preferencje = $preferencje;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPreferencje()
-    {
-        return $this->preferencje;
-    }
-
-    /**
-     * @param mixed $rodzaj
-     */
-    public function setRodzaj($rodzaj)
-    {
-        $this->rodzaj = $rodzaj;
+    public function setCel($cel) {
+        $this->cel = $cel;
     }
 
     /**
      * @return mixed
      */
-    public function getRodzaj()
-    {
-        return $this->rodzaj;
+    public function getCel() {
+        return $this->cel;
     }
 
     /**
-     * @param mixed $typ
+     * @param mixed $aktywnosci
      */
-    public function setTyp($typ)
-    {
-        $this->typ = $typ;
+    public function setAktywnosci($aktywnosci) {
+        $this->aktywnosci = $aktywnosci;
     }
 
     /**
      * @return mixed
      */
-    public function getTyp()
-    {
-        return $this->typ;
+    public function getAktywnosci() {
+        return $this->aktywnosci;
     }
+
+    /**
+     * @param mixed $liczbaPosilkow
+     */
+    public function setLiczbaPosilkow($liczbaPosilkow) {
+        $this->liczbaPosilkow = $liczbaPosilkow;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLiczbaPosilkow() {
+        return $this->liczbaPosilkow;
+    }
+
+    /**
+     * @param mixed $userLogin
+     */
+    public function setUserLogin($userLogin) {
+        $this->userLogin = $userLogin;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserLogin() {
+        return $this->userLogin;
+    }
+
 
     public function __construct() {
         ;
@@ -83,10 +90,11 @@ class Dieta {
 
     public function deserialize($serializedObj) {
         $stdObj = json_decode($serializedObj);
-        $dieta = new Dieta();
-//        $dieta->setCzasAktywnosci($stdObj->czasAktywnosci);
-        //@todo dalej settery
 
-        return $dieta;
+        $this->setId($stdObj->id);
+        $this->setUserLogin($stdObj->userLogin);
+        $this->setCel($stdObj->cel);
+        $this->setLiczbaPosilkow($stdObj->liczbaPosilkow);
+        $this->setAktywnosci($stdObj->aktywnosci);
     }
 }

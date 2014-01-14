@@ -168,15 +168,14 @@ class Uzytkownik {
 
     public function deserialize($serializedObj) {
         $stdObj = json_decode($serializedObj);
-        $user = new Uzytkownik();
-        $user->setBodyDensity($stdObj->bodyDensity);
-        $user->setHaslo($stdObj->haslo);
-        $user->setImieNazwisko($stdObj->imieNazwisko);
-        $user->setTypSylwetki($stdObj->typSylwetki);
-        $user->setWaga($stdObj->waga);
-        $user->setWiek($stdObj->wiek);
-        $user->setWzrost($stdObj->wzrost);
-
-        return $user;
+        $this->setLogin($stdObj->login);
+        $this->setHaslo($stdObj->haslo);
+        $this->setWiek($stdObj->wiek);
+        $this->setWaga($stdObj->waga);
+        $this->setWzrost($stdObj->wzrost);
+        $this->setTypSylwetki($stdObj->typSylwetki);
+        $this->setBodyDensity($stdObj->bodyDensity);
+        $this->setImieNazwisko($stdObj->imieNazwisko);
+        $this->setEmail($stdObj->email);
     }
 }

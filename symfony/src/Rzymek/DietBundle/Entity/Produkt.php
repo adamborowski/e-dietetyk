@@ -4,9 +4,112 @@ namespace Rzymek\DietBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 class Produkt {
+    protected $id;
+    protected $opisProdId;
+    protected $zamowienieId;
+    protected $dietaId;
     protected $cena; // na chwilę zamówienia (może być nieaktualna)
     protected $iloscSztuk;
-    protected $prowizja; // na chwilę zamówienia
+    protected $prowizja;
+
+    /**
+     * @param mixed $cena
+     */
+    public function setCena($cena) {
+        $this->cena = $cena;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCena() {
+        return $this->cena;
+    }
+
+    /**
+     * @param mixed $dietaId
+     */
+    public function setDietaId($dietaId) {
+        $this->dietaId = $dietaId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDietaId() {
+        return $this->dietaId;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $iloscSztuk
+     */
+    public function setIloscSztuk($iloscSztuk) {
+        $this->iloscSztuk = $iloscSztuk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIloscSztuk() {
+        return $this->iloscSztuk;
+    }
+
+    /**
+     * @param mixed $opisProdId
+     */
+    public function setOpisProdId($opisProdId) {
+        $this->opisProdId = $opisProdId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOpisProdId() {
+        return $this->opisProdId;
+    }
+
+    /**
+     * @param mixed $prowizja
+     */
+    public function setProwizja($prowizja) {
+        $this->prowizja = $prowizja;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProwizja() {
+        return $this->prowizja;
+    }
+
+    /**
+     * @param mixed $zamowienieId
+     */
+    public function setZamowienieId($zamowienieId) {
+        $this->zamowienieId = $zamowienieId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getZamowienieId() {
+        return $this->zamowienieId;
+    }
+
 
     public function __construct() {
         ;
@@ -19,9 +122,13 @@ class Produkt {
 
     public function deserialize($serializedObj) {
         $stdObj = json_decode($serializedObj);
-        $produkt = new Produkt();
-        //set
 
-        return $dieta;
+        $this->setId($stdObj->id);
+        $this->setDietaId($stdObj->dietaId);
+        $this->setOpisProdId($stdObj->opisProdId);
+        $this->setZamowienieId($stdObj->zamowienieId);
+        $this->setCena($stdObj->cena);
+        $this->setIloscSztuk($stdObj->iloscSztuk);
+        $this->setProwizja($stdObj->prowizja);
     }
 }

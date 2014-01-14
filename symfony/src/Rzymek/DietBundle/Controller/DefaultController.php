@@ -25,7 +25,7 @@ class DefaultController extends Controller {
     }
 
     public function dietAction() {
-        $dietaRepo = $this->getDoctrine()->getRepository('DietBundle:DietaRepository');
+        $dietaRepo = $this->getDoctrine()->getRepository('DietBundle:DietyRepo');
         $dietaRepo->find(1);
 
         /**
@@ -77,10 +77,9 @@ class DefaultController extends Controller {
         return $this->render('DietBundle:Default:about.html.twig');
     }
 
+    public function test() {
 
 
-    public function contactAction() {
-        // nieużywany
-        return $this->render('DietBundle:Default:contact.html.twig');
+        return $this->render('DietBundle:Default:test.html.twig');
     }
 }

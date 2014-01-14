@@ -10,15 +10,23 @@ use Rzymek\DietBundle\Entity\Uzytkownik;
 class UzytkownicyRepo extends EntityRepository {
     public function findByLogin($login) {
         $em = $this->getEntityManager();
-        $userDB = $em->find('DietBundle:Uzytkownicy', $user->getLogin());
-        $user->setLogin($userDB->getLogin());
-        $user->setEmail($userDB->getEmail());
-        $user->setData($userDB->serialize());
+        $userDB = $em->find('DietBundle:Uzytkownicy', $login);
 
+        $user = new Uzytkownik();
+        $user->deserialize($userDB->getData());
+
+        return $user;
     }
 
     public function findByEmail($email) {
-        
+        //@todo: sprawdzić findByEmail
+        $em = $this->getEntityManager();
+        $userDB = $em->findByEmail('DietBundle:Uzytkownicy', $email);
+
+        $user = new Uzytkownik();
+        $user->deserialize($userDB->getData());
+
+        return $user;
     }
 
     public function add(Uzytkownik $user) {
@@ -33,7 +41,7 @@ class UzytkownicyRepo extends EntityRepository {
         $em->persist($userDB);
 
         // aby dzialalo id typu string
-        $metadata = $em->getClassMetaData(get_class($action));
+        $metadata = $em->getClassMetaData(get_class($userDB));
         $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $em->flush();
@@ -43,11 +51,6 @@ class UzytkownicyRepo extends EntityRepository {
         // pobierz
         $em = $this->getEntityManager();
         $userDB = $em->find('DietBundle:Uzytkownicy', $user->getLogin());
-//        // deserializacja
-//        $userUpdated = new Uzytkownik();
-//        $userUpdated = $userUpdated->deserialize($userDB);
-//        $userUpdated->setLogin($userDB->login);
-//        $userUpdated->setEmail($userDB->email);
 
         // serializacja
         $userDB->setEmail($user->getEmail());
@@ -61,8 +64,7 @@ class UzytkownicyRepo extends EntityRepository {
         //pobierz
         $em = $this->getEntityManager();
         $userDB = $em->find('DietBundle:Uzytkownicy', $login);
-var_dump($userDB);
-exit;
+
         //usun
         $em->remove($userDB);
         $em->flush();
