@@ -77,9 +77,7 @@ class DefaultController extends Controller {
         return $this->render('DietBundle:Default:about.html.twig');
     }
 
-    public function ordersAction() {
-        return $this->render('DietBundle:Default:orders.html.twig');
-    }
+
 
     public function contactAction() {
         // nieużywany
