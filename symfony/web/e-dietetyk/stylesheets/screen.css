@@ -1,0 +1,249 @@
+/* line 7, ../sass/screen.scss */
+.fat {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+/* line 9, ../sass/screen.scss */
+.fat .fat-control {
+  background: rgba(0, 0, 0, 0.04);
+}
+/* line 11, ../sass/screen.scss */
+.fat .fat-control img {
+  border: 1px solid #999999;
+}
+/* line 14, ../sass/screen.scss */
+.fat .fat-control .fat-control-title {
+  text-align: center;
+  font-size: 20px;
+  padding-bottom: 4px;
+  text-transform: uppercase;
+  color: #999999;
+}
+/* line 21, ../sass/screen.scss */
+.fat .fat-control .fat-control-indicator {
+  text-align: right;
+  background: rgba(255, 255, 255, 0.7);
+  line-height: 24px;
+  padding-right: 7px;
+  padding-left: 10px;
+  -webkit-border-radius: 9px 0 0 0;
+  -moz-border-radius: 9px 0 0 0;
+  -ms-border-radius: 9px 0 0 0;
+  -o-border-radius: 9px 0 0 0;
+  border-radius: 9px 0 0 0;
+  font-weight: bold;
+  color: #888888;
+  border: 1px solid #999999;
+}
+
+/* line 35, ../sass/screen.scss */
+.body-density-info {
+  text-align: center;
+  font-weight: bold;
+}
+/* line 38, ../sass/screen.scss */
+.body-density-info i {
+  font-weight: normal;
+  color: #444444;
+}
+
+/* line 76, ../sass/screen.scss */
+.kinetic-stage {
+  background: rgba(255, 255, 255, 0.65);
+  -webkit-border-radius: 0 0 15px 15px;
+  -moz-border-radius: 0 0 15px 15px;
+  -ms-border-radius: 0 0 15px 15px;
+  -o-border-radius: 0 0 15px 15px;
+  border-radius: 0 0 15px 15px;
+}
+/* line 53, ../sass/screen.scss */
+.kinetic-stage.top {
+  margin-top: 10px;
+}
+/* line 56, ../sass/screen.scss */
+.kinetic-stage.right {
+  margin-right: 10px;
+}
+/* line 59, ../sass/screen.scss */
+.kinetic-stage.bottom {
+  margin-bottom: 10px;
+}
+/* line 62, ../sass/screen.scss */
+.kinetic-stage.left {
+  margin-left: 10px;
+}
+/* line 65, ../sass/screen.scss */
+.kinetic-stage.all {
+  margin: 10px;
+}
+/* line 68, ../sass/screen.scss */
+.kinetic-stage.padding {
+  padding: 10px;
+}
+/* line 71, ../sass/screen.scss */
+.kinetic-stage.inline {
+  display: inline-block;
+}
+
+/* line 80, ../sass/screen.scss */
+.x-panel-body-default {
+  background: rgba(255, 255, 255, 0.65);
+  -webkit-border-radius: 0 0 15px 15px;
+  -moz-border-radius: 0 0 15px 15px;
+  -ms-border-radius: 0 0 15px 15px;
+  -o-border-radius: 0 0 15px 15px;
+  border-radius: 0 0 15px 15px;
+}
+/* line 53, ../sass/screen.scss */
+.x-panel-body-default.top {
+  margin-top: 10px;
+}
+/* line 56, ../sass/screen.scss */
+.x-panel-body-default.right {
+  margin-right: 10px;
+}
+/* line 59, ../sass/screen.scss */
+.x-panel-body-default.bottom {
+  margin-bottom: 10px;
+}
+/* line 62, ../sass/screen.scss */
+.x-panel-body-default.left {
+  margin-left: 10px;
+}
+/* line 65, ../sass/screen.scss */
+.x-panel-body-default.all {
+  margin: 10px;
+}
+/* line 68, ../sass/screen.scss */
+.x-panel-body-default.padding {
+  padding: 10px;
+}
+/* line 71, ../sass/screen.scss */
+.x-panel-body-default.inline {
+  display: inline-block;
+}
+
+/* line 84, ../sass/screen.scss */
+.a-panel {
+  background: rgba(255, 255, 255, 0.65);
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  border-radius: 15px;
+  font-size: 15px;
+  color: #555555;
+}
+/* line 53, ../sass/screen.scss */
+.a-panel.top {
+  margin-top: 10px;
+}
+/* line 56, ../sass/screen.scss */
+.a-panel.right {
+  margin-right: 10px;
+}
+/* line 59, ../sass/screen.scss */
+.a-panel.bottom {
+  margin-bottom: 10px;
+}
+/* line 62, ../sass/screen.scss */
+.a-panel.left {
+  margin-left: 10px;
+}
+/* line 65, ../sass/screen.scss */
+.a-panel.all {
+  margin: 10px;
+}
+/* line 68, ../sass/screen.scss */
+.a-panel.padding {
+  padding: 10px;
+}
+/* line 71, ../sass/screen.scss */
+.a-panel.inline {
+  display: inline-block;
+}
+/* line 88, ../sass/screen.scss */
+.a-panel p {
+  text-indent: 30px;
+}
+
+/* line 93, ../sass/screen.scss */
+.a-panel-start {
+  background: rgba(255, 255, 255, 0.65);
+  -webkit-border-radius: 0 0 15px 15px;
+  -moz-border-radius: 0 0 15px 15px;
+  -ms-border-radius: 0 0 15px 15px;
+  -o-border-radius: 0 0 15px 15px;
+  border-radius: 0 0 15px 15px;
+}
+/* line 53, ../sass/screen.scss */
+.a-panel-start.top {
+  margin-top: 10px;
+}
+/* line 56, ../sass/screen.scss */
+.a-panel-start.right {
+  margin-right: 10px;
+}
+/* line 59, ../sass/screen.scss */
+.a-panel-start.bottom {
+  margin-bottom: 10px;
+}
+/* line 62, ../sass/screen.scss */
+.a-panel-start.left {
+  margin-left: 10px;
+}
+/* line 65, ../sass/screen.scss */
+.a-panel-start.all {
+  margin: 10px;
+}
+/* line 68, ../sass/screen.scss */
+.a-panel-start.padding {
+  padding: 10px;
+}
+/* line 71, ../sass/screen.scss */
+.a-panel-start.inline {
+  display: inline-block;
+}
+
+/* line 97, ../sass/screen.scss */
+.rounded {
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  border-radius: 15px;
+}
+/* line 53, ../sass/screen.scss */
+.rounded.top {
+  margin-top: 10px;
+}
+/* line 56, ../sass/screen.scss */
+.rounded.right {
+  margin-right: 10px;
+}
+/* line 59, ../sass/screen.scss */
+.rounded.bottom {
+  margin-bottom: 10px;
+}
+/* line 62, ../sass/screen.scss */
+.rounded.left {
+  margin-left: 10px;
+}
+/* line 65, ../sass/screen.scss */
+.rounded.all {
+  margin: 10px;
+}
+/* line 68, ../sass/screen.scss */
+.rounded.padding {
+  padding: 10px;
+}
+/* line 71, ../sass/screen.scss */
+.rounded.inline {
+  display: inline-block;
+}
+
+/* line 101, ../sass/screen.scss */
+img.border {
+  border: 1px solid #dedede;
+}

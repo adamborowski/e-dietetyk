@@ -3,5 +3,25 @@
 {% block title %}Twój profil{% endblock %}
 
 {% block content %}
-    profil
+    {% include 'DietBundle::spinner.html.twig' %}
+    <div id="ext-app-container" style="visibility: hidden">
+        </div>
+    <div class="a-panel top padding inline" id="ext-body-density-panel" style="visibility: hidden">
+        <p>Porównaj sylwetkę do <i>Body Density</i> = <b id="ext-body-density-output">45%</b></p>
+        <img id="ext-body-women" class="rounded border" src="{{ asset('e-dietetyk/images/body-fat-percentage-women.jpg') }}"/>
+        <img id="ext-body-men" style="display: none" class="rounded border"
+             src="{{ asset('e-dietetyk/images/body-fat-percentage-men.jpg') }}"/>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    {# nie używać assetica bo ext nie doładuje sobie plików#}
+    <script src="../vendor/ext-4.2.1.883/ext-debug.js"></script>
+    <script src="../vendor/kinetic-4.7.4/kinetic-v4.7.4.min.js"></script>
+    <script src="../e-dietetyk/js/app.js"></script>
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="../vendor/ext-4.2.1.883/resources/css/ext-all-neptune.css"/>
+    <link rel="stylesheet" href="../e-dietetyk/stylesheets/screen.css"/>
 {% endblock %}
