@@ -1,0 +1,12 @@
+{% extends 'DietBundle::base.html.twig' %}
+
+{% block title %}test{% endblock %}
+{% block contentTitle %}test{% endblock %}
+
+{% block content %}
+<div>
+    <p><b>User</b></p>
+    <p>login: {{ user.login }}</p>
+    <p>imię i nazwisko: {{ user.imieNazwisko }}</p>
+</div>
+{% endblock %}

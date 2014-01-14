@@ -4,6 +4,9 @@ diet_homepage:
 diet_profile:
   pattern: /twoj_profil
   defaults: { _controller: DietBundle:Default:profile }
+diet_profile_update:
+  pattern: /twoj_profil_aktualizuj
+  defaults: { _controller: DietBundle:Async:profile }
 diet_diet:
   pattern:  /twoja_dieta
   defaults: { _controller: DietBundle:Default:diet }
@@ -19,3 +22,6 @@ diet_orders:
 diet_contact:
   pattern:  /kontakt
   defaults: { _controller: DietBundle:Default:contact }
+diet_test:
+  pattern: /test
+  defaults: { _controller: DietBundle:Default:test }

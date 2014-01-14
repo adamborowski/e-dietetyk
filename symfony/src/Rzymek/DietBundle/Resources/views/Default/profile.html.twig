@@ -14,35 +14,23 @@
              src="{{ asset('e-dietetyk/images/body-fat-percentage-men.jpg') }}"/>
     </div>
     <script type="text/javascript"> //TODO NAJLEPIEJ PONIŻSZE DANE WYRENDEROWAĆ TWIGIEM!
-        dataKobieta = {
-            imie: "Anna",
-            nazwisko: "Nowak",
-            waga: 55,
-            wiek: 21,
-            wzrost: 170,
-            plec: 'kobieta',
+        dane = {
+            imie: '{{ user.imieNazwisko }}'.split(' ')[0],
+            nazwisko: '{{ user.imieNazwisko }}'.split(' ')[1],
+            waga: {{ user.waga }},
+            wiek: {{ user.wiek }},
+            wzrost: {{ user.wzrost }},
+            plec: '{{ user.plec }}',
             bodyDensity: {
-                biodro: 19,
-                udo: 34,
-                triceps: 13
+                {% if user.plec == 'kobieta' %}biodro{% else %}pepek{% endif %}:
+                    {{ user.bodyDensityBiodro }},
+                udo: {{ user.bodyDensityUdo }},
+                {% if user.plec == 'kobieta' %}triceps{% else %}klatka{% endif %}:
+                    {{ user.bodyDensityTriceps }}
             },
-            saveUrl: '{{ path('diet_profile') }}'
+            saveUrl: '{{ path('diet_profile_update') }}'
         };
-        dataFacet = {
-            imie: "Jan",
-            nazwisko: "Kowalski",
-            waga: 87,
-            wiek: 37,
-            wzrost: 178,
-            plec: 'cokolwiek byle nie kobieta',
-            bodyDensity: {
-                pepek: 49,
-                udo: 57,
-                klatka: 45
-            },
-            saveUrl: '{{ path('diet_profile') }}'
 
-        };
         /*
         UWAGA! format odpowiedzi serwera na zapis JSON:
          would process the following server response for a successful submission:
@@ -61,7 +49,7 @@
 
 
         window.extLoadCallback = function (api) {
-            api.loadProfile(dataKobieta);
+            api.loadProfile(dane);
         }
     </script>
 {% endblock %}

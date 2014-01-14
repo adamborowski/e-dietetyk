@@ -24,7 +24,7 @@
 <div class="container">
 
     <div class="masthead">
-        <div class="navbar-text navbar-right">zalogowany jako <b>demo</b></div>
+        <div class="navbar-text navbar-right">zalogowany jako <b>{{ user.imieNazwisko }}</b> ({{ user.login }})</div>
         <h3 class="text-muted">
             <a href="{{ path('diet_homepage') }}" class="logo_link"><img src="{{ asset('bundles/diet/images/apple.png') }}" alt="logo" id="logo">
             Twoja-dieta.eu</a>

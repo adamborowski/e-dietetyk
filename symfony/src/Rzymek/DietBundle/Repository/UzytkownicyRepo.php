@@ -2,26 +2,20 @@
 
 namespace Rzymek\DietBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Rzymek\DietBundle\Entity\Uzytkownicy;
 use Rzymek\DietBundle\Entity\Uzytkownik;
 
-class UzytkownicyRepo extends EntityRepository {
-    public function findByLogin($login) {
-        $em = $this->getEntityManager();
-        $userDB = $em->find('DietBundle:Uzytkownicy', $login);
+class UzytkownicyRepo {
+    protected $em;
 
-        $user = new Uzytkownik();
-        $user->deserialize($userDB->getData());
-
-        return $user;
+    public function __construct(ObjectManager $em) {
+        $this->em = $em;
     }
 
-    public function findByEmail($email) {
-        //@todo: sprawdzić findByEmail
-        $em = $this->getEntityManager();
-        $userDB = $em->findByEmail('DietBundle:Uzytkownicy', $email);
+    public function findByLogin($login) {
+        $userDB = $this->em->find('DietBundle:Uzytkownicy', $login);
 
         $user = new Uzytkownik();
         $user->deserialize($userDB->getData());
@@ -37,36 +31,33 @@ class UzytkownicyRepo extends EntityRepository {
         $userDB->setData($user->serialize());
 
         //
-        $em = $this->getEntityManager();
-        $em->persist($userDB);
+        $this->em->persist($userDB);
 
         // aby dzialalo id typu string
-        $metadata = $em->getClassMetaData(get_class($userDB));
+        $metadata = $this->em->getClassMetaData(get_class($userDB));
         $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
-        $em->flush();
+        $this->em->flush();
     }
 
     public function update(Uzytkownik $user) {
         // pobierz
-        $em = $this->getEntityManager();
-        $userDB = $em->find('DietBundle:Uzytkownicy', $user->getLogin());
+        $userDB = $this->em->find('DietBundle:Uzytkownicy', $user->getLogin());
 
         // serializacja
         $userDB->setEmail($user->getEmail());
         $userDB->setData($user->serialize());
 
         // flush
-        $em->flush();
+        $this->em->flush();
     }
 
     public function delete($login) {
         //pobierz
-        $em = $this->getEntityManager();
-        $userDB = $em->find('DietBundle:Uzytkownicy', $login);
+        $userDB = $this->em->find('DietBundle:Uzytkownicy', $login);
 
         //usun
-        $em->remove($userDB);
-        $em->flush();
+        $this->em->remove($userDB);
+        $this->em->flush();
     }
 }

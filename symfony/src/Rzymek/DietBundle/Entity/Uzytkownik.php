@@ -2,34 +2,86 @@
 namespace Rzymek\DietBundle\Entity;
 
 class Uzytkownik {
-    protected $login;
-    protected $haslo;
-    protected $wiek;
-    protected $waga;
-    protected $wzrost;
-    protected $typSylwetki;
-    protected $bodyDensity;
-    protected $imieNazwisko;
-    protected $email;
+    // płeć
+    const MALE = 'mężczyzna';
+    const FEMALE = 'kobieta';
+
+    // typ sylwetki
+    const EKTOMORFIK = 'ektomorfik';
+    const MEZOMORFIK = 'mezomorfik';
+    const ENDOMORFIK = 'endomorfik';
+
+    public $login;
+    public $haslo;
+    public $wiek;
+    public $waga;
+    public $wzrost;
+    public $typSylwetki;
+    public $bodyDensityBiodro; // dla M pępęk
+    public $bodyDensityUdo;
+    public $bodyDensityTriceps; // dla M klatka
+    public $imieNazwisko;
+    public $email;
+    public $plec;
 
     public function __construct() {
         ;
     }
 
     /**
-     * @param mixed $bodyDensity
+     * @param mixed $plec
      */
-    public function setBodyDensity($bodyDensity)
-    {
-        $this->bodyDensity = $bodyDensity;
+    public function setPlec($plec) {
+        $this->plec = $plec;
     }
 
     /**
      * @return mixed
      */
-    public function getBodyDensity()
-    {
-        return $this->bodyDensity;
+    public function getPlec() {
+        return $this->plec;
+    }
+
+    /**
+     * @param mixed $bodyDensityBiodro
+     */
+    public function setBodyDensityBiodro($bodyDensityBiodro) {
+        $this->bodyDensityBiodro = $bodyDensityBiodro;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBodyDensityBiodro() {
+        return $this->bodyDensityBiodro;
+    }
+
+    /**
+     * @param mixed $bodyDensityTriceps
+     */
+    public function setBodyDensityTriceps($bodyDensityTriceps) {
+        $this->bodyDensityTriceps = $bodyDensityTriceps;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBodyDensityTriceps() {
+        return $this->bodyDensityTriceps;
+    }
+
+    /**
+     * @param mixed $bodyDensityUdo
+     */
+    public function setBodyDensityUdo($bodyDensityUdo) {
+        $this->bodyDensityUdo = $bodyDensityUdo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBodyDensityUdo() {
+        return $this->bodyDensityUdo;
     }
 
     /**
@@ -174,8 +226,11 @@ class Uzytkownik {
         $this->setWaga($stdObj->waga);
         $this->setWzrost($stdObj->wzrost);
         $this->setTypSylwetki($stdObj->typSylwetki);
-        $this->setBodyDensity($stdObj->bodyDensity);
+        $this->setBodyDensityBiodro($stdObj->bodyDensityBiodro);
+        $this->setBodyDensityUdo($stdObj->bodyDensityUdo);
+        $this->setBodyDensityTriceps($stdObj->bodyDensityTriceps);
         $this->setImieNazwisko($stdObj->imieNazwisko);
         $this->setEmail($stdObj->email);
+        $this->setPlec($stdObj->plec);
     }
 }

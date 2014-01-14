@@ -2,6 +2,9 @@
 
 namespace Rzymek\DietBundle\Controller;
 
+use Rzymek\DietBundle\Entity\Uzytkownik;
+use Rzymek\DietBundle\Lib\Auth;
+use Rzymek\DietBundle\Repository\UzytkownicyRepo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller {
@@ -10,8 +13,11 @@ class DefaultController extends Controller {
          * strona główna
          * [zrobione]
          */
-        //return $this->render('DietBundle:Default:index.html.twig', array('name' => $name));
-        return $this->render('DietBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $auth = new Auth($em);
+        $user = $auth->auth();
+
+        return $this->render('DietBundle:Default:index.html.twig', array('user' => $user));
     }
 
     public function profileAction() {
@@ -19,14 +25,17 @@ class DefaultController extends Controller {
          * profil użytkownika
          * obecnie tylko parametry ciała (bez części użytkownika, m.in. login, email, hasło etc.)
          *
-         * @todo: utworzyć jednego użytkownika demo (ew. tworzyć przy każdej nowej sesji użytkownika demo#N) i zalogować go domyślnie
          */
-        return $this->render('DietBundle:Default:profile.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $auth = new Auth($em);
+        $user = $auth->auth();
+
+        return $this->render('DietBundle:Default:profile.html.twig', array('user' => $user));
     }
 
     public function dietAction() {
-        $dietaRepo = $this->getDoctrine()->getRepository('DietBundle:DietyRepo');
-        $dietaRepo->find(1);
+        //        $dietaRepo = $this->getDoctrine()->getRepository('DietBundle:DietyRepo');
+        //        $dietaRepo->find(1);
 
         /**
          * Parametry ciała z profilu oraz:
@@ -43,14 +52,22 @@ class DefaultController extends Controller {
          *   (białka i tłuszcze w miarę równomiernie w ciągu dnia)
          *   (najbardziej kaloryczne: śniadanie, III posiłek, II posiłek, IV ..., ostatni - może być więcej T i B )
          */
-        return $this->render('DietBundle:Default:diet.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $auth = new Auth($em);
+        $user = $auth->auth();
+
+        return $this->render('DietBundle:Default:diet.html.twig', array('user' => $user));
     }
 
     public function ordersAction() {
         /**
          * lista zamówień, data, status, po kliknięciu szczegóły -> lista produktów
          */
-        return $this->render('DietBundle:Default:orders.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $auth = new Auth($em);
+        $user = $auth->auth();
+
+        return $this->render('DietBundle:Default:orders.html.twig', array('user' => $user));
     }
 
     public function productsAction() {
@@ -58,7 +75,11 @@ class DefaultController extends Controller {
          * Wybieranie polecanych produktów do diety.
          * Obecnie może odbywać się losowo, ew. uwzględniając przy tym wyróżnienia ;)
          */
-        return $this->render('DietBundle:Default:products.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $auth = new Auth($em);
+        $user = $auth->auth();
+
+        return $this->render('DietBundle:Default:products.html.twig', array('user' => $user));
     }
 
     public function customersAction() {
@@ -66,7 +87,11 @@ class DefaultController extends Controller {
          * przykładowi klienci
          * [zrobione]
          */
-        return $this->render('DietBundle:Default:customers.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $auth = new Auth($em);
+        $user = $auth->auth();
+
+        return $this->render('DietBundle:Default:customers.html.twig', array('user' => $user));
     }
 
     public function aboutAction() {
@@ -74,12 +99,27 @@ class DefaultController extends Controller {
          * o nas
          * [zrobione]
          */
-        return $this->render('DietBundle:Default:about.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $auth = new Auth($em);
+        $user = $auth->auth();
+
+        return $this->render('DietBundle:Default:about.html.twig', array('user' => $user));
     }
 
-    public function test() {
+    public function testAction() {
+        $em = $this->getDoctrine()->getManager();
+        $auth = new Auth($em);
+        $user = $auth->auth();
+
+//        $userRepo = new UzytkownicyRepo($em);
+//        // zmień nazwisko
+//        $user->setImieNazwisko('Zenon Laskowik');
+//        $userRepo->update($user);
+//        // usuń
+//        $userRepo->delete('demo1389740857');
 
 
-        return $this->render('DietBundle:Default:test.html.twig');
+        //
+        return $this->render('DietBundle:Default:test.html.twig', array('user' => $user));
     }
 }
