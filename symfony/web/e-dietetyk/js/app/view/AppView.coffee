@@ -57,12 +57,44 @@ Ext.define 'app.view.AppView',
                     scope: @
                     change: (self, val)->
                         @down("##{sliderId}_label").setText "#{val} mm"
-                        @updateHander()
+                        @updateHandler()
 
             }
 
         ]
+    loadProfile: (data)->
+        @profileInitialData = data
+        me = @
+        d = (id)->
+            return me.down("#" + id)
+        #
+        d('firstNameInput').setValue data.imie
+        d('lastNameInput').setValue data.nazwisko
+        d('ageInput').setValue data.wiek
+        d('weightInput').setValue data.waga
+        d('heightInput').setValue data.wzrost
+        bd = data.bodyDensity
+        if data.plec == 'kobieta'
+            @down('#femaleRadio').setValue yes
+            @down('#maleRadio').setValue no
+            #
+            @down('#woman_slider_biodro').setValue bd.biodro
+            @down('#woman_slider_triceps').setValue bd.triceps
+            @down('#woman_slider_udo').setValue bd.udo
+        else
+            @down('#femaleRadio').setValue no
+            @down('#maleRadio').setValue yes
+            #
+            @down('#man_slider_klatka').setValue bd.klatka
+            @down('#man_slider_pepek').setValue bd.pepek
+            @down('#man_slider_udo').setValue bd.udo
+        console.log "Loading profile with saveURL = #{data.saveUrl}"
+        @updateHandler()
+
+
+        return
     constructor: (config)->
+        me = @
         Ext.applyIf config,
             layout: 'fit'
             items: [
@@ -73,10 +105,77 @@ Ext.define 'app.view.AppView',
                 items: [
                     {
                         xtype: 'form'
+                        itemId: 'profileForm'
                         border: no
+                        method: 'POST'
                         defaults:
                             margin: 20
+                        buttons: [
+                            {
+                                text: "Zapisz"
+                                handler: ->
+                                    form = @up("form").getForm()
+                                    isFemale = me.down('#femaleRadio').getValue()
+                                    if isFemale
+                                        bd =
+                                            udo: me.down('#woman_slider_udo').getValue()
+                                            biodro: me.down('#woman_slider_biodro').getValue()
+                                            triceps: me.down('#woman_slider_triceps').getValue()
+                                    else
+                                        bd =
+                                            udo: me.down('#man_slider_udo').getValue()
+                                            pepek: me.down('#man_slider_pepek').getValue()
+                                            klatka: me.down('#man_slider_klatka').getValue()
+
+                                    params =
+                                        imie: me.down('#firstNameInput').getValue()
+                                        nazwisko: me.down('#lastNameInput').getValue()
+                                        wiek: me.down('#ageInput').getValue()
+                                        waga: me.down('#weightInput').getValue()
+                                        wzrost: me.down('#heightInput').getValue()
+                                        plec: (if isFemale then 'kobieta' else 'mężczyzna')
+                                        bodyDensity: bd
+                                    form.submit
+                                        url: me.profileInitialData.saveUrl
+                                        params:
+                                            data: JSON.stringify params
+                                        success: (form, action) ->
+                                            Ext.Msg.alert "Powodzenie", "Zmiany zostały zapamiętane"
+
+                                        failure: (form, action) ->
+                                            console.error action.result
+                                            Ext.Msg.alert "Błąd", "Niestety, nie udało się zapisać danych. Więcej informacji mozna znaleźć w logach przegądarki"
+                            }
+                        ]
                         items: [
+                            {
+                                xtype: 'fieldcontainer'
+                                fieldLabel: 'Imię i Nazwisko'
+                                layout:
+                                    type: 'hbox'
+
+                                items: [
+                                    {
+                                        xtype: 'textfield'
+                                        itemId: 'firstNameInput'
+                                        width: 100
+                                        listeners:
+                                            change:
+                                                fn: @updateHandler
+                                                scope: @
+                                    }
+                                    {
+                                        padding: '0 0 0 10'
+                                        xtype: 'textfield'
+                                        itemId: 'lastNameInput'
+                                        width: 150
+                                        listeners:
+                                            change:
+                                                fn: @updateHandler
+                                                scope: @
+                                    }
+                                ]
+                            }
                             {
                                 xtype: 'fieldcontainer'
                                 fieldLabel: 'Płeć'
@@ -92,7 +191,7 @@ Ext.define 'app.view.AppView',
                                         itemId: 'maleRadio'
                                         listeners:
                                             change:
-                                                fn: @updateHander
+                                                fn: @updateHandler
                                                 scope: @
                                     }
                                     {
@@ -103,7 +202,7 @@ Ext.define 'app.view.AppView',
                                         itemId: 'femaleRadio'
                                         listeners:
                                             change:
-                                                fn: @updateHander
+                                                fn: @updateHandler
                                                 scope: @
                                     }
                                 ]
@@ -119,7 +218,7 @@ Ext.define 'app.view.AppView',
                                 width: 180
                                 listeners:
                                     change:
-                                        fn: @updateHander
+                                        fn: @updateHandler
                                         scope: @
                             }
                             {
@@ -176,7 +275,7 @@ Ext.define 'app.view.AppView',
                                 width: 400
                                 listeners:
                                     change:
-                                        fn: @updateHander
+                                        fn: @updateHandler
                                         scope: @
                             }
                             {
@@ -189,7 +288,7 @@ Ext.define 'app.view.AppView',
                                 width: 400
                                 listeners:
                                     change:
-                                        fn: @updateHander
+                                        fn: @updateHandler
                                         scope: @
                             }
                         ]
@@ -207,6 +306,7 @@ Ext.define 'app.view.AppView',
         @callParent arguments
 
         @loadAssets()
+
         return
 #
     loadAssets: ->
@@ -327,8 +427,10 @@ Ext.define 'app.view.AppView',
         #        @group.add @rightHand
         me = @
         window.requestAnimationFrame ->
-            me.updateHander()
-    updateHander: ->
+            window.extLoadCallback(me) if window.extLoadCallback?
+            me.updateHandler()
+
+    updateHandler: ->
         bd = (@down('#weightInput').getValue() - 70) / -400
         isFemale = @down('#femaleRadio').getValue()
         age = @down('#ageInput').getValue()
