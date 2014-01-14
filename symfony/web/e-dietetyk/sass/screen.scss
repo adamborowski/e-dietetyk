@@ -31,11 +31,73 @@ $mainColor: #999999;
     }
   }
 }
-.body-density-info{
+
+.body-density-info {
   text-align: center;
   font-weight: bold;
-  i{
+  i {
     font-weight: normal;
     color: #444444;
   }
+}
+
+@mixin panel($spec) {
+  background: rgba(#ffffff, 0.65);
+  @include border-radius($spec);
+
+  @include margin;
+}
+
+$mar: 10px;
+@mixin margin {
+  &.top {
+    margin-top: $mar;
+  }
+  &.right {
+    margin-right: $mar;
+  }
+  &.bottom {
+    margin-bottom: $mar;
+  }
+  &.left {
+    margin-left: $mar;
+  }
+  &.all {
+    margin: $mar;
+  }
+  &.padding{
+    padding: $mar;
+  }
+  &.inline{
+    display: inline-block;
+  }
+}
+
+.kinetic-stage {
+  @include panel(0 0 15px 15px);
+}
+
+.x-panel-body-default {
+  @include panel(0 0 15px 15px);
+}
+
+.a-panel {
+  @include panel(15px);
+  font-size: 15px;
+  color: #555555;
+  p{
+    text-indent: 30px;
+  }
+}
+
+.a-panel-start {
+  @include panel(0 0 15px 15px);
+}
+
+.rounded {
+  @include border-radius(15px);
+  @include margin;
+}
+img.border{
+ border: 1px solid #dedede;
 }

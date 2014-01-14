@@ -1,5 +1,5 @@
 Ext.define 'app.view.AppView',
-    extend: 'Ext.container.Viewport'
+    extend: 'Ext.Container'
     requires: [
         'app.view.HumanView'
         'app.helpers.BodyCalculator'
@@ -66,22 +66,14 @@ Ext.define 'app.view.AppView',
         Ext.applyIf config,
             layout: 'fit'
             items: [
-                xtype: 'panel',
+                xtype: 'container',
                 title: 'Profil Użytkownika',
                 layout:
-                    type: 'vbox'
+                    type: 'hbox'
                 items: [
                     {
-                        flex: no
-                        width: 400
-                        height: 400
-                        xtype: 'kineticstage'
-                        itemId: 'stage'
-                        style: 'border: 1px solid #5fae32'
-                        margin: 10
-                    }
-                    {
                         xtype: 'form'
+                        border: no
                         defaults:
                             margin: 20
                         items: [
@@ -122,8 +114,8 @@ Ext.define 'app.view.AppView',
                                 fieldLabel: 'Wiek'
                                 step: 1
                                 value: 21
-                                minValue: 16
-                                maxValue: 100
+                                minValue: 18
+                                maxValue: 55
                                 width: 180
                                 listeners:
                                     change:
@@ -134,12 +126,16 @@ Ext.define 'app.view.AppView',
                                 xtype: 'fieldcontainer'
                                 layout: 'hbox'
                                 itemId: 'man_fat'
+                                hidden: yes
                                 cls: 'fat'
                                 fieldLabel: 'Pomiar tłuszczu'
                                 items: [
-                                    @createFatControls('pępek', 'e-dietetyk/images/measurements/man_pepek.png', 'man_slider_pepek', 0, 100)
-                                    @createFatControls('udo', 'e-dietetyk/images/measurements/man_udo.png', 'man_slider_udo', 0, 150)
-                                    @createFatControls('klatka', 'e-dietetyk/images/measurements/man_klatka.png', 'man_slider_klatka', 0, 100)
+                                    @createFatControls('pępek', app.url('e-dietetyk/images/measurements/man_pepek.png'), 'man_slider_pepek',
+                                        0, 100)
+                                    @createFatControls('udo', app.url('e-dietetyk/images/measurements/man_udo.png'), 'man_slider_udo', 0,
+                                        150)
+                                    @createFatControls('klatka', app.url('e-dietetyk/images/measurements/man_klatka.png'),
+                                        'man_slider_klatka', 0, 100)
                                 ]
                             }
                             {
@@ -149,15 +145,18 @@ Ext.define 'app.view.AppView',
                                 fieldLabel: 'Pomiar tłuszczu'
                                 cls: 'fat'
                                 items: [
-                                    @createFatControls('biodro', 'e-dietetyk/images/measurements/woman_biodro.png', 'woman_slider_biodro', 0, 80)
-                                    @createFatControls('udo', 'e-dietetyk/images/measurements/woman_udo.png', 'woman_slider_udo', 0, 90)
-                                    @createFatControls('triceps', 'e-dietetyk/images/measurements/woman_triceps.png', 'woman_slider_triceps', 0, 60)
+                                    @createFatControls('biodro', app.url('e-dietetyk/images/measurements/woman_biodro.png'),
+                                        'woman_slider_biodro', 0, 80)
+                                    @createFatControls('udo', app.url('e-dietetyk/images/measurements/woman_udo.png'), 'woman_slider_udo',
+                                        0, 90)
+                                    @createFatControls('triceps', app.url('e-dietetyk/images/measurements/woman_triceps.png'),
+                                        'woman_slider_triceps', 0, 60)
                                 ]
                             }
                             {
                                 xtype: 'fieldcontainer'
 
-                                fieldLabel: 'Body density'
+                                fieldLabel: '<i>Body Density</i>'
                                 items: [
                                     {
                                         xtype: 'label'
@@ -195,6 +194,14 @@ Ext.define 'app.view.AppView',
                             }
                         ]
                     }
+                    {
+                        flex: no
+                        width: 295
+                        height: 557
+                        xtype: 'kineticstage'
+                        itemId: 'stage'
+                        margin: '0 0 0 10'
+                    }
                 ]
             ]
         @callParent arguments
@@ -213,14 +220,14 @@ Ext.define 'app.view.AppView',
             if numToLoad == 0
                 me.startApp()
         @images.woman.onload = @images.man.onload
-        @images.man.src = 'e-dietetyk/images/man.png'
-        @images.woman.src = 'e-dietetyk/images/woman.png'
+        @images.man.src = app.url('e-dietetyk/images/man.png')
+        @images.woman.src = app.url('e-dietetyk/images/woman.png')
     startApp: ->
         mainLayer = @down('#stage').mainLayer
         @body = body = Ext.create 'app.view.human.Corps',
             initialAttrs:
                 fill: 'green'
-#                opacity: 0.8
+        #                opacity: 0.8
         @legs = Ext.create 'app.view.human.Legs',
             layoutX: 0.1
             layoutY: 0.45
@@ -294,8 +301,8 @@ Ext.define 'app.view.AppView',
 
         @group = mainLayer.add
             wtype: 'group'
-            layoutX: 0.3
-            layoutY: 0.23
+            layoutX: 0.21
+            layoutY: 0.3
             layoutWidth: 1
             layoutHeight: 1
         @group.add @neck
@@ -333,6 +340,8 @@ Ext.define 'app.view.AppView',
         if isFemale
             @down('#woman_fat').setVisible yes
             @down('#man_fat').setVisible no
+            Ext.fly('ext-body-women').setDisplayed yes
+            Ext.fly('ext-body-men').setDisplayed no
             opts =
                 biodro: @down('#woman_slider_biodro').getValue()
                 triceps: @down('#woman_slider_triceps').getValue()
@@ -341,17 +350,22 @@ Ext.define 'app.view.AppView',
         else
             @down('#woman_fat').setVisible no
             @down('#man_fat').setVisible yes
+            Ext.fly('ext-body-women').setDisplayed no
+            Ext.fly('ext-body-men').setDisplayed yes
+
             opts =
                 klatka: @down('#man_slider_klatka').getValue()
                 pepek: @down('#man_slider_pepek').getValue()
                 udo: @down('#man_slider_udo').getValue()
             dens = app.helpers.BodyCalculator.bodyDensity(yes, age, opts)
-        @down('#densityOutput').setText Ext.util.Format.number(dens * 100, "0.0%") + " <i>(reference: Jackson, et al. (1980), based on a sample aged 18-55)</i>", no
-
+        @down('#densityOutput').setText Ext.util.Format.number(dens * 100,
+            "0.0%") + " <i>(reference: Jackson, et al. (1980), based on a sample aged 18-55)</i>", no
+        Ext.fly('ext-body-density-output').setHTML Ext.util.Format.number(dens * 100,
+            "0.0%")
 
         weight = Math.sqrt(@down('#weightInput').getValue()) / 40
-        @group.setLayoutWidth weight * 0.7 + dens * 0.3
-        @group.setLayoutHeight Math.sqrt(@down('#heightInput').getValue()) / 20
+        @group.setLayoutWidth (weight * 0.7 + dens * 0.3) * 1.5
+        @group.setLayoutHeight (Math.sqrt(@down('#heightInput').getValue()) / 20) * 0.8
         @group.invalidate()
 
         bd = (dens * 0.7 + weight * 0.3)

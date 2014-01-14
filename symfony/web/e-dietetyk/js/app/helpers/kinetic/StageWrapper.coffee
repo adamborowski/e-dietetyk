@@ -1,7 +1,7 @@
 Ext.define 'app.helpers.kinetic.StageWrapper',
     alias: 'widget.kineticstage'
     extend: 'Ext.Component'
-
+    cls:'kinetic-stage'
     _applyListeners: ->
         @on
             scope: @

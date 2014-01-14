@@ -1,7 +1,31 @@
 {% extends 'DietBundle::base.html.twig' %}
 
 {% block title %}O nas{% endblock %}
+{% block contentTitle %}O nas{% endblock %}
 
 {% block content %}
-    Serwis Twoja-dieta.eu istnieje od 1999r.
+    <div class="row">
+        <div class="col-md-6">
+            <p>Serwis Twoja-dieta.eu istnieje od 2001r.</p>
+            <p>Tworzymy zespół młodych ludzi, którzy swoim zaangażowaniem pomogli niejednej osobie.</p>
+            <p>Współpracujemy z dietetykami, naukowcami z dziedziny biochemii i trenerami fitness.
+            Dzięki ich wiedzy i pomocy możemy stale ulepszać nasze usługi.</p>
+            <p>Zaufaj nam i naszym specjalistom, a szybciej osiągniesz swój cel!</p>
+            <br><br><br><br>
+            <p>
+                Nie każda dieta polepsza samopoczucie i zdrowie (patrz lokalizację obok) ;)
+            </p><p>
+                Z nami masz większą szansę na sukces.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <div id="googleMap" style="height:380px;"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">
+    </script>
+    <script src="{{ asset('bundles/diet/js/about.js') }}" type="text/javascript"></script>
 {% endblock %}
