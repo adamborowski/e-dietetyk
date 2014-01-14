@@ -6,13 +6,64 @@
 {% block content %}
     {% include 'DietBundle::spinner.html.twig' %}
     <div id="ext-app-container" style="visibility: hidden">
-        </div>
+    </div>
     <div class="a-panel top padding inline" id="ext-body-density-panel" style="visibility: hidden">
         <p>Porównaj sylwetkę do <i>Body Density</i> = <b id="ext-body-density-output">45%</b></p>
         <img id="ext-body-women" class="rounded border" src="{{ asset('e-dietetyk/images/body-fat-percentage-women.jpg') }}"/>
         <img id="ext-body-men" style="display: none" class="rounded border"
              src="{{ asset('e-dietetyk/images/body-fat-percentage-men.jpg') }}"/>
     </div>
+    <script type="text/javascript"> //TODO NAJLEPIEJ PONIŻSZE DANE WYRENDEROWAĆ TWIGIEM!
+        dataKobieta = {
+            imie: "Anna",
+            nazwisko: "Nowak",
+            waga: 55,
+            wiek: 21,
+            wzrost: 170,
+            plec: 'kobieta',
+            bodyDensity: {
+                biodro: 19,
+                udo: 34,
+                triceps: 13
+            },
+            saveUrl: '{{ path('diet_profile') }}'
+        };
+        dataFacet = {
+            imie: "Jan",
+            nazwisko: "Kowalski",
+            waga: 87,
+            wiek: 37,
+            wzrost: 178,
+            plec: 'cokolwiek byle nie kobieta',
+            bodyDensity: {
+                pepek: 49,
+                udo: 57,
+                klatka: 45
+            },
+            saveUrl: '{{ path('diet_profile') }}'
+
+        };
+        /*
+        UWAGA! format odpowiedzi serwera na zapis JSON:
+         would process the following server response for a successful submission:
+
+         {
+         "success":true, // note this is Boolean, not string
+         "msg":"Consignment updated"
+         }
+         and the following server response for a failed submission:
+
+         {
+         "success":false, // note this is Boolean, not string
+         "msg":"You do not have permission to perform this operation"
+         }
+         */
+
+
+        window.extLoadCallback = function (api) {
+            api.loadProfile(dataKobieta);
+        }
+    </script>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
@@ -21,6 +72,7 @@
     <script src="../vendor/ext-4.2.1.883/ext-debug.js"></script>
     <script src="../vendor/kinetic-4.7.4/kinetic-v4.7.4.min.js"></script>
     <script src="../e-dietetyk/js/app.js"></script>
+
 {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="../vendor/ext-4.2.1.883/resources/css/ext-all-neptune.css"/>

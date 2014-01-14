@@ -43,14 +43,45 @@
               scope: this,
               change: function(self, val) {
                 this.down("#" + sliderId + "_label").setText("" + val + " mm");
-                return this.updateHander();
+                return this.updateHandler();
               }
             }
           }
         ]
       };
     },
+    loadProfile: function(data) {
+      var bd, d, me;
+      this.profileInitialData = data;
+      me = this;
+      d = function(id) {
+        return me.down("#" + id);
+      };
+      d('firstNameInput').setValue(data.imie);
+      d('lastNameInput').setValue(data.nazwisko);
+      d('ageInput').setValue(data.wiek);
+      d('weightInput').setValue(data.waga);
+      d('heightInput').setValue(data.wzrost);
+      bd = data.bodyDensity;
+      if (data.plec === 'kobieta') {
+        this.down('#femaleRadio').setValue(true);
+        this.down('#maleRadio').setValue(false);
+        this.down('#woman_slider_biodro').setValue(bd.biodro);
+        this.down('#woman_slider_triceps').setValue(bd.triceps);
+        this.down('#woman_slider_udo').setValue(bd.udo);
+      } else {
+        this.down('#femaleRadio').setValue(false);
+        this.down('#maleRadio').setValue(true);
+        this.down('#man_slider_klatka').setValue(bd.klatka);
+        this.down('#man_slider_pepek').setValue(bd.pepek);
+        this.down('#man_slider_udo').setValue(bd.udo);
+      }
+      console.log("Loading profile with saveURL = " + data.saveUrl);
+      this.updateHandler();
+    },
     constructor: function(config) {
+      var me;
+      me = this;
       Ext.applyIf(config, {
         layout: 'fit',
         items: [
@@ -63,12 +94,89 @@
             items: [
               {
                 xtype: 'form',
+                itemId: 'profileForm',
                 border: false,
+                method: 'POST',
                 defaults: {
                   margin: 20
                 },
+                buttons: [
+                  {
+                    text: "Zapisz",
+                    handler: function() {
+                      var bd, form, isFemale, params;
+                      form = this.up("form").getForm();
+                      isFemale = me.down('#femaleRadio').getValue();
+                      if (isFemale) {
+                        bd = {
+                          udo: me.down('#woman_slider_udo').getValue(),
+                          biodro: me.down('#woman_slider_biodro').getValue(),
+                          triceps: me.down('#woman_slider_triceps').getValue()
+                        };
+                      } else {
+                        bd = {
+                          udo: me.down('#man_slider_udo').getValue(),
+                          pepek: me.down('#man_slider_pepek').getValue(),
+                          klatka: me.down('#man_slider_klatka').getValue()
+                        };
+                      }
+                      params = {
+                        imie: me.down('#firstNameInput').getValue(),
+                        nazwisko: me.down('#lastNameInput').getValue(),
+                        wiek: me.down('#ageInput').getValue(),
+                        waga: me.down('#weightInput').getValue(),
+                        wzrost: me.down('#heightInput').getValue(),
+                        plec: (isFemale ? 'kobieta' : 'mężczyzna'),
+                        bodyDensity: bd
+                      };
+                      return form.submit({
+                        url: me.profileInitialData.saveUrl,
+                        params: {
+                          data: JSON.stringify(params)
+                        },
+                        success: function(form, action) {
+                          return Ext.Msg.alert("Powodzenie", "Zmiany zostały zapamiętane");
+                        },
+                        failure: function(form, action) {
+                          console.error(action.result);
+                          return Ext.Msg.alert("Błąd", "Niestety, nie udało się zapisać danych. Więcej informacji mozna znaleźć w logach przegądarki");
+                        }
+                      });
+                    }
+                  }
+                ],
                 items: [
                   {
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'Imię i Nazwisko',
+                    layout: {
+                      type: 'hbox'
+                    },
+                    items: [
+                      {
+                        xtype: 'textfield',
+                        itemId: 'firstNameInput',
+                        width: 100,
+                        listeners: {
+                          change: {
+                            fn: this.updateHandler,
+                            scope: this
+                          }
+                        }
+                      }, {
+                        padding: '0 0 0 10',
+                        xtype: 'textfield',
+                        itemId: 'lastNameInput',
+                        width: 150,
+                        listeners: {
+                          change: {
+                            fn: this.updateHandler,
+                            scope: this
+                          }
+                        }
+                      }
+                    ]
+                  }, {
                     xtype: 'fieldcontainer',
                     fieldLabel: 'Płeć',
                     defaultType: 'radiofield',
@@ -84,7 +192,7 @@
                         itemId: 'maleRadio',
                         listeners: {
                           change: {
-                            fn: this.updateHander,
+                            fn: this.updateHandler,
                             scope: this
                           }
                         }
@@ -96,7 +204,7 @@
                         itemId: 'femaleRadio',
                         listeners: {
                           change: {
-                            fn: this.updateHander,
+                            fn: this.updateHandler,
                             scope: this
                           }
                         }
@@ -113,7 +221,7 @@
                     width: 180,
                     listeners: {
                       change: {
-                        fn: this.updateHander,
+                        fn: this.updateHandler,
                         scope: this
                       }
                     }
@@ -153,7 +261,7 @@
                     width: 400,
                     listeners: {
                       change: {
-                        fn: this.updateHander,
+                        fn: this.updateHandler,
                         scope: this
                       }
                     }
@@ -167,7 +275,7 @@
                     width: 400,
                     listeners: {
                       change: {
-                        fn: this.updateHander,
+                        fn: this.updateHandler,
                         scope: this
                       }
                     }
@@ -319,10 +427,13 @@
       this.group.add(this.head);
       me = this;
       return window.requestAnimationFrame(function() {
-        return me.updateHander();
+        if (window.extLoadCallback != null) {
+          window.extLoadCallback(me);
+        }
+        return me.updateHandler();
       });
     },
-    updateHander: function() {
+    updateHandler: function() {
       var age, bd, dens, isFemale, opts, weight;
       bd = (this.down('#weightInput').getValue() - 70) / -400;
       isFemale = this.down('#femaleRadio').getValue();
@@ -373,5 +484,3 @@
   });
 
 }).call(this);
-
-//# sourceMappingURL=AppView.map
