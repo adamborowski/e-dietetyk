@@ -473,7 +473,9 @@
       bd = dens * 0.7 + weight * 0.3;
       this.body.setBodyDensity(bd);
       this.breast.setBodyDensity(bd);
+      this.breast.setAge(age);
       this.breast2.setBodyDensity(bd);
+      this.breast2.setAge(age);
       this.legs.setBodyDensity(bd);
       this.neck.setBodyDensity(bd);
       this.leftArm.setBodyDensity(bd);

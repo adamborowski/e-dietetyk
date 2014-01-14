@@ -2,6 +2,7 @@ Ext.define 'app.view.human.Breast',
     extend: 'app.helpers.kinetic.ComponentWrapper'
     config:
         bodyDensity: 0.5
+        age: 1
         female: no
         autoClose: no
         initialAttrs:
@@ -21,16 +22,14 @@ Ext.define 'app.view.human.Breast',
             bd += 0.05
 
 
-
-
         if female
             xa = 0
-            xb = 0.25 - bd
+            xb = 0.25 - bd  - @getAge() / 50 / 3
             xc = 0.75 + bd * 0.5
             xd = 1
             ya = 1 / 3
-            yb = 1 / 3 + bd
-            yc = 1 / 3 + bd
+            yb = 1 / 3 + bd + @getAge() / 50 / 3
+            yc = 1 / 3 + bd + @getAge() / 50 / 3
             yd = 1 / 3 + bd * 0.3
         else
             xa = 0

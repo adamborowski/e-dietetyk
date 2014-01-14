@@ -473,7 +473,9 @@ Ext.define 'app.view.AppView',
         bd = (dens * 0.7 + weight * 0.3)
         @body.setBodyDensity bd
         @breast.setBodyDensity bd
+        @breast.setAge age
         @breast2.setBodyDensity bd
+        @breast2.setAge age
         @legs.setBodyDensity bd
         @neck.setBodyDensity bd
         @leftArm.setBodyDensity bd

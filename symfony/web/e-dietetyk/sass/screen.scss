@@ -2,6 +2,7 @@
 @import "compass/css3";
 //noinspection CssUnknownTarget
 @import "compass/css3/user-interface";
+@import "ext-fix";
 
 $mainColor: #999999;
 .fat {
@@ -100,4 +101,8 @@ $mar: 10px;
 }
 img.border{
  border: 1px solid #dedede;
+}
+
+.panel-body{
+  padding: 0!important;
 }

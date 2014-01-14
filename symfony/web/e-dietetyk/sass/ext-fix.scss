@@ -1,0 +1,25 @@
+.x-toolbar-footer {
+  background: darken(#ffffff, 5%);
+}
+
+  $color: #50A950;
+a.x-btn {
+  background: $color;
+  border-color: darken($color, 10%);
+  text-decoration: none !important;
+  &:hover {
+    background: lighten($color, 10%);
+  }
+}
+
+.x-window-header {
+  background-color: $color;
+}
+
+.x-window {
+  border-color: $color
+}
+
+.x-window-header-default {
+  border-color: $color;
+}
