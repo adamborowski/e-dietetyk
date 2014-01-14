@@ -17,6 +17,7 @@
 
     <link href="{{ asset('bundles/diet/css/site.css') }}" rel="stylesheet" type="text/css">
 
+    <script src="{{ asset('bundles/diet/js/jquery-1.10.2.min.js') }}" type="text/javascript"></script>
 </head>
 <body>
 <div class="container">
@@ -26,19 +27,26 @@
             <a href="{{ path('diet_homepage') }}" class="logo_link"><img src="{{ asset('bundles/diet/images/apple.png') }}" alt="logo" id="logo">
             Twoja-dieta.eu</a>
         </h3>
-        <ul class="nav nav-justified">
-            <li class="active"><a href="{{ path('diet_homepage') }}">Start</a></li>
-            <li><a href="{{ path('diet_profile') }}">Twój profil</a></li>
-            <li><a href="{{ path('diet_diet') }}">Twoja dieta</a></li>
-            <li><a href="{{ path('diet_orders') }}">Twoje zamówienia</a></li>
-            <li><a href="{{ path('diet_customers') }}">Nasi klienci</a></li>
-            <li><a href="{{ path('diet_about') }}">O nas</a></li>
+        <ul class="nav nav-justified" id="nav_{{ app.request.get('_route') }}">
+            <li class="diet_homepage"><a href="{{ path('diet_homepage') }}">Start</a></li>
+            <li class="diet_profile"><a href="{{ path('diet_profile') }}">Twój profil</a></li>
+            <li class="diet_diet"><a href="{{ path('diet_diet') }}">Twoja dieta</a></li>
+            <li class="diet_orders"><a href="{{ path('diet_orders') }}">Twoje zamówienia</a></li>
+            <li class="diet_customers"><a href="{{ path('diet_customers') }}">Nasi klienci</a></li>
+            <li class="diet_about"><a href="{{ path('diet_about') }}">O nas</a></li>
         </ul>
     </div>
-
-    {% block content %}
-treść
-    {% endblock %}
+    <br/>
+    <div class="panel panel-default">
+        {% if app.request.get('_route') != 'diet_homepage' %}
+        <div class="panel-heading">
+            <h3 class="panel-title">{% block contentTitle %}Tytuł strony{% endblock %}</h3>
+        </div>
+        {% endif %}
+        <div class="panel-body">
+        {% block content %}treść{% endblock %}
+        </div>
+    </div>
 
     <!-- Site footer -->
     <div class="footer">
@@ -49,8 +57,9 @@ treść
 <!-- /container -->
 
 <!-- load scripts -->
-<script src="https://code.jquery.com/jquery.js"></script>
 <script src="{{ asset('bundles/diet/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/diet/js/site.js') }}" type="text/javascript"></script>
+
 </body>
 </html>
 
