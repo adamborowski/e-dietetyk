@@ -45,6 +45,18 @@ class Uzytkownicy {
     }
 
     /**
+     * Set login
+     *
+     * @param string $login
+     * @return Uzytkownicy
+     */
+    public function setLogin($login) {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    /**
      * Set email
      *
      * @param string $email

@@ -15,6 +15,9 @@ class DefaultController extends Controller {
     }
 
     public function dietAction() {
+        $dietaRepo = $this->getDoctrine()->getRepository('DietBundle:DietaRepository');
+        $dietaRepo->find(1);
+
         return $this->render('DietBundle:Default:diet.html.twig');
     }
 
