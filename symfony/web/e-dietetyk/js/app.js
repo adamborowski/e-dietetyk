@@ -5,20 +5,31 @@
     name: 'app',
     appFolder: '../e-dietetyk/js/app',
     launch: function() {
+      var className, version;
       app.url = function(url) {
         return "../" + url;
       };
       Ext.fly('ext-loading-spinner').remove();
-      Ext.fly('ext-body-density-panel').show({
-        duration: 1000,
-        delay: 1000
-      });
-      Ext.create('app.view.AppView', {
+      version = Ext.fly('ext-app-container').getAttribute('data-view');
+      className = (function() {
+        switch (version) {
+          case 'profile':
+            return 'app.view.AppView';
+          case 'schedule':
+            return 'app.view.ScheduleView';
+        }
+      })();
+      Ext.create(className, {
         renderTo: Ext.Element.get('ext-app-container')
-      });
-      return Ext.fly('ext-app-container').show({
+      }, Ext.fly('ext-app-container').show({
         duration: 1000
-      });
+      }));
+      if (version === 'profile') {
+        return Ext.fly('ext-body-density-panel').show({
+          duration: 1000,
+          delay: 1000
+        });
+      }
     }
   });
 
