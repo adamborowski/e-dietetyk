@@ -2,7 +2,7 @@
 (function() {
   Ext.define('app.view.AppView', {
     extend: 'Ext.Container',
-    requires: ['app.view.HumanView', 'app.helpers.BodyCalculator', 'app.helpers.kinetic.StageWrapper', 'app.helpers.kinetic.ShapeWrapper', 'app.helpers.kinetic.GroupWrapper', 'app.view.human.Corps', 'app.view.human.Legs', 'app.view.human.Neck', 'app.view.human.Arm', 'app.view.human.Hand', 'app.view.human.Head', 'app.view.human.Breast'],
+    requires: ['app.view.HumanView', 'Ext.window.MessageBox', 'app.helpers.BodyCalculator', 'app.helpers.kinetic.StageWrapper', 'app.helpers.kinetic.ShapeWrapper', 'app.helpers.kinetic.GroupWrapper', 'app.view.human.Corps', 'app.view.human.Legs', 'app.view.human.Neck', 'app.view.human.Arm', 'app.view.human.Hand', 'app.view.human.Head', 'app.view.human.Breast'],
     createFatControls: function(title, imgSrc, sliderId, sliderMin, sliderMax) {
       return {
         xtype: 'container',

@@ -2,7 +2,7 @@
 (function() {
   Ext.define('app.view.ScheduleView', {
     extend: 'Ext.Container',
-    requires: ['app.model.ActivityModel'],
+    requires: ['app.model.ActivityModel', 'Ext.window.MessageBox'],
     config: [],
     constructor: function(config) {
       Ext.applyIf(config, {
@@ -76,6 +76,7 @@
       });
       templateString = "<tpl for=\".\">\n    <div class=\"schedule-item\">\n        <img class=\"schedule-image\" src=\"" + (app.url('e-dietetyk/images/activities/')) + "Sport-Activities-{type}-icon.png\"/>\n        <div class=\"overlay\">dodaj</div>\n        <div class=\"name\">\n            {name}\n        </div>\n    </div>\n</tpl>";
       imageTpl = new Ext.XTemplate(templateString);
+      Ext.window.Msg.alert("dupa", "Zmiany został222y zapamiętane");
       me = this;
       return this.add([
         {
@@ -229,7 +230,7 @@
                           data: data
                         },
                         success: function() {
-                          return Ext.Msg.alert("Powodzenie", "Zmiany zostały zapamiętane");
+                          return Ext.window.Msg.alert("Powodzenie", "Zmiany zostały zapamiętane");
                         },
                         failure: function() {
                           return Ext.Msg.alert("Błąd", "Niestety, nie udało się zapisać danych. Więcej informacji mozna znaleźć w logach przegądarki");
