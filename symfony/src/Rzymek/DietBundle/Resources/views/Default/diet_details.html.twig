@@ -86,13 +86,12 @@
 
 
         window.extLoadCallback = function (api) {
-            api.loadSchedule({data: dane, saveUrl:'{{ path('diet_orders_update')}}', id: 234, cel:3, iloscPosilkow:6, nazwa:'nowa nazwa'});
+            api.loadSchedule({data: dane, saveUrl:'{{ path('diet_diet_update')}}', id: {{ diet.id }}, cel:{{ diet.cel }}, iloscPosilkow:{{ diet.liczbaPosilkow }}, nazwa:"{{ diet.nazwa }}" });
         }
     </script>
     {#------------------------------------------------------------------------------------------#}
 
 
-    <p>Liczba posiłków 2-6</p>
 
 {% endblock %}
 {% block javascripts %}

@@ -79,6 +79,8 @@ class DefaultController extends Controller {
         if (!empty($id)) {
             $repo = new DietyRepo($em);
             $diet = $repo->findById($id);
+        } else {
+            $diet = new Dieta();
         }
 
         return $this->render('DietBundle:Default:diet_details.html.twig', array(

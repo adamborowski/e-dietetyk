@@ -63,21 +63,25 @@ class AsyncController extends Controller {
                 throw new \RuntimeException();
             }
 
-            $obj = json_decode($data);
-            $id = $obj->id;
+            $obj = json_decode($data, true);
+            $id = $this->get('request')->request->get('id');
             settype($id, 'int');
+
+            $cel = $this->get('request')->request->get('cel');
+            settype($cel, 'int');
 
             $diet = new Dieta();
             $diet->setId($id);
             $diet->setUserLogin($user->getLogin());
-            $diet->setCel($obj->cel);
-            $diet->setLiczbaPosilkow($obj->liczbaPosilkow);
-            $diet->setAktywnosci($obj->aktywnosci);
+            $diet->setCel($cel);
+            $diet->setLiczbaPosilkow($this->get('request')->request->get('iloscPosilkow'));
+            $diet->setAktywnosci($obj);
 
             $repo = new DietyRepo($em);
             if ($diet->getId()) {
                 $repo->update($diet);
             } else {
+                $diet->setNazwa($this->get('request')->request->get('nazwa'));
                 $repo->add($diet);
             }
 

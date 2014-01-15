@@ -2,18 +2,19 @@
 namespace Rzymek\DietBundle\Entity;
 
 class Dieta {
-    public $id;
+    public $id = 0;
     public $userLogin;
-    public $nazwa;
-    public $cel;
-    public $liczbaPosilkow;
-    public $aktywnosci;
+    public $nazwa = '';
+    public $cel = 1;
+    public $liczbaPosilkow = 4;
+    public $aktywnosci = array();
 
     /**
      * @param mixed $id
      */
     public function setId($id) {
         $this->id = $id;
+        settype($this->id, 'int');
     }
 
     /**

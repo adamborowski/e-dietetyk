@@ -17,7 +17,15 @@
     {% for diet in diets %}
         <tr>
             <td>{{ diet.nazwa }}</td>
-            <td>{{ diet.cel }}</td>
+            <td>
+                {% if diet.cel == 1 %}
+                    na masę
+                {% elseif diet.cel == 2 %}
+                    bez zmian
+                {% else %}
+                    schudnięcie
+                {% endif %}
+            </td>
             <td>
                 <a href="{{ path('diet_diet_details') }}?id={{ diet.id }}">szczegóły</a>
                 <br>
