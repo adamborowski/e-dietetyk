@@ -2,12 +2,12 @@
 namespace Rzymek\DietBundle\Entity;
 
 class Dieta {
-    protected $id;
-    protected $userLogin;
-    protected $nazwa;
-    protected $cel;
-    protected $liczbaPosilkow;
-    protected $aktywnosci;
+    public $id;
+    public $userLogin;
+    public $nazwa;
+    public $cel;
+    public $liczbaPosilkow;
+    public $aktywnosci;
 
     /**
      * @param mixed $id
@@ -92,7 +92,7 @@ class Dieta {
     public function deserialize($serializedObj) {
         $stdObj = json_decode($serializedObj);
 
-        $this->setId($stdObj->id);
+//        $this->setId($stdObj->id);
         $this->setUserLogin($stdObj->userLogin);
         $this->setCel($stdObj->cel);
         $this->setLiczbaPosilkow($stdObj->liczbaPosilkow);

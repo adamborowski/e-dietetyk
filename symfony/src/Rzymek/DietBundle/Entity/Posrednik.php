@@ -2,12 +2,27 @@
 namespace Rzymek\DietBundle\Entity;
 
 class Posrednik {
-    protected $nazwa;
+    public $id;
+    public $nazwa;
     /**
      * @var string bezwzględny adres URL sklepu
      */
-    protected $urlSklepu;
-    protected $logo;
+    public $urlSklepu;
+    public $logo;
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId() {
+        return $this->id;
+    }
 
     /**
      * @param mixed $logo
@@ -38,14 +53,14 @@ class Posrednik {
     }
 
     /**
-     * @param \Rzymek\DietBundle\Entity\bezwzględny $urlSklepu
+     * @param string $urlSklepu
      */
     public function setUrlSklepu($urlSklepu) {
         $this->urlSklepu = $urlSklepu;
     }
 
     /**
-     * @return \Rzymek\DietBundle\Entity\bezwzględny
+     * @return string
      */
     public function getUrlSklepu() {
         return $this->urlSklepu;
@@ -65,6 +80,7 @@ class Posrednik {
     public function deserialize($serializedObj) {
         $stdObj = json_decode($serializedObj);
 
+        $this->setId($stdObj->id);
         $this->setNazwa($stdObj->nazwa);
         $this->setLogo($stdObj->logo);
         $this->setUrlSklepu($stdObj->urlSklepu);

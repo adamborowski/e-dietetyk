@@ -2,42 +2,66 @@
 
 namespace Rzymek\DietBundle\Repository;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Rzymek\DietBundle\Entity\Dieta;
 use Rzymek\DietBundle\Entity\Diety;
+use Rzymek\DietBundle\Entity\Uzytkownicy;
+use Rzymek\DietBundle\Entity\Uzytkownik;
 
 class DietyRepo extends EntityRepository {
+    protected $em;
+
+    public function __construct(EntityManager $em) {
+        $this->em = $em;
+    }
+
     public function findById($id) {
-        $em = $this->getEntityManager();
-        $objDB = $em->find('DietBundle:Diety', $id);
+        $objDB = $this->em->find('DietBundle:Diety', $id);
 
         $obj = new Dieta();
         $obj->deserialize($objDB->getData());
+        $obj->setId($objDB->getDietaId());
 
         return $obj;
     }
 
     public function findByUserLogin($login) {
-        //@todo: tu może być lista, wiele obiektów
-        $em = $this->getEntityManager();
-        $objDB = $em->findByLogin('DietBundle:Diety', $login);
+        $qb = $this->em->createQueryBuilder();
+        $qb->add('select', 'd')
+            ->add('from', 'DietBundle:Diety d');
+        $qb->innerJoin('d.login', 'u');
+        $qb->add('where', 'u.login = :login')
+            ->setParameters(array(
+                ':login' => $login
+            ))
+        ;
 
-        $obj = new Dieta();
-        $obj->deserialize($objDB->getData());
+        $results = $qb->getQuery()->getResult();
 
-        return $obj;
+        $objArr = array();
+        foreach ($results as $dietaDB) {
+            $obj = new Dieta();
+            $obj->deserialize($dietaDB->getData());
+            $obj->setId($dietaDB->getDietaId());
+            $objArr[] = $obj;
+        }
+
+        return $objArr;
     }
 
     public function add(Dieta $dieta) {
         // convert to db format
         $objDB = new Diety();
-        $objDB->setLogin($dieta->getUserLogin());
+
+        $user = $this->em->find('DietBundle:Uzytkownicy', $dieta->getUserLogin());
+
+        $objDB->setLogin($user);
         $objDB->setData($dieta->serialize());
 
         //
-        $em = $this->getEntityManager();
-        $em->persist($objDB);
-        $em->flush();
+        $this->em->persist($objDB);
+        $this->em->flush();
     }
 
     public function update(Dieta $dieta) {

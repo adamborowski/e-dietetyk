@@ -4,13 +4,13 @@ namespace Rzymek\DietBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 class Produkt {
-    protected $id;
-    protected $opisProdId;
-    protected $zamowienieId;
-    protected $dietaId;
-    protected $cena; // na chwilę zamówienia (może być nieaktualna)
-    protected $iloscSztuk;
-    protected $prowizja;
+    public $id;
+    public $opisProdId;
+    public $zamowienieId;
+    public $dietaId;
+    public $cena; // na chwilę zamówienia (może być nieaktualna)
+    public $iloscSztuk;
+    public $prowizja;
 
     /**
      * @param mixed $cena
