@@ -2,8 +2,10 @@
 
 namespace Rzymek\DietBundle\Controller;
 
+use Rzymek\DietBundle\Entity\Dieta;
 use Rzymek\DietBundle\Entity\Uzytkownik;
 use Rzymek\DietBundle\Lib\Auth;
+use Rzymek\DietBundle\Repository\DietyRepo;
 use Rzymek\DietBundle\Repository\UzytkownicyRepo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -126,6 +128,18 @@ class DefaultController extends Controller {
 //        $userRepo->update($user);
 //        // usuń
 //        $userRepo->delete('demo1389740857');
+
+//        $dietaRepo = new DietyRepo($em);
+//        $results = $dietaRepo->findByUserLogin('demo1389745483');
+
+//        $dieta = new Dieta();
+//        $dieta->setAktywnosci('eee');
+//        $dieta->setCel('uuu');
+//        $dieta->setLiczbaPosilkow(4);
+//        $dieta->setUserLogin('demo1389745483');
+//        $dietaRepo = new DietyRepo($em);
+//        $dietaRepo->add($dieta);
+
 
 
         //

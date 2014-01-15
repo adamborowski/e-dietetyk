@@ -2,12 +2,12 @@
 namespace Rzymek\DietBundle\Entity;
 
 class Dieta {
-    protected $id;
-    protected $userLogin;
-    protected $nazwa;
-    protected $cel;
-    protected $liczbaPosilkow;
-    protected $aktywnosci;
+    public $id;
+    public $userLogin;
+    public $nazwa;
+    public $cel;
+    public $liczbaPosilkow;
+    public $aktywnosci;
 
     /**
      * @param mixed $id

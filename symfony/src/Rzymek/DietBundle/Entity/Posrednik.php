@@ -2,7 +2,7 @@
 namespace Rzymek\DietBundle\Entity;
 
 class Posrednik {
-    protected $nazwa;
+    public $nazwa;
     /**
      * @var string bezwzględny adres URL sklepu
      */

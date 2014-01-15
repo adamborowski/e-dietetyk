@@ -2,17 +2,17 @@
 namespace Rzymek\DietBundle\Entity;
 
 class OpisProduktu {
-    protected $id;
-    protected $posrednikId;
-    protected $cenaAktualna;
-    protected $nazwa;
-    protected $opis;
-    protected $zdjecie;
-    protected $prowizjaAktualna;
+    public $id;
+    public $posrednikId;
+    public $cenaAktualna;
+    public $nazwa;
+    public $opis;
+    public $zdjecie;
+    public $prowizjaAktualna;
     /**
      * @var float wyróżnienie, miara jak bardzo wyróżnić produkt na tle reszty
      */
-    protected $waznosc;
+    public $waznosc;
 
     /**
      * @param mixed $id
