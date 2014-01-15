@@ -13,6 +13,7 @@
         <img id="ext-body-men" style="display: none" class="rounded border"
              src="{{ asset('e-dietetyk/images/body-fat-percentage-men.jpg') }}"/>
     </div>
+    <div id="ext-app-schedule"  style="visibility: hidden"></div>
     <script type="text/javascript"> //TODO NAJLEPIEJ PONIŻSZE DANE WYRENDEROWAĆ TWIGIEM!
         dane = {
             imie: '{{ user.imieNazwisko }}'.split(' ')[0],
@@ -50,6 +51,9 @@
 
         window.extLoadCallback = function (api) {
             api.loadProfile(dane);
+        }
+        window.extScheduleLoadCallback=function(api){
+            api.loadProfile(dataKobieta.schedule);
         }
     </script>
 {% endblock %}
