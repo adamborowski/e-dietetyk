@@ -17,51 +17,59 @@
         dane = [
             {
                 type: 'Climbing',
-                name: 'wspinaczka wyczynowa',
-                dayPart:'przed śniadaniem',
-                weekDay:'poniedziałek'
+                name: 'wspinaczka<br/>wyczynowa',
+                dayPart: 'przed śniadaniem',
+                weekDay: 'poniedziałek',
+                duration: 3
             },
             {
-                type: 'Pingpong',
+                type: 'Ping-pong',
                 name: 'tenis stołowy',
-                dayPart:'przed obiadem',
-                weekDay:'wtorek'
+                dayPart: 'przed obiadem',
+                weekDay: 'wtorek',
+                duration: 3
             },
             {
                 type: 'Running',
                 name: 'bieganie',
-                dayPart:'przed obiadem',
-                weekDay:'wtorek'
+                dayPart: 'przed obiadem',
+                weekDay: 'wtorek',
+                duration: 2
             },
             {
                 type: 'Basketball',
                 name: 'koszykówka',
-                dayPart:'przed kolacją',
-                weekDay:'czwartek'
+                dayPart: 'przed kolacją',
+                weekDay: 'czwartek',
+                duration: 1.5
             },
             {
                 type: 'Fishing',
                 name: 'łowienie ryb',
-                dayPart:'po obiedzie',
-                weekDay:'wtorek'
+                dayPart: 'po obiedzie',
+                weekDay: 'wtorek',
+                duration: 2
             },
             {
                 type: 'Football',
                 name: 'piłka nożna',
-                dayPart:'przed obiadem',
-                weekDay:'sobota'
+                dayPart: 'przed obiadem',
+                weekDay: 'sobota',
+                duration: 3
             },
             {
                 type: 'Frisbee',
                 name: 'frisbee',
-                dayPart:'przed obiadem',
-                weekDay:'wtorek'
+                dayPart: 'przed obiadem',
+                weekDay: 'wtorek',
+                duration: 0.5
             },
             {
                 type: 'Padding',
                 name: 'wiosłowanie',
-                dayPart:'przed obiadem',
-                weekDay:'niedziela'
+                dayPart: 'przed obiadem',
+                weekDay: 'niedziela',
+                duration: 2
             }
         ]
         /*
@@ -82,7 +90,7 @@
 
 
         window.extLoadCallback = function (api) {
-            api.loadSchedule(dane);
+            api.loadSchedule({data: dane, saveUrl:'{{ path('diet_orders_update')}}'});
         }
     </script>
     {#------------------------------------------------------------------------------------------#}

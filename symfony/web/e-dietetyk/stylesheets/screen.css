@@ -15,7 +15,7 @@ a.x-btn:hover {
 }
 
 /* line 15, ../sass/ext-fix.scss */
-.x-window-header {
+.x-window-header, .x-panel-header {
   background-color: #50a950;
 }
 
@@ -25,7 +25,7 @@ a.x-btn:hover {
 }
 
 /* line 23, ../sass/ext-fix.scss */
-.x-window-header-default {
+.x-window-header-default, .x-panel-header-default {
   border-color: #50a950;
 }
 
@@ -82,11 +82,6 @@ a.x-btn:hover {
 /* line 77, ../sass/screen.scss */
 .kinetic-stage {
   background: rgba(255, 255, 255, 0.65);
-  -webkit-border-radius: 0 0 15px 15px;
-  -moz-border-radius: 0 0 15px 15px;
-  -ms-border-radius: 0 0 15px 15px;
-  -o-border-radius: 0 0 15px 15px;
-  border-radius: 0 0 15px 15px;
 }
 /* line 54, ../sass/screen.scss */
 .kinetic-stage.top {
@@ -120,11 +115,6 @@ a.x-btn:hover {
 /* line 81, ../sass/screen.scss */
 .x-panel-body-default {
   background: rgba(255, 255, 255, 0.65);
-  -webkit-border-radius: 0 0 15px 15px;
-  -moz-border-radius: 0 0 15px 15px;
-  -ms-border-radius: 0 0 15px 15px;
-  -o-border-radius: 0 0 15px 15px;
-  border-radius: 0 0 15px 15px;
 }
 /* line 54, ../sass/screen.scss */
 .x-panel-body-default.top {
@@ -158,11 +148,6 @@ a.x-btn:hover {
 /* line 85, ../sass/screen.scss */
 .a-panel {
   background: rgba(255, 255, 255, 0.65);
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  -ms-border-radius: 15px;
-  -o-border-radius: 15px;
-  border-radius: 15px;
   font-size: 15px;
   color: #555555;
 }
@@ -202,11 +187,6 @@ a.x-btn:hover {
 /* line 94, ../sass/screen.scss */
 .a-panel-start {
   background: rgba(255, 255, 255, 0.65);
-  -webkit-border-radius: 0 0 15px 15px;
-  -moz-border-radius: 0 0 15px 15px;
-  -ms-border-radius: 0 0 15px 15px;
-  -o-border-radius: 0 0 15px 15px;
-  border-radius: 0 0 15px 15px;
 }
 /* line 54, ../sass/screen.scss */
 .a-panel-start.top {
@@ -284,8 +264,18 @@ img.border {
   padding: 0 !important;
 }
 
-/* line 111, ../sass/screen.scss */
+/* line 112, ../sass/screen.scss */
+.x-grid .padding-cell {
+  padding-top: 60px;
+  text-align: center !important;
+}
+
+/* line 118, ../sass/screen.scss */
 .schedule-item {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  cursor: pointer;
   width: 130px;
   height: 130px;
   text-align: center;
@@ -295,22 +285,69 @@ img.border {
   display: inline-block;
   position: relative;
 }
-/* line 120, ../sass/screen.scss */
-.schedule-item img {
+/* line 129, ../sass/screen.scss */
+.schedule-item img.schedule-image {
   width: 100px;
   height: 100px;
-  margin: 5px 0 0 0;
+  margin: 8px 0 0 0;
 }
-/* line 125, ../sass/screen.scss */
-.schedule-item div {
+/* line 134, ../sass/screen.scss */
+.schedule-item div.name {
   position: absolute;
   bottom: 0px;
   right: 0px;
   padding: 4px;
-  background: rgba(15, 255, 255, 0.94);
-  -webkit-border-radius: 10px 0 0 0;
-  -moz-border-radius: 10px 0 0 0;
-  -ms-border-radius: 10px 0 0 0;
-  -o-border-radius: 10px 0 0 0;
-  border-radius: 10px 0 0 0;
+  padding-left: 6px;
+  padding-bottom: 2px;
+  text-transform: uppercase;
+  font-size: 11px;
+  background: rgba(204, 204, 204, 0.74);
+  -webkit-border-radius: 8px 0 0 0;
+  -moz-border-radius: 8px 0 0 0;
+  -ms-border-radius: 8px 0 0 0;
+  -o-border-radius: 8px 0 0 0;
+  border-radius: 8px 0 0 0;
+}
+/* line 147, ../sass/screen.scss */
+.schedule-item div.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 191, 0, 0.7);
+  text-transform: uppercase;
+  font-size: 25px;
+  color: #ffffff;
+  font-weight: bold;
+  padding-top: 20px;
+  top: 0;
+  bottom: 0;
+  text-shadow: black 0px 0px 1.2px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.8s;
+  -moz-transition-duration: 0.8s;
+  -o-transition-duration: 0.8s;
+  transition-duration: 0.8s;
+}
+/* line 164, ../sass/screen.scss */
+.schedule-item div.overlay.red {
+  background: rgba(255, 170, 170, 0.7);
+}
+/* line 169, ../sass/screen.scss */
+.schedule-item:hover div.overlay {
+  padding-top: 50px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+  transition-duration: 0.4s;
 }

@@ -12,7 +12,7 @@ a.x-btn {
   }
 }
 
-.x-window-header {
+.x-window-header, .x-panel-header {
   background-color: $color;
 }
 
@@ -20,6 +20,6 @@ a.x-btn {
   border-color: $color
 }
 
-.x-window-header-default {
+.x-window-header-default, .x-panel-header-default {
   border-color: $color;
 }
