@@ -9,14 +9,17 @@ Ext.application
         app.url = (url)->
             "../#{url}"
         Ext.fly('ext-loading-spinner').remove()
-        Ext.fly('ext-body-density-panel').show({duration: 1000, delay: 1000})
-        Ext.create 'app.view.AppView',
+        # która wersja aplikacji?
+        version = Ext.fly('ext-app-container').getAttribute('data-view')
+        className = switch version
+            when 'profile' then 'app.view.AppView'
+            when 'schedule' then 'app.view.ScheduleView'
+
+        Ext.create className,
             renderTo: Ext.Element.get 'ext-app-container'
+            Ext.fly('ext-app-container').show({duration: 1000})
+        if version == 'profile'
+            Ext.fly('ext-body-density-panel').show({duration: 1000, delay: 1000})
 
-        Ext.fly('ext-app-container').show({duration: 1000})
 
-#        Ext.create 'app.view.ScheduleView',
-#            renderTo: Ext.Element.get 'ext-app-schedule'
-#
-#        Ext.fly('ext-app-schedule').show({duration: 1000, delay: 2000})
 
