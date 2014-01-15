@@ -4,7 +4,6 @@
 {% block contentTitle %}Twoja dieta - szczegóły{% endblock %}
 
 {% block content %}
-    <p>Nazwa DIETY</p>
     {#-----------------------------------------------------------------#}
 
     {% include 'DietBundle::spinner.html.twig' %}
@@ -87,7 +86,7 @@
 
 
         window.extLoadCallback = function (api) {
-            api.loadSchedule({data: dane, saveUrl:'{{ path('diet_diet_update')}}', id: 234, cel:3, iloscPosilkow:6});
+            api.loadSchedule({data: dane, saveUrl:'{{ path('diet_orders_update')}}', id: 234, cel:3, iloscPosilkow:6, nazwa:'nowa nazwa'});
         }
     </script>
     {#------------------------------------------------------------------------------------------#}

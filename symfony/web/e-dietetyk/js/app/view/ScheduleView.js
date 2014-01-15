@@ -34,7 +34,8 @@
           data: data,
           id: this.config.id,
           cel: this.down('#celInput').getValue(),
-          iloscPosilkow: this.down('#iloscInput').getValue()
+          iloscPosilkow: this.down('#iloscInput').getValue(),
+          nazwa: this.down('#nazwaInput').getValue()
         },
         success: function() {
           return Ext.Msg.alert("Powodzenie", "Zmiany zostały zapamiętane");
@@ -162,9 +163,14 @@
         {
           xtype: 'container',
           layout: 'form',
-          margin: '0 600 10 20',
+          margin: '20 600 10 20',
           items: [
             {
+              xtype: 'textfield',
+              value: '',
+              fieldLabel: 'nazwa diety',
+              itemId: 'nazwaInput'
+            }, {
               fieldLabel: 'cel',
               itemId: 'celInput',
               xtype: 'combobox',
@@ -194,7 +200,7 @@
               maxValue: 6,
               value: 3,
               fieldLabel: 'ilość posiłków dziennie',
-              id: 'iloscInput'
+              itemId: 'iloscInput'
             }
           ]
         }, {
@@ -368,6 +374,7 @@
         }
       ]);
       this.down('#celInput').setValue(this.config.cel);
+      this.down('#nazwaInput').setValue(this.config.nazwa);
       return this.down('#iloscInput').setValue(this.config.iloscPosilkow);
     }
   });
