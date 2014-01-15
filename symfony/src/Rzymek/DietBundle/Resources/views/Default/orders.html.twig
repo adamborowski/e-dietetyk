@@ -4,7 +4,19 @@
 {% block contentTitle %}Twoje zamówienia{% endblock %}
 
 {% block content %}
-    zamówienia
-    <br/>
-    lista dokonanych zamówień
+    <table class="table table-striped">
+        <tr>
+            <th>Data złożenia</th>
+            <th>Data płatności</th>
+            <th>Status</th>
+            <th>Łączna wartość</th>
+            <th>Koszt transportu</th>
+            <th>Akcja</th>
+        </tr>
+        <tr>
+            <td colspan="6" class="text-center">
+                brak zamówień
+            </td>
+        </tr>
+    </table>
 {% endblock %}

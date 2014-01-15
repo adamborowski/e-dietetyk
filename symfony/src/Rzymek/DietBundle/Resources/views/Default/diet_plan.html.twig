@@ -1,0 +1,56 @@
+{% extends 'DietBundle::base.html.twig' %}
+
+{% block title %}Plan diety{% endblock %}
+{% block contentTitle %}Plan diety{% endblock %}
+
+{% block content %}
+
+    <table class="table table-bordered">
+        <tr>
+            <td>Całkowite dzienne zapotrzebowanie kaloryczne</td>
+            <th>{{ plan.total }} kcal</th>
+        </tr>
+        <tr>
+            <td>Dzienne zapotrzebowanie na Węglowodany</td>
+            <th>{{ plan.split.0 }} g</th>
+        </tr>
+        <tr>
+            <td>Dzienne zapotrzebowanie na Białko</td>
+            <th>{{ plan.split.1 }} g</th>
+        </tr>
+        <tr>
+            <td>Dzienne zapotrzebowanie na Tłuszcze</td>
+            <th>{{ plan.split.2 }} g</th>
+        </tr>
+    </table>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Posiłek</th>
+            <th>Węglowodany [g]</th>
+            <th>Białko [g]</th>
+            <th>Tłuszcze [g]</th>
+        </tr>
+    {% for meal in plan.meals %}
+        <tr>
+            <td>{{ loop.index }}.</td>
+            {% for nut in meal %}
+                <td>{{ nut }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+
+    </table>
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+    $(function(){
+        $('#new_diet_button').on('click', function() {
+            window.console.log('sdf')
+            window.location.href = '{{ path('diet_diet_details') }}';
+        });
+    });
+</script>
+{% endblock %}

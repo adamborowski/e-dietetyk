@@ -1,10 +1,45 @@
 {% extends 'DietBundle::base.html.twig' %}
 
-{% block title %}Twoja dieta{% endblock %}
-{% block contentTitle %}Twoja dieta{% endblock %}
+{% block title %}Twoje diety{% endblock %}
+{% block contentTitle %}Twoje diety{% endblock %}
 
 {% block content %}
-    <p>lista_diet</p>
-    <p>nowa dieta</p>
+    <div class="btn-group">
+        <button id="new_diet_button" class="btn btn-primary">Nowa dieta</button>
+    </div>
+    <div>&nbsp;</div>
+    <table class="table table-striped">
+        <tr>
+            <th>Nazwa</th>
+            <th>Cel</th>
+            <th>Akcja</th>
+        </tr>
+    {% for diet in diets %}
+        <tr>
+            <td>{{ diet.nazwa }}</td>
+            <td>{{ diet.cel }}</td>
+            <td>
+                <a href="{{ path('diet_diet_details') }}?id={{ diet.id }}">szczegóły</a>
+                <a href="{{ path('diet_diet_plan') }}?id={{ diet.id }}">zobacz plan</a>
+            </td>
+        </tr>
+    {% endfor %}
+    {% if not(diets) %}
+        <tr>
+            <td colspan="3" class="text-center">brak diet</td>
+        </tr>
+    {% endif %}
+    </table>
 
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+    $(function(){
+        $('#new_diet_button').on('click', function() {
+            window.console.log('sdf')
+            window.location.href = '{{ path('diet_diet_details') }}';
+        });
+    });
+</script>
 {% endblock %}

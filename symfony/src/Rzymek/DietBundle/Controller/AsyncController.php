@@ -8,8 +8,10 @@
 
 namespace Rzymek\DietBundle\Controller;
 
+use Rzymek\DietBundle\Entity\Dieta;
 use Rzymek\DietBundle\Entity\Uzytkownik;
 use Rzymek\DietBundle\Lib\Auth;
+use Rzymek\DietBundle\Repository\DietyRepo;
 use Rzymek\DietBundle\Repository\UzytkownicyRepo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -40,9 +42,9 @@ class AsyncController extends Controller {
             $userRepo = new UzytkownicyRepo($em);
             $userRepo->update($user);
 
-            $json = "{'success':1,'msg':'OK'}";
+            $json = "{success:1}";
         } catch (\RuntimeException $e) {
-            $json = "{'success':0,'msg':null}";
+            $json = "{success:0}";
         }
 
         return $this->render('DietBundle:Default:async.json.twig', array(
@@ -51,7 +53,39 @@ class AsyncController extends Controller {
     }
 
     public function dietDetailsAction() {
-        $json = "{'success':1,'data':{}}";
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $auth = new Auth($em);
+            $user = $auth->auth();
+
+            $data = $this->get('request')->request->get('data');
+            if (empty($data)) {
+                throw new \RuntimeException();
+            }
+
+            $obj = json_decode($data);
+            $id = $obj->id;
+            settype($id, 'int');
+
+            $diet = new Dieta();
+            $diet->setId($id);
+            $diet->setUserLogin($user->getLogin());
+            $diet->setCel($obj->cel);
+            $diet->setLiczbaPosilkow($obj->liczbaPosilkow);
+            $diet->setAktywnosci($obj->aktywnosci);
+
+            $repo = new DietyRepo($em);
+            if ($diet->getId()) {
+                $repo->update($diet);
+            } else {
+                $repo->add($diet);
+            }
+
+            $json = "{success:1}";
+        } catch (\RuntimeException $e) {
+            $json = "{success:0}";
+        }
+
         return $this->render('DietBundle:Default:async.json.twig', array(
             'json' => $json
         ));

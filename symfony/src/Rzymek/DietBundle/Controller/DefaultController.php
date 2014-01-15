@@ -44,17 +44,15 @@ class DefaultController extends Controller {
         $user = $auth->auth();
 
         $dietyRepo = new DietyRepo($em);
-        $diety = $dietyRepo->findByUserLogin($user->getLogin());
+        $diets = $dietyRepo->findByUserLogin($user->getLogin());
 
-        foreach ($diety as $dieta) {
-            //@todo:
-        }
-
-        return $this->render('DietBundle:Default:diet.html.twig', array('user' => $user));
+        return $this->render('DietBundle:Default:diet.html.twig', array(
+            'user' => $user,
+            'diets' => $diets
+        ));
     }
 
     public function dietDetailsAction() {
-
         /**
          * Parametry ciała z profilu oraz:
          * - aktywności fizyczne z diety (rodzaj, intensywność, czas trwania) / tydzień
@@ -70,11 +68,89 @@ class DefaultController extends Controller {
          *   (białka i tłuszcze w miarę równomiernie w ciągu dnia)
          *   (najbardziej kaloryczne: śniadanie, III posiłek, II posiłek, IV ..., ostatni - może być więcej T i B )
          */
+        $id = $this->get('request')->get('id');
+        settype($id, 'int');
+
         $em = $this->getDoctrine()->getManager();
         $auth = new Auth($em);
         $user = $auth->auth();
 
-        return $this->render('DietBundle:Default:diet_details.html.twig', array('user' => $user));
+        $diet = null;
+        if (!empty($id)) {
+            $repo = new DietyRepo($em);
+            $diet = $repo->findById($id);
+        }
+
+        return $this->render('DietBundle:Default:diet_details.html.twig', array(
+            'user' => $user,
+            'diet' => $diet
+        ));
+    }
+
+    public function dietPlanAction() {
+        $id = $this->get('request')->get('id');
+        settype($id, 'int');
+
+        $em = $this->getDoctrine()->getManager();
+        $auth = new Auth($em);
+        $user = $auth->auth();
+
+        $diet = null;
+        if (empty($id)) {
+            return $this->render('DietBundle:Default:diet.html.twig', array('user' => $user));
+        }
+
+        $repo = new DietyRepo($em);
+        $diet = $repo->findById($id);
+
+        // algorytm
+        $nutKcal = array(4.0, 4.0, 9.0); // W, B, T
+        $splitParam = array(0.5, 0.25, 0.25); // suma = 1.0
+        $mealSplit = array(     // podział kcal na posiłki
+            2 => array(0.6, 0.4),
+            3 => array(0.5, 0.3, 0.2),
+            4 => array(0.4, 0.3, 0.2, 0.1),
+            5 => array(0.3, 0.2, 0.2, 0.2, 0.1),
+            6 => array(0.3, 0.15, 0.15, 0.15, 0.15, 0.1)
+        );
+
+        $amountMeals = $diet->getLiczbaPosilkow();
+        if ($amountMeals > 6) {
+            $amountMeals = 6;
+        } elseif ($amountMeals < 2) {
+            $amountMeals = 2;
+        }
+
+        //@todo: wykorzystanie wzoru na total kcal
+        $totalKcal = 3000; // ze wzoru (profil i dieta)
+        $totalW = $totalKcal / $nutKcal[0] * $splitParam[0];
+        $totalB = $totalKcal / $nutKcal[1] * $splitParam[1];
+        $totalT = $totalKcal / $nutKcal[2] * $splitParam[2];
+
+        $meals = array(); // podział jak w $splitParam, tyle że W z ostatniego posiłku na pierwszy
+        $mealParam = $mealSplit[$amountMeals];
+        foreach ($mealParam as $param) {
+            $meals[] = array(
+                $totalKcal * $param * $splitParam[0], // W
+                $totalKcal * $param * $splitParam[1], // B
+                $totalKcal * $param * $splitParam[2], // T
+            );
+        }
+        //@todo: przerzucenie W z końca na początek
+
+        //
+        $plan = array(
+            'total' => $totalKcal,
+            'split' => array($totalW, $totalB, $totalT),
+            'meals' => $meals
+        );
+
+
+        return $this->render('DietBundle:Default:diet_plan.html.twig', array(
+            'user' => $user,
+            'diet' => $diet,
+            'plan' => $plan
+        ));
     }
 
     public function ordersAction() {
