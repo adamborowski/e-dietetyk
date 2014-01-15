@@ -2,6 +2,7 @@ Ext.define 'app.view.AppView',
     extend: 'Ext.Container'
     requires: [
         'app.view.HumanView'
+        'Ext.window.MessageBox'
         'app.helpers.BodyCalculator'
         'app.helpers.kinetic.StageWrapper'
         'app.helpers.kinetic.ShapeWrapper'

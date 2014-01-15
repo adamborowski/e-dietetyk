@@ -2,6 +2,7 @@ Ext.define 'app.view.ScheduleView',
     extend: 'Ext.Container',
     requires: [
         'app.model.ActivityModel'
+        'Ext.window.MessageBox'
     ]
     config: [
 
@@ -81,6 +82,7 @@ Ext.define 'app.view.ScheduleView',
     </tpl>
     """
         imageTpl = new Ext.XTemplate templateString
+        Ext.window.Msg.alert "dupa", "Zmiany został222y zapamiętane"
         me = @
         @add [
             {
@@ -214,10 +216,9 @@ Ext.define 'app.view.ScheduleView',
                                             url: config.saveUrl
                                             params:
                                                 data: data
-                                            success: () ->
-                                                Ext.Msg.alert "Powodzenie", "Zmiany zostały zapamiętane"
-
-                                            failure: () ->
+                                            success: ->
+                                                Ext.window.Msg.alert "Powodzenie", "Zmiany zostały zapamiętane"
+                                            failure: ->
                                                 Ext.Msg.alert "Błąd", "Niestety, nie udało się zapisać danych. Więcej informacji mozna znaleźć w logach przegądarki"
                             }
                         ]
