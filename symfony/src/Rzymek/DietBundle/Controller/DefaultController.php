@@ -124,7 +124,17 @@ class DefaultController extends Controller {
         }
 
         //@todo: wykorzystanie wzoru na total kcal
-        $totalKcal = 3000; // ze wzoru (profil i dieta)
+        if ($user->getPlec() == $user::FEMALE) {
+            $bmr = (9.99 * $user->getWaga()) + (6.25 * $user->getWzrost()) - (4.92 * $user->getWiek()) - 161;
+        } else {
+            $bmr = (9.99 * $user->getWaga()) + (6.25 * $user->getWzrost()) - (4.92 * $user->getWiek()) + 5;
+        }
+
+        $totalKcal = $bmr;
+        $totalKcal += rand(100, 500);
+        $totalKcal += rand(200, 900);
+
+//        $totalKcal = 3000; // ze wzoru (profil i dieta)
         $totalW = $totalKcal / $nutKcal[0] * $splitParam[0];
         $totalB = $totalKcal / $nutKcal[1] * $splitParam[1];
         $totalT = $totalKcal / $nutKcal[2] * $splitParam[2];
