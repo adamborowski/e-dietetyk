@@ -210,7 +210,7 @@ Ext.define 'app.view.ScheduleView',
                     {
                         xtype: 'grid'
                         margin: 8
-                        title: 'Aktywności uwzględniane w diecie'
+                        title: 'Aktywności uwzględniane w diecie (dodaj klikając w aktywności z lewej strony)'
                         store: Ext.getStore('userActivities')
                         columns: [
                             {
