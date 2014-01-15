@@ -2,7 +2,7 @@
 
 namespace Rzymek\DietBundle\Repository;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Rzymek\DietBundle\Entity\Uzytkownicy;
 use Rzymek\DietBundle\Entity\Uzytkownik;
@@ -10,7 +10,7 @@ use Rzymek\DietBundle\Entity\Uzytkownik;
 class UzytkownicyRepo {
     protected $em;
 
-    public function __construct(ObjectManager $em) {
+    public function __construct(EntityManager $em) {
         $this->em = $em;
     }
 

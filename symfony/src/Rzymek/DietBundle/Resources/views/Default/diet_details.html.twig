@@ -7,6 +7,102 @@
     <p>Nazwa</p>
     <p>Cel: schudnięcie, bez zmian, na masę</p>
     <p>Aktywności</p>
+
+    {#-----------------------------------------------------------------#}
+
+    {% include 'DietBundle::spinner.html.twig' %}
+    <div id="ext-app-container" data-view="schedule" style="visibility: hidden">
+    </div>
+    <script type="text/javascript"> //TODO NAJLEPIEJ PONIŻSZE DANE WYRENDEROWAĆ TWIGIEM!
+        dane = [
+            {
+                type: 'Climbing',
+                name: 'wspinaczka wyczynowa',
+                dayPart:'przed śniadaniem',
+                weekDay:'poniedziałek'
+            },
+            {
+                type: 'Pingpong',
+                name: 'tenis stołowy',
+                dayPart:'przed obiadem',
+                weekDay:'wtorek'
+            },
+            {
+                type: 'Running',
+                name: 'bieganie',
+                dayPart:'przed obiadem',
+                weekDay:'wtorek'
+            },
+            {
+                type: 'Basketball',
+                name: 'koszykówka',
+                dayPart:'przed kolacją',
+                weekDay:'czwartek'
+            },
+            {
+                type: 'Fishing',
+                name: 'łowienie ryb',
+                dayPart:'po obiedzie',
+                weekDay:'wtorek'
+            },
+            {
+                type: 'Football',
+                name: 'piłka nożna',
+                dayPart:'przed obiadem',
+                weekDay:'sobota'
+            },
+            {
+                type: 'Frisbee',
+                name: 'frisbee',
+                dayPart:'przed obiadem',
+                weekDay:'wtorek'
+            },
+            {
+                type: 'Padding',
+                name: 'wiosłowanie',
+                dayPart:'przed obiadem',
+                weekDay:'niedziela'
+            }
+        ]
+        /*
+         UWAGA! format odpowiedzi serwera na zapis JSON:
+         would process the following server response for a successful submission:
+
+         {
+         "success":true, // note this is Boolean, not string
+         "msg":"Consignment updated"
+         }
+         and the following server response for a failed submission:
+
+         {
+         "success":false, // note this is Boolean, not string
+         "msg":"You do not have permission to perform this operation"
+         }
+         */
+
+
+        window.extLoadCallback = function (api) {
+            api.loadSchedule(dane);
+        }
+    </script>
+    {#------------------------------------------------------------------------------------------#}
+
+
     <p>Liczba posiłków 2-6</p>
 
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    {# nie używać assetica bo ext nie doładuje sobie plików#}
+    <script src="../vendor/ext-4.2.1.883/ext-debug.js"></script>
+    <script src="../vendor/kinetic-4.7.4/kinetic-v4.7.4.min.js"></script>
+    <script src="../e-dietetyk/js/app.js"></script>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="../vendor/ext-4.2.1.883/resources/css/ext-all-neptune.css"/>
+    <link rel="stylesheet" href="../e-dietetyk/stylesheets/screen.css"/>
+{% endblock %}
+

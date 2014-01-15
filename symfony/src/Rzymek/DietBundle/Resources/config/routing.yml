@@ -13,6 +13,12 @@ diet_diet:
 diet_diet_details:
   pattern:  /twoja_dieta_szczegoly
   defaults: { _controller: DietBundle:Default:dietDetails }
+diet_diet_update:
+  pattern:  /twoja_dieta_aktualizuj
+  defaults: { _controller: DietBundle:Async:dietDetails }
+diet_products:
+  pattern:  /polecane_produkty
+  defaults: { _controller: DietBundle:Default:products }
 diet_customers:
   pattern:  /nasi_klienci
   defaults: { _controller: DietBundle:Default:customers }
@@ -22,6 +28,12 @@ diet_about:
 diet_orders:
   pattern:  /twoje_zamowienia
   defaults: { _controller: DietBundle:Default:orders }
+diet_orders_details:
+  pattern:  /twoje_zamowienia_szczegoly
+  defaults: { _controller: DietBundle:Default:ordersDetails }
+diet_orders_update:
+  pattern:  /twoje_zamowienia_aktualizuj
+  defaults: { _controller: DietBundle:Async:orderDetails }
 diet_contact:
   pattern:  /kontakt
   defaults: { _controller: DietBundle:Default:contact }
