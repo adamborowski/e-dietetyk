@@ -79,6 +79,17 @@ class DefaultController extends Controller {
         return $this->render('DietBundle:Default:orders.html.twig', array('user' => $user));
     }
 
+    public function ordersDetailsAction() {
+        /**
+         * szczegóły zamówienia (lista wybranych produktów)
+         */
+        $em = $this->getDoctrine()->getManager();
+        $auth = new Auth($em);
+        $user = $auth->auth();
+
+        return $this->render('DietBundle:Default:orders_details.html.twig', array('user' => $user));
+    }
+
     public function productsAction() {
         /**
          * Wybieranie polecanych produktów do diety.

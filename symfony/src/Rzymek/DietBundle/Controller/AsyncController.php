@@ -15,6 +15,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class AsyncController extends Controller {
     public function profileAction() {
-        return "{'success':1,'dane':{}}";
+        $json = "{'success':1,'data':{}}";
+        return $this->render('DietBundle:Default:async.json.twig', array(
+            'json' => $json
+        ));
+    }
+
+    public function dietDetailsAction() {
+        $json = "{'success':1,'data':{}}";
+        return $this->render('DietBundle:Default:async.json.twig', array(
+            'json' => $json
+        ));
+    }
+
+    public function orderDetailsAction() {
+        $json = "{'success':1,'data':{}}";
+        return $this->render('DietBundle:Default:async.json.twig', array(
+            'json' => $json
+        ));
     }
 }
