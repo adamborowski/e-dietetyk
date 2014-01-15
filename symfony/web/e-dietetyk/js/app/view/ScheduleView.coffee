@@ -243,7 +243,7 @@ Ext.define 'app.view.ScheduleView',
                                     "#{value} h"
                                 editor:
                                     xtype: 'numberfield'
-                                    minValue: 0
+                                    minValue: 0.5
                                     maxValue: 10
                                     step: 0.5
                             }
