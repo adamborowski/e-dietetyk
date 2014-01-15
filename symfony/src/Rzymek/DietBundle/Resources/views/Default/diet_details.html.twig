@@ -10,64 +10,65 @@
     <div id="ext-app-container" data-view="schedule" style="visibility: hidden">
     </div>
     <script type="text/javascript"> //TODO NAJLEPIEJ PONIŻSZE DANE WYRENDEROWAĆ TWIGIEM!
-        dane = [
-            {
-                type: 'Climbing',
-                name: 'wspinaczka<br/>wyczynowa',
-                dayPart: 'przed śniadaniem',
-                weekDay: 'poniedziałek',
-                duration: 3
-            },
-            {
-                type: 'Ping-pong',
-                name: 'tenis stołowy',
-                dayPart: 'przed obiadem',
-                weekDay: 'wtorek',
-                duration: 3
-            },
-            {
-                type: 'Running',
-                name: 'bieganie',
-                dayPart: 'przed obiadem',
-                weekDay: 'wtorek',
-                duration: 2
-            },
-            {
-                type: 'Basketball',
-                name: 'koszykówka',
-                dayPart: 'przed kolacją',
-                weekDay: 'czwartek',
-                duration: 1.5
-            },
-            {
-                type: 'Fishing',
-                name: 'łowienie ryb',
-                dayPart: 'po obiedzie',
-                weekDay: 'wtorek',
-                duration: 2
-            },
-            {
-                type: 'Football',
-                name: 'piłka nożna',
-                dayPart: 'przed obiadem',
-                weekDay: 'sobota',
-                duration: 3
-            },
-            {
-                type: 'Frisbee',
-                name: 'frisbee',
-                dayPart: 'przed obiadem',
-                weekDay: 'wtorek',
-                duration: 0.5
-            },
-            {
-                type: 'Padding',
-                name: 'wiosłowanie',
-                dayPart: 'przed obiadem',
-                weekDay: 'niedziela',
-                duration: 2
-            }
-        ]
+        dane = {{ diet.aktywnosci|raw }}
+//        dane = [
+//            {
+//                type: 'Climbing',
+//                name: 'wspinaczka<br/>wyczynowa',
+//                dayPart: 'przed śniadaniem',
+//                weekDay: 'poniedziałek',
+//                duration: 3
+//            },
+//            {
+//                type: 'Ping-pong',
+//                name: 'tenis stołowy',
+//                dayPart: 'przed obiadem',
+//                weekDay: 'wtorek',
+//                duration: 3
+//            },
+//            {
+//                type: 'Running',
+//                name: 'bieganie',
+//                dayPart: 'przed obiadem',
+//                weekDay: 'wtorek',
+//                duration: 2
+//            },
+//            {
+//                type: 'Basketball',
+//                name: 'koszykówka',
+//                dayPart: 'przed kolacją',
+//                weekDay: 'czwartek',
+//                duration: 1.5
+//            },
+//            {
+//                type: 'Fishing',
+//                name: 'łowienie ryb',
+//                dayPart: 'po obiedzie',
+//                weekDay: 'wtorek',
+//                duration: 2
+//            },
+//            {
+//                type: 'Football',
+//                name: 'piłka nożna',
+//                dayPart: 'przed obiadem',
+//                weekDay: 'sobota',
+//                duration: 3
+//            },
+//            {
+//                type: 'Frisbee',
+//                name: 'frisbee',
+//                dayPart: 'przed obiadem',
+//                weekDay: 'wtorek',
+//                duration: 0.5
+//            },
+//            {
+//                type: 'Padding',
+//                name: 'wiosłowanie',
+//                dayPart: 'przed obiadem',
+//                weekDay: 'niedziela',
+//                duration: 2
+//            }
+//        ]
         /*
          UWAGA! format odpowiedzi serwera na zapis JSON:
          would process the following server response for a successful submission:

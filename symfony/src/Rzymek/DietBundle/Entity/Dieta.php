@@ -7,7 +7,7 @@ class Dieta {
     public $nazwa = '';
     public $cel = 1;
     public $liczbaPosilkow = 4;
-    public $aktywnosci = array();
+    public $aktywnosci = '[]';
 
     /**
      * @param mixed $id
