@@ -92,7 +92,7 @@ class Dieta {
     public function deserialize($serializedObj) {
         $stdObj = json_decode($serializedObj);
 
-        $this->setId($stdObj->id);
+//        $this->setId($stdObj->id);
         $this->setUserLogin($stdObj->userLogin);
         $this->setCel($stdObj->cel);
         $this->setLiczbaPosilkow($stdObj->liczbaPosilkow);

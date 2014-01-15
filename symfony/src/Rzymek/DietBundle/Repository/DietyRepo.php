@@ -27,8 +27,6 @@ class DietyRepo extends EntityRepository {
     }
 
     public function findByUserLogin($login) {
-        //@todo: tu może być lista, wiele obiektów
-//        $objDB = $em->findByLogin('DietBundle:Diety', $login);
         $qb = $this->em->createQueryBuilder();
         $qb->add('select', 'd')
             ->add('from', 'DietBundle:Diety d');
@@ -40,13 +38,16 @@ class DietyRepo extends EntityRepository {
         ;
 
         $results = $qb->getQuery()->getResult();
-var_dump($results);
-exit;
 
-        $obj = new Dieta();
-        $obj->deserialize($objDB->getData());
+        $objArr = array();
+        foreach ($results as $dietaDB) {
+            $obj = new Dieta();
+            $obj->deserialize($dietaDB->getData());
+            $obj->setId($dietaDB->getDietaId());
+            $objArr[] = $obj;
+        }
 
-        return $obj;
+        return $objArr;
     }
 
     public function add(Dieta $dieta) {
