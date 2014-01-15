@@ -4,10 +4,7 @@
 {% block contentTitle %}Twoja dieta - szczegóły{% endblock %}
 
 {% block content %}
-    <p>Nazwa</p>
-    <p>Cel: schudnięcie, bez zmian, na masę</p>
-    <p>Aktywności</p>
-
+    <p>Nazwa DIETY</p>
     {#-----------------------------------------------------------------#}
 
     {% include 'DietBundle::spinner.html.twig' %}
@@ -90,7 +87,7 @@
 
 
         window.extLoadCallback = function (api) {
-            api.loadSchedule({data: dane, saveUrl:'{{ path('diet_orders_update')}}'});
+            api.loadSchedule({data: dane, saveUrl:'{{ path('diet_orders_update')}}', id: 234, cel:3, iloscPosilkow:6});
         }
     </script>
     {#------------------------------------------------------------------------------------------#}
@@ -103,7 +100,7 @@
     {{ parent() }}
 
     {# nie używać assetica bo ext nie doładuje sobie plików#}
-    <script src="../vendor/ext-4.2.1.883/ext-debug.js"></script>
+    <script src="../vendor/ext-4.2.1.883/ext-all.js"></script>
     <script src="../vendor/kinetic-4.7.4/kinetic-v4.7.4.min.js"></script>
     <script src="../e-dietetyk/js/app.js"></script>
 
