@@ -27,6 +27,7 @@ Ext.define 'app.view.ScheduleView',
                 id: @config.id
                 cel: @down('#celInput').getValue()
                 iloscPosilkow: @down('#iloscInput').getValue()
+                nazwa: @down('#nazwaInput').getValue()
             success: ->
                 Ext.Msg.alert "Powodzenie", "Zmiany zostały zapamiętane"
             failure: ->
@@ -147,8 +148,14 @@ Ext.define 'app.view.ScheduleView',
             {
                 xtype: 'container'
                 layout: 'form'
-                margin: '0 600 10 20'
+                margin: '20 600 10 20'
                 items: [
+                    {
+                        xtype: 'textfield'
+                        value: ''
+                        fieldLabel: 'nazwa diety'
+                        itemId: 'nazwaInput'
+                    }
                     {
                         fieldLabel: 'cel'
                         itemId: 'celInput'
@@ -172,7 +179,7 @@ Ext.define 'app.view.ScheduleView',
                         maxValue: 6
                         value: 3
                         fieldLabel: 'ilość posiłków dziennie'
-                        id: 'iloscInput'
+                        itemId: 'iloscInput'
                     }
                 ]
             }
@@ -335,6 +342,7 @@ Ext.define 'app.view.ScheduleView',
 
         ]
         @down('#celInput').setValue @config.cel
+        @down('#nazwaInput').setValue @config.nazwa
         @down('#iloscInput').setValue @config.iloscPosilkow
 
 return
