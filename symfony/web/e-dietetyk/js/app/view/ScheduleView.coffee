@@ -12,9 +12,9 @@ Ext.define 'app.view.ScheduleView',
             model: "app.model.ActivityModel"
             data: [
                 type: 'Climbing'
-                name: 'wspinaczka wyczynowa'
+                name: 'wspinaczka<br/>wyczynowa'
             ,
-                type: 'Pingpong'
+                type: 'Ping-pong'
                 name: 'tenis stołowy'
             ,
                 type: 'Running'
@@ -50,7 +50,7 @@ Ext.define 'app.view.ScheduleView',
                 type: 'Tennis'
                 name: 'tenis ziemny'
             ,
-                type: 'Treking'
+                type: 'Trekking'
                 name: 'spacery'
             ,
                 type: 'Yoga'
@@ -59,14 +59,13 @@ Ext.define 'app.view.ScheduleView',
             ]
         templateString = """
 <tpl for=".">
-    <div class="item">
-        <img src="#{app.url('e-dietetyk/images/activites/')}Sport-Activities-{type}-icon.png"/>
+    <div class="schedule-item">
+        <img class="schedule-image" src="#{app.url('e-dietetyk/images/activities/')}Sport-Activities-{type}-icon.png"/>
         <div class="name">
             {name}
         </div>
     </div>
 </tpl>
-     "<div style="margin-bottom: 10px;" class="thumb-wrap">", "<img src="{src}" />", "<br/><span>{caption}</span>", "</div>", "</tpl>"
 """
         imageTpl = new Ext.XTemplate templateString
         me = @
@@ -79,13 +78,13 @@ Ext.define 'app.view.ScheduleView',
                     xtype: 'dataview'
                     store: Ext.getStore('avaliableActivities'),
                     tpl: imageTpl,
-                    itemSelector: 'div.item',
+                    itemSelector: 'div.schedule-item',
 
                 }
             ]
 
         #
         @callParent arguments
-        window.extScheduleLoadCallback(this) if window.extScheduleLoadCallback?
-    loadProfile: (profile)->
+        window.extLoadCallback(this) if window.extLoadCallback?
+    loadSchedule: (schedule)->
         return

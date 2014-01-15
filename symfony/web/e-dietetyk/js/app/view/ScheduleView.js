@@ -12,9 +12,9 @@
         data: [
           {
             type: 'Climbing',
-            name: 'wspinaczka wyczynowa'
+            name: 'wspinaczka<br/>wyczynowa'
           }, {
-            type: 'Pingpong',
+            type: 'Ping-pong',
             name: 'tenis stołowy'
           }, {
             type: 'Running',
@@ -50,7 +50,7 @@
             type: 'Tennis',
             name: 'tenis ziemny'
           }, {
-            type: 'Treking',
+            type: 'Trekking',
             name: 'spacery'
           }, {
             type: 'Yoga',
@@ -58,7 +58,7 @@
           }
         ]
       });
-      templateString = "<tpl for=\".\">\n    <div class=\"item\">\n        <img src=\"" + (app.url('e-dietetyk/images/activites/')) + "Sport-Activities-{type}-icon.png\"/>\n        <div class=\"name\">\n            {name}\n        </div>\n    </div>\n</tpl>\n     \"<div style=\"margin-bottom: 10px;\" class=\"thumb-wrap\">\", \"<img src=\"{src}\" />\", \"<br/><span>{caption}</span>\", \"</div>\", \"</tpl>\"";
+      templateString = "<tpl for=\".\">\n    <div class=\"schedule-item\">\n        <img class=\"schedule-image\" src=\"" + (app.url('e-dietetyk/images/activities/')) + "Sport-Activities-{type}-icon.png\"/>\n        <div class=\"name\">\n            {name}\n        </div>\n    </div>\n</tpl>";
       imageTpl = new Ext.XTemplate(templateString);
       me = this;
       console.log(Ext.getStore('avaliableActivities'));
@@ -71,16 +71,16 @@
             xtype: 'dataview',
             store: Ext.getStore('avaliableActivities'),
             tpl: imageTpl,
-            itemSelector: 'div.item'
+            itemSelector: 'div.schedule-item'
           }
         ]
       });
       this.callParent(arguments);
-      if (window.extScheduleLoadCallback != null) {
-        return window.extScheduleLoadCallback(this);
+      if (window.extLoadCallback != null) {
+        return window.extLoadCallback(this);
       }
     },
-    loadProfile: function(profile) {}
+    loadSchedule: function(schedule) {}
   });
 
 }).call(this);

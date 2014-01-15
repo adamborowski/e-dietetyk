@@ -274,12 +274,43 @@ a.x-btn:hover {
   display: inline-block;
 }
 
-/* line 102, ../sass/screen.scss */
+/* line 103, ../sass/screen.scss */
 img.border {
   border: 1px solid #dedede;
 }
 
-/* line 106, ../sass/screen.scss */
+/* line 107, ../sass/screen.scss */
 .panel-body {
   padding: 0 !important;
+}
+
+/* line 111, ../sass/screen.scss */
+.schedule-item {
+  width: 130px;
+  height: 130px;
+  text-align: center;
+  vertical-align: middle;
+  border: 2px solid #cccccc;
+  margin: 7px;
+  display: inline-block;
+  position: relative;
+}
+/* line 120, ../sass/screen.scss */
+.schedule-item img {
+  width: 100px;
+  height: 100px;
+  margin: 5px 0 0 0;
+}
+/* line 125, ../sass/screen.scss */
+.schedule-item div {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  padding: 4px;
+  background: rgba(15, 255, 255, 0.94);
+  -webkit-border-radius: 10px 0 0 0;
+  -moz-border-radius: 10px 0 0 0;
+  -ms-border-radius: 10px 0 0 0;
+  -o-border-radius: 10px 0 0 0;
+  border-radius: 10px 0 0 0;
 }

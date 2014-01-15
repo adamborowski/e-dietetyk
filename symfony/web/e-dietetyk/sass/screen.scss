@@ -66,10 +66,10 @@ $mar: 10px;
   &.all {
     margin: $mar;
   }
-  &.padding{
+  &.padding {
     padding: $mar;
   }
-  &.inline{
+  &.inline {
     display: inline-block;
   }
 }
@@ -86,7 +86,7 @@ $mar: 10px;
   @include panel(15px);
   font-size: 15px;
   color: #555555;
-  p{
+  p {
     text-indent: 30px;
   }
 }
@@ -99,10 +99,36 @@ $mar: 10px;
   @include border-radius(15px);
   @include margin;
 }
-img.border{
- border: 1px solid #dedede;
+
+img.border {
+  border: 1px solid #dedede;
 }
 
-.panel-body{
-  padding: 0!important;
+.panel-body {
+  padding: 0 !important;
+}
+
+.schedule-item {
+  width: 130px;
+  height: 130px;
+  text-align: center;
+  vertical-align: middle;
+  border: 2px solid #cccccc;
+  margin: 7px;
+  display: inline-block;
+  position: relative;
+  img {
+    width: 100px;
+    height: 100px;
+    margin: 5px 0 0 0;
+  }
+  div {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    padding: 4px;
+    background:rgba(#0fffff, 0.94);
+    @include border-radius(10px 0 0 0);
+  }
+
 }
