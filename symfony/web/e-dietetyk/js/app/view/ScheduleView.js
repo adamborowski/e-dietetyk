@@ -5,6 +5,17 @@
     requires: ['app.model.ActivityModel'],
     config: [],
     constructor: function(config) {
+      Ext.applyIf(config, {
+        layout: {
+          type: 'hbox'
+        }
+      });
+      this.callParent(arguments);
+      if (window.extLoadCallback != null) {
+        return window.extLoadCallback(this);
+      }
+    },
+    loadSchedule: function(config) {
       var imageTpl, me, templateString;
       Ext.create("Ext.data.Store", {
         id: "avaliableActivities",
@@ -58,29 +69,183 @@
           }
         ]
       });
-      templateString = "<tpl for=\".\">\n    <div class=\"schedule-item\">\n        <img class=\"schedule-image\" src=\"" + (app.url('e-dietetyk/images/activities/')) + "Sport-Activities-{type}-icon.png\"/>\n        <div class=\"name\">\n            {name}\n        </div>\n    </div>\n</tpl>";
+      Ext.create("Ext.data.Store", {
+        id: "userActivities",
+        model: "app.model.ActivityModel",
+        data: config.data
+      });
+      templateString = "<tpl for=\".\">\n    <div class=\"schedule-item\">\n        <img class=\"schedule-image\" src=\"" + (app.url('e-dietetyk/images/activities/')) + "Sport-Activities-{type}-icon.png\"/>\n        <div class=\"overlay\">dodaj</div>\n        <div class=\"name\">\n            {name}\n        </div>\n    </div>\n</tpl>";
       imageTpl = new Ext.XTemplate(templateString);
       me = this;
-      console.log(Ext.getStore('avaliableActivities'));
-      Ext.applyIf(config, {
-        layout: {
-          type: 'hbox'
-        },
-        items: [
-          {
-            xtype: 'dataview',
-            store: Ext.getStore('avaliableActivities'),
-            tpl: imageTpl,
-            itemSelector: 'div.schedule-item'
+      return this.add([
+        {
+          xtype: 'dataview',
+          width: 440,
+          store: Ext.getStore('avaliableActivities'),
+          tpl: imageTpl,
+          itemSelector: 'div.schedule-item',
+          listeners: {
+            scope: this,
+            itemclick: function(view, record, item, index, e) {
+              var rec;
+              rec = record.copy();
+              Ext.data.Model.id(rec);
+              Ext.getStore('userActivities').add(rec);
+            }
           }
-        ]
-      });
-      this.callParent(arguments);
-      if (window.extLoadCallback != null) {
-        return window.extLoadCallback(this);
-      }
-    },
-    loadSchedule: function(schedule) {}
+        }, {
+          xtype: 'grid',
+          margin: 8,
+          title: 'Aktywności uwzględniane w diecie',
+          store: Ext.getStore('userActivities'),
+          columns: [
+            {
+              text: 'Aktywność',
+              width: 150,
+              dataIndex: 'name',
+              align: 'center',
+              renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+                return "<div class=\"schedule-item\">\n            <img class=\"schedule-image\" src=\"" + (app.url('e-dietetyk/images/activities/')) + "Sport-Activities-" + (record.get('type')) + "-icon.png\"/>\n            <div class=\"name\">\n                " + (record.get('name')) + "\n            </div>\n            <div class=\"overlay red\">usuń</div>\n        </div>\n\n";
+              }
+            }, {
+              text: 'Długość',
+              dataIndex: 'duration',
+              align: 'center',
+              tdCls: 'padding-cell',
+              renderer: function(value) {
+                return "" + value + " h";
+              },
+              editor: {
+                xtype: 'numberfield',
+                minValue: 0,
+                maxValue: 10,
+                step: 0.5
+              }
+            }, {
+              text: 'Dzień tygodnia',
+              width: 120,
+              align: 'center',
+              dataIndex: 'weekDay',
+              tdCls: 'padding-cell',
+              editor: {
+                xtype: 'combobox',
+                store: Ext.create('Ext.data.Store', {
+                  fields: ['name'],
+                  data: [
+                    {
+                      "name": "poniedziałek"
+                    }, {
+                      "name": "wtorek"
+                    }, {
+                      "name": "środa"
+                    }, {
+                      "name": "czwartek"
+                    }, {
+                      "name": "piątek"
+                    }, {
+                      "name": "sobota"
+                    }, {
+                      "name": "niedziela"
+                    }
+                  ]
+                }),
+                allowBlank: false,
+                displayField: 'name',
+                valueField: 'name',
+                height: 30,
+                editable: false
+              }
+            }, {
+              text: 'Pora dnia',
+              dataIndex: 'dayPart',
+              tdCls: 'padding-cell',
+              flex: 1,
+              align: 'center',
+              editor: {
+                xtype: 'combobox',
+                store: Ext.create('Ext.data.Store', {
+                  fields: ['name'],
+                  data: [
+                    {
+                      "name": "przed śniadaniem"
+                    }, {
+                      "name": "po śniadaniu"
+                    }, {
+                      "name": "przed obiadem"
+                    }, {
+                      "name": "po obiedzie"
+                    }, {
+                      "name": "przed kolacją"
+                    }, {
+                      "name": "po kolacji"
+                    }
+                  ]
+                }),
+                allowBlank: false,
+                displayField: 'name',
+                valueField: 'name',
+                height: 30,
+                editable: false
+              }
+            }
+          ],
+          selType: 'cellmodel',
+          plugins: [
+            Ext.create('Ext.grid.plugin.CellEditing', {
+              clicksToEdit: 1
+            })
+          ],
+          flex: 1,
+          height: "100%",
+          dockedItems: [
+            {
+              xtype: 'toolbar',
+              dock: 'bottom',
+              ui: 'footer',
+              items: [
+                {
+                  xtype: 'component',
+                  flex: 1
+                }, {
+                  xtype: 'button',
+                  text: 'Zapisz',
+                  listeners: {
+                    scope: this,
+                    click: function() {
+                      var data, i, items;
+                      items = Ext.getStore('userActivities').getRange();
+                      data = JSON.stringify((function() {
+                        var _i, _len, _results;
+                        _results = [];
+                        for (_i = 0, _len = items.length; _i < _len; _i++) {
+                          i = items[_i];
+                          _results.push(i.data);
+                        }
+                        return _results;
+                      })());
+                      return Ext.Ajax.request({
+                        url: config.saveUrl,
+                        params: {
+                          data: data
+                        },
+                        success: function() {
+                          return Ext.Msg.alert("Powodzenie", "Zmiany zostały zapamiętane");
+                        },
+                        failure: function() {
+                          return Ext.Msg.alert("Błąd", "Niestety, nie udało się zapisać danych. Więcej informacji mozna znaleźć w logach przegądarki");
+                        }
+                      });
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]);
+    }
   });
+
+  return;
 
 }).call(this);
