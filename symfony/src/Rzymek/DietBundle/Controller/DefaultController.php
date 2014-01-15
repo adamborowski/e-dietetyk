@@ -151,15 +151,20 @@ class DefaultController extends Controller {
 //        $results = $dietaRepo->findByUserLogin('demo1389745483');
 
 //        $dieta = new Dieta();
-//        $dieta->setAktywnosci('eee');
-//        $dieta->setCel('uuu');
-//        $dieta->setLiczbaPosilkow(4);
+//        $dieta->setAktywnosci(array('rano' => 'bieganie', 'potem' => 'plywanie'));
+//        $dieta->setCel('uuuert');
+//        $dieta->setLiczbaPosilkow(3);
 //        $dieta->setUserLogin('demo1389745483');
 //        $dietaRepo = new DietyRepo($em);
 //        $dietaRepo->add($dieta);
 
+//        $dietaRepo = new DietyRepo($em);
+//        $dieta = $dietaRepo->findById(2);
+//        $dieta->setNazwa('pierwsza dieta');
+//        $dietaRepo->update($dieta);
 
-
+//        $dietaRepo = new DietyRepo($em);
+//        $dietaRepo->delete(2);
         //
         return $this->render('DietBundle:Default:test.html.twig', array('user' => $user));
     }

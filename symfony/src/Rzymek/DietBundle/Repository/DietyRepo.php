@@ -59,31 +59,31 @@ class DietyRepo extends EntityRepository {
         $objDB->setLogin($user);
         $objDB->setData($dieta->serialize());
 
-        //
         $this->em->persist($objDB);
         $this->em->flush();
     }
 
     public function update(Dieta $dieta) {
         // pobierz
-        $em = $this->getEntityManager();
-        $objDB = $em->find('DietBundle:Diety', $dieta->getId());
+        $objDB = $this->em->find('DietBundle:Diety', $dieta->getId());
+        $user = $this->em->find('DietBundle:Uzytkownicy', $dieta->getUserLogin());
 
         // serializacja
-        $objDB->setLogin($dieta->getUserLogin());
+        $objDB->setLogin($user);
         $objDB->setData($dieta->serialize());
 
         // flush
-        $em->flush();
+        $this->em->flush();
     }
 
     public function delete($id) {
         // pobierz
-        $em = $this->getEntityManager();
-        $objDB = $em->find('DietBundle:Diety', $id);
+        $objDB = $this->em->find('DietBundle:Diety', $id);
 
         // usuń
-        $em->remove($objDB);
-        $em->flush();
+        if (is_object($objDB)) {
+            $this->em->remove($objDB);
+            $this->em->flush();
+        }
     }
 }

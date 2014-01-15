@@ -95,7 +95,24 @@ class Dieta {
 //        $this->setId($stdObj->id);
         $this->setUserLogin($stdObj->userLogin);
         $this->setCel($stdObj->cel);
+        $this->setNazwa($stdObj->nazwa);
         $this->setLiczbaPosilkow($stdObj->liczbaPosilkow);
         $this->setAktywnosci($stdObj->aktywnosci);
+    }
+
+    /**
+     * @param mixed $nazwa
+     */
+    public function setNazwa($nazwa)
+    {
+        $this->nazwa = $nazwa;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNazwa()
+    {
+        return $this->nazwa;
     }
 }
