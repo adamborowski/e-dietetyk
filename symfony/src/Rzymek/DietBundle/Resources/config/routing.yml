@@ -13,6 +13,9 @@ diet_diet:
 diet_diet_details:
   pattern:  /twoja_dieta_szczegoly
   defaults: { _controller: DietBundle:Default:dietDetails }
+diet_diet_plan:
+  pattern:  /plan_diety
+  defaults: { _controller: DietBundle:Default:dietPlan }
 diet_diet_update:
   pattern:  /twoja_dieta_aktualizuj
   defaults: { _controller: DietBundle:Async:dietDetails }

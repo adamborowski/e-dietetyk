@@ -5,31 +5,31 @@
 
 {% block content %}
 
-    <table class="table table-bordered">
+    <table class="table table-bordered text-center">
         <tr>
-            <td>Całkowite dzienne zapotrzebowanie kaloryczne</td>
-            <th>{{ plan.total }} kcal</th>
+            <td class="text-right">Całkowite dzienne zapotrzebowanie kaloryczne</td>
+            <th style="width:50%">{{ plan.total }} kcal</th>
         </tr>
         <tr>
-            <td>Dzienne zapotrzebowanie na Węglowodany</td>
+            <td class="text-right">Dzienne zapotrzebowanie na Węglowodany</td>
             <th>{{ plan.split.0 }} g</th>
         </tr>
         <tr>
-            <td>Dzienne zapotrzebowanie na Białko</td>
+            <td class="text-right">Dzienne zapotrzebowanie na Białko</td>
             <th>{{ plan.split.1 }} g</th>
         </tr>
         <tr>
-            <td>Dzienne zapotrzebowanie na Tłuszcze</td>
+            <td class="text-right">Dzienne zapotrzebowanie na Tłuszcze</td>
             <th>{{ plan.split.2 }} g</th>
         </tr>
     </table>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered text-center">
         <tr>
-            <th>Posiłek</th>
-            <th>Węglowodany [g]</th>
-            <th>Białko [g]</th>
-            <th>Tłuszcze [g]</th>
+            <th class="text-center">Posiłek</th>
+            <th class="text-center">Węglowodany [g]</th>
+            <th class="text-center">Białko [g]</th>
+            <th class="text-center">Tłuszcze [g]</th>
         </tr>
     {% for meal in plan.meals %}
         <tr>

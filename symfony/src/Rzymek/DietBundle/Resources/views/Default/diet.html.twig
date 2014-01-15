@@ -8,11 +8,11 @@
         <button id="new_diet_button" class="btn btn-primary">Nowa dieta</button>
     </div>
     <div>&nbsp;</div>
-    <table class="table table-striped">
+    <table class="table table-striped text-center">
         <tr>
-            <th>Nazwa</th>
-            <th>Cel</th>
-            <th>Akcja</th>
+            <th class="text-center">Nazwa</th>
+            <th class="text-center">Cel</th>
+            <th class="text-center" style="width: 30%;">Akcja</th>
         </tr>
     {% for diet in diets %}
         <tr>
@@ -20,6 +20,7 @@
             <td>{{ diet.cel }}</td>
             <td>
                 <a href="{{ path('diet_diet_details') }}?id={{ diet.id }}">szczegóły</a>
+                <br>
                 <a href="{{ path('diet_diet_plan') }}?id={{ diet.id }}">zobacz plan</a>
             </td>
         </tr>

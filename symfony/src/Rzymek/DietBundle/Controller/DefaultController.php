@@ -131,17 +131,19 @@ class DefaultController extends Controller {
         $mealParam = $mealSplit[$amountMeals];
         foreach ($mealParam as $param) {
             $meals[] = array(
-                $totalKcal * $param * $splitParam[0], // W
-                $totalKcal * $param * $splitParam[1], // B
-                $totalKcal * $param * $splitParam[2], // T
+                round($totalW * $param, 2), // W
+                round($totalB * $param, 2), // B
+                round($totalT * $param, 2) // T
             );
         }
-        //@todo: przerzucenie W z końca na początek
+        $lastIndex = count($meals) - 1;
+        $meals[0][0] += $meals[$lastIndex][0];
+        $meals[$lastIndex][0] = 0;
 
         //
         $plan = array(
-            'total' => $totalKcal,
-            'split' => array($totalW, $totalB, $totalT),
+            'total' => round($totalKcal, 2),
+            'split' => array(round($totalW, 2), round($totalB, 2), round($totalT, 2)),
             'meals' => $meals
         );
 
@@ -228,9 +230,10 @@ class DefaultController extends Controller {
 
 //        $dieta = new Dieta();
 //        $dieta->setAktywnosci(array('rano' => 'bieganie', 'potem' => 'plywanie'));
-//        $dieta->setCel('uuuert');
-//        $dieta->setLiczbaPosilkow(3);
-//        $dieta->setUserLogin('demo1389745483');
+//        $dieta->setCel('masa');
+//        $dieta->setLiczbaPosilkow(4);
+//        $dieta->setNazwa('test');
+//        $dieta->setUserLogin('demo1389743221');
 //        $dietaRepo = new DietyRepo($em);
 //        $dietaRepo->add($dieta);
 
