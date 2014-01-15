@@ -10,6 +10,9 @@ diet_profile_update:
 diet_diet:
   pattern:  /twoja_dieta
   defaults: { _controller: DietBundle:Default:diet }
+diet_diet_details:
+  pattern:  /twoja_dieta_szczegoly
+  defaults: { _controller: DietBundle:Default:dietDetails }
 diet_customers:
   pattern:  /nasi_klienci
   defaults: { _controller: DietBundle:Default:customers }

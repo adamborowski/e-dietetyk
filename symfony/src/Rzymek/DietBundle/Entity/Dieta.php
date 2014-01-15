@@ -4,6 +4,7 @@ namespace Rzymek\DietBundle\Entity;
 class Dieta {
     protected $id;
     protected $userLogin;
+    protected $nazwa;
     protected $cel;
     protected $liczbaPosilkow;
     protected $aktywnosci;

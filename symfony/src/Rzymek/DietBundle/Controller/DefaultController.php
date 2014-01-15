@@ -34,8 +34,17 @@ class DefaultController extends Controller {
     }
 
     public function dietAction() {
-        //        $dietaRepo = $this->getDoctrine()->getRepository('DietBundle:DietyRepo');
-        //        $dietaRepo->find(1);
+        /**
+         * lista diet, przycisk nowa dieta
+         */
+        $em = $this->getDoctrine()->getManager();
+        $auth = new Auth($em);
+        $user = $auth->auth();
+
+        return $this->render('DietBundle:Default:diet.html.twig', array('user' => $user));
+    }
+
+    public function dietDetailsAction() {
 
         /**
          * Parametry ciała z profilu oraz:
@@ -56,7 +65,7 @@ class DefaultController extends Controller {
         $auth = new Auth($em);
         $user = $auth->auth();
 
-        return $this->render('DietBundle:Default:diet.html.twig', array('user' => $user));
+        return $this->render('DietBundle:Default:diet_details.html.twig', array('user' => $user));
     }
 
     public function ordersAction() {
